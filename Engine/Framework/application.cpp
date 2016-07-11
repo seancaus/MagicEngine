@@ -31,9 +31,10 @@ Application::~Application()
 Application* Application::application = nullptr;
 Application& Application::getInstance()
 {
-    if(nullptr == Application::application)
+    if( !Application::application )
     {
-        application = new Application();
+        //TODO (std::nothrow)
+        application = new (std::nothrow) Application();
     }
     return *application;
 }
@@ -79,7 +80,7 @@ int Application::run()
     while (!glfwWindowShouldClose(_window)) {
         glfwPollEvents();
 
-        glClearColor(.1, .2, .3, 1.0);
+        glClearColor(.0f, .0f, .0f, .0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         p.draw();
