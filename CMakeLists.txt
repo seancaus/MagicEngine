@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.5)
 project(MagicCube)
 
+MESSAGE("System is " ${CMAKE_SYSTEM_NAME})
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-INCLUDE_DIRECTORIES(./include)
-LINK_DIRECTORIES(./lib)
+INCLUDE_DIRECTORIES(./includes)
+LINK_DIRECTORIES(./libs/apple)
 
 IF(APPLE)
     #SET(GUI_TYPE MACOSX_BUNDLE)
@@ -19,6 +21,8 @@ IF(APPLE)
             IOKIT_LIBRARY
             )
     SET(EXTRA_LIBS ${COCOA_LIBRARY} ${OPENGL_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY} )
+ELSEIF(WIN32)
+
 ENDIF (APPLE)
 
 aux_source_directory(Engine/Framework SOURCE_FILES)
@@ -27,5 +31,7 @@ aux_source_directory(src SOURCE_FILES)
 add_executable(MagicCube ${SOURCE_FILES} main.cpp)
 
 IF(APPLE)
+
     TARGET_LINK_LIBRARIES(MagicCube ${EXTRA_LIBS} libGLEW.a libglfw3.a libSOIL.a libglog.a)
+
 ENDIF (APPLE)
