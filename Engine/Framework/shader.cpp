@@ -3,7 +3,7 @@
 //
 
 #include "shader.h"
-#include <glog/logging.h>
+//#include <glog/logging.h>
 
 using namespace std;
 
@@ -29,7 +29,7 @@ Shader::Shader(const char* vertexPath,const char* fragmentPath)
     if(!success)
     {
         glGetShaderInfoLog(vertexShader,512,nullptr,infoLog);
-        LOG(ERROR) << "Compile VertexShader:" << infoLog << endl;
+//        LOG(ERROR) << "Compile VertexShader:" << infoLog << endl;
     }
 
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -40,7 +40,7 @@ Shader::Shader(const char* vertexPath,const char* fragmentPath)
     if(!success)
     {
         glGetShaderInfoLog(fragmentShader,512,nullptr,infoLog);
-        LOG(ERROR) << "Compile fragmentShader:" << infoLog << endl;
+//        LOG(ERROR) << "Compile fragmentShader:" << infoLog << endl;
     }
 
     _program = glCreateProgram();
@@ -51,7 +51,7 @@ Shader::Shader(const char* vertexPath,const char* fragmentPath)
     if(!success)
     {
         glGetProgramInfoLog(_program,512,nullptr,infoLog);
-        LOG(ERROR) << "Link Program:" << infoLog << endl;
+//        LOG(ERROR) << "Link Program:" << infoLog << endl;
     }
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
@@ -92,7 +92,7 @@ string Shader::readCode(const char* filePath)
     }
     catch(std::exception e)
     {
-        LOG(ERROR) << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << endl;
+//        LOG(ERROR) << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << endl;
     }
     return code;
 }

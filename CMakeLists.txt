@@ -3,6 +3,8 @@ project(MagicCube)
 
 MESSAGE("System is " ${CMAKE_SYSTEM_NAME})
 
+add_definitions(-DGLEW_STATIC)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 INCLUDE_DIRECTORIES(./includes)
@@ -24,20 +26,16 @@ IF(APPLE)
             )
     SET(EXTRA_LIBS ${COCOA_LIBRARY} ${OPENGL_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY} )
 ELSEIF(WIN32)
-
 	LINK_DIRECTORIES(./libs/windows)
-
 ENDIF (APPLE)
 
-#aux_source_directory(Engine/Framework/application.h Engine/Framework/application.cpp SOURCE_FILES)
-#aux_source_directory(src SOURCE_FILES)
+aux_source_directory(Engine/Framework SOURCE_FILES)
+aux_source_directory(src SOURCE_FILES)
 
-add_executable(MagicCube ${SOURCE_FILES} main.cpp Engine/Framework/application.h Engine/Framework/application.cpp)
-
-add_definitions(-DGLEW_STATIC)
+add_executable(MagicCube ${SOURCE_FILES} main.cpp)
 
 IF(APPLE)
     TARGET_LINK_LIBRARIES(MagicCube ${EXTRA_LIBS} libGLEW.a libglfw3.a libSOIL.a libglog.a)
 else(WIN32)
-    TARGET_LINK_LIBRARIES(MagicCube ${EXTRA_LIBS} libglew32.dll.a libglfw3.a libSOIL.a libopengl32.a)
+    TARGET_LINK_LIBRARIES(MagicCube libglew32.dll.a libglfw3.a libSOIL.a libopengl32.a libglu32.a)
 ENDIF (APPLE)

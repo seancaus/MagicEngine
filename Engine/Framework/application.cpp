@@ -3,9 +3,9 @@
 //
 #include <iostream>
 #include <GL/glew.h>
-#include <glog/logging.h>
-
 #include "application.h"
+
+//#include <glog/logging.h>
 
 #include "panel.h"
 
@@ -18,7 +18,7 @@ Application::Application():
 _window(nullptr)
 {
     //INFO, WARNING, ERROR, and FATAL
-    google::InitGoogleLogging("INFO");
+//    google::InitGoogleLogging("INFO");
 }
 
 
@@ -47,22 +47,23 @@ int Application::run()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+//    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     _window = glfwCreateWindow(WIDTH,HEIGHT,"TEST",nullptr,nullptr);
 
     if(!_window)
     {
-        LOG(FATAL) << "\"glfw\" Create Window Failed" << endl;
+//        LOG(FATAL) << "\"glfw\" Create Window Failed" << endl;
         glfwTerminate();
         return -1;
     }
     glfwMakeContextCurrent(_window);
 
+//    cout<<"glewExperimental" << glewExperimental << endl;
     glewExperimental = GL_TRUE;
     if (GLEW_OK != glewInit())
     {
-        LOG(FATAL) << "glew init Failed" << endl;
+//        LOG(FATAL) << "glew init Failed" << endl;
         glfwTerminate();
         return -1;
     }
