@@ -2,10 +2,16 @@ cmake_minimum_required(VERSION 3.5)
 project(MagicCube)
 
 MESSAGE("System is " ${CMAKE_SYSTEM_NAME})
+MESSAGE("System is " ${PROJECT_SOURCE_DIR})
 
 add_definitions(-DGLEW_STATIC)
+#add_definitions(-D)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS   "-g")                     # 调试信息
+set(CMAKE_CXX_FLAGS   "-Wall")                  # 开启所有警告
+set(CMAKE_CXX_FLAGS_DEBUG   "-O0" )             # 调试包不优化
+set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG " )   # release包优化
 
 INCLUDE_DIRECTORIES(./includes)
 
