@@ -35,7 +35,7 @@ aux_source_directory(src SOURCE_FILES)
 add_executable(MagicCube ${SOURCE_FILES} main.cpp)
 
 IF(APPLE)
-
     TARGET_LINK_LIBRARIES(MagicCube ${EXTRA_LIBS} libGLEW.a libglfw3.a libSOIL.a libglog.a)
-
+else(WIN32)
+    TARGET_LINK_LIBRARIES(MagicCube ${EXTRA_LIBS} libglew32.dll.a libglfw3.a libSOIL.a libopengl32.a)
 ENDIF (APPLE)
