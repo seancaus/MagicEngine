@@ -3,61 +3,63 @@
 //
 #include <iostream>
 #include <GL/glew.h>
-#include "application.h"
+#include "game_mode.h"
 
 //#include <glog/logging.h>
 
 #include "panel.h"
 
+static float WIDTH = 640;
+static float HEIGHT = 480;
+
 using namespace std;
 
 
-Application::Application():
-_window(nullptr)
+GameMode::GameMode():
+        window_(nullptr)
 {
     //INFO, WARNING, ERROR, and FATAL
 //    google::InitGoogleLogging("INFO");
 }
 
 
-Application::~Application()
+GameMode::~GameMode()
 {
-    _window = nullptr;
+    window_ = nullptr;
 }
 
 
-Application* Application::application = nullptr;
-Application& Application::getInstance()
+GameMode* GameMode::instance = nullptr;
+GameMode& GameMode::getInstance()
 {
-    if( !Application::application )
+    if( !GameMode::instance )
     {
         //TODO (std::nothrow)
-        application = new (std::nothrow) Application();
+        instance = new (std::nothrow) GameMode();
     }
-    return *application;
+    return *instance;
 }
 
 
-int Application::run()
+int GameMode::Run()
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-//    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    _window = glfwCreateWindow(WIDTH,HEIGHT,"TEST",nullptr,nullptr);
+    window_ = glfwCreateWindow(WIDTH,HEIGHT,"TEST",nullptr,nullptr);
 
-    if(!_window)
+    if(!window_)
     {
 //        LOG(FATAL) << "\"glfw\" Create Window Failed" << endl;
         glfwTerminate();
         return -1;
     }
-    glfwMakeContextCurrent(_window);
+    glfwMakeContextCurrent(window_);
 
-//    cout<<"glewExperimental" << glewExperimental << endl;
     glewExperimental = GL_TRUE;
     if (GLEW_OK != glewInit())
     {
@@ -67,7 +69,7 @@ int Application::run()
     }
 
     int width,height;
-    glfwGetFramebufferSize(_window,&width,&height);
+    glfwGetFramebufferSize(window_,&width,&height);
     glViewport(0,0,width,height);
 
     Panel p;
@@ -76,7 +78,7 @@ int Application::run()
     p._position = {300,200,0};
 
     p.preBind();
-    while (!glfwWindowShouldClose(_window)) {
+    while (!glfwWindowShouldClose(window_)) {
         glfwPollEvents();
 
         glClearColor(.0f, .0f, .0f, .0f);
@@ -84,7 +86,7 @@ int Application::run()
 
         p.draw();
 
-        glfwSwapBuffers(_window);
+        glfwSwapBuffers(window_);
     }
 
     //TODO 销毁资源
@@ -92,7 +94,7 @@ int Application::run()
     return 0;
 }
 
-void Application::close()
+void GameMode::Close()
 {
-    glfwSetWindowShouldClose(_window, GL_TRUE);
+    glfwSetWindowShouldClose(window_, GL_TRUE);
 }
