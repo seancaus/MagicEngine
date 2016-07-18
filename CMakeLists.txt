@@ -29,10 +29,12 @@ ELSEIF(WIN32)
 
 ENDIF (APPLE)
 
-aux_source_directory(Engine/Framework SOURCE_FILES)
-aux_source_directory(src SOURCE_FILES)
+#aux_source_directory(Engine/Framework/application.h Engine/Framework/application.cpp SOURCE_FILES)
+#aux_source_directory(src SOURCE_FILES)
 
-add_executable(MagicCube ${SOURCE_FILES} main.cpp)
+add_executable(MagicCube ${SOURCE_FILES} main.cpp Engine/Framework/application.h Engine/Framework/application.cpp)
+
+add_definitions(-DGLEW_STATIC)
 
 IF(APPLE)
     TARGET_LINK_LIBRARIES(MagicCube ${EXTRA_LIBS} libGLEW.a libglfw3.a libSOIL.a libglog.a)
