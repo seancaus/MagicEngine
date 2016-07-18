@@ -5,8 +5,11 @@
 #ifndef MAGICCUBE_RENDER_H
 #define MAGICCUBE_RENDER_H
 
+#include "../object.h"
 
-class render {
+class Render :public Object{
+
+
 
 };
 

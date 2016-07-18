@@ -15,7 +15,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-class Shader {
+#include "object.h"
+
+class Shader :public Object{
 
 
 public:

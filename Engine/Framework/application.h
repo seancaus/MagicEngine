@@ -6,8 +6,9 @@
 #define MAGICCUBE_APPLICATION_H
 
 #include <GLFW/glfw3.h>
+#include "object.h"
 
-class Application {
+class Application :public Object{
 
 public:
     virtual ~Application();

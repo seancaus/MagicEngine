@@ -11,8 +11,6 @@
 
 using namespace std;
 
-static const int WIDTH = 640;
-static const int HEIGHT = 480;
 
 Application::Application():
 _window(nullptr)
