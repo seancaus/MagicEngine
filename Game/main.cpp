@@ -1,6 +1,6 @@
-#include "cube_game_mode.h"
+#include "application.h"
 
 int main()
 {
-    return CubeGameMode::getInstance().Run();
+    return Application::GetInstance().Run();
 }

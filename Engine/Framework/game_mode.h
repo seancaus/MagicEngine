@@ -2,8 +2,8 @@
 // Created by Ziv on 16/7/10.
 //
 
-#ifndef MAGICCUBE_APPLICATION_H
-#define MAGICCUBE_APPLICATION_H
+#ifndef MAGICCUBE_GAMEMODE_H
+#define MAGICCUBE_GAMEMODE_H
 
 #include <GLFW/glfw3.h>
 #include "object.h"
@@ -11,23 +11,13 @@
 class GameMode :public Object{
 
 public:
+    GameMode();
     virtual ~GameMode();
 
-    static GameMode& getInstance();
-
-    int Run();
-    void Close();
-
-    void LoadConfig();
+    virtual void MainLoop();
 
 protected:
-    GameMode();
-
-    static GameMode* instance;
-
-    GLFWwindow* window_;
 
 };
 
-
-#endif //MAGICCUBE_APPLICATION_H
+#endif //MAGICCUBE_GAMEMODE_H

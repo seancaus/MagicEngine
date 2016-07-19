@@ -10,7 +10,6 @@
 #include <sstream>
 #include <iostream>
 
-#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -18,7 +17,6 @@
 #include "object.h"
 
 class Shader :public Object{
-
 
 public:
     Shader();

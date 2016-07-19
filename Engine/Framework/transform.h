@@ -7,11 +7,11 @@
 
 #include "glm/glm.hpp"
 
-typedef struct {
-    float r;
-    float g;
-    float b;
-    float a;
-} Color;
+typedef struct
+{
+    glm::vec3 rotation;
+    glm::vec3 translation;
+    glm::vec3 scale;
+}Transform;
 
 #endif //MAGICCUBE_TRANSFORM_H

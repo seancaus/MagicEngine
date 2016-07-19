@@ -2,6 +2,7 @@
 // Created by Ziv on 16/6/18.
 //
 
+#include <GL/glew.h>
 #include "shader.h"
 //#include <glog/logging.h>
 
@@ -14,7 +15,6 @@ _program(0)
 
 Shader::Shader(const char* vertexPath,const char* fragmentPath)
 {
-
     GLint success;
     GLchar infoLog[512];
 
@@ -30,6 +30,7 @@ Shader::Shader(const char* vertexPath,const char* fragmentPath)
     {
         glGetShaderInfoLog(vertexShader,512,nullptr,infoLog);
 //        LOG(ERROR) << "Compile VertexShader:" << infoLog << endl;
+        cout << "error："<< infoLog << endl;
     }
 
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -41,6 +42,7 @@ Shader::Shader(const char* vertexPath,const char* fragmentPath)
     {
         glGetShaderInfoLog(fragmentShader,512,nullptr,infoLog);
 //        LOG(ERROR) << "Compile fragmentShader:" << infoLog << endl;
+        cout << "error："<< infoLog << endl;
     }
 
     _program = glCreateProgram();
@@ -52,6 +54,7 @@ Shader::Shader(const char* vertexPath,const char* fragmentPath)
     {
         glGetProgramInfoLog(_program,512,nullptr,infoLog);
 //        LOG(ERROR) << "Link Program:" << infoLog << endl;
+        cout << "error："<< infoLog << endl;
     }
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
@@ -61,7 +64,6 @@ void Shader::use()
 {
     glUseProgram(_program);
 }
-
 
 void Shader::setMatrix4(const char *name, glm::mat4 value) {
     GLint loc = glGetUniformLocation(_program,name);

@@ -24,15 +24,15 @@ public:
 
 public:
 
-    Color       _color;
-    glm::vec3   _position;
-    glm::vec2   _size;
+    glm::vec4   color_;
+    Transform   transform_;
+    glm::vec3   size_;
 
     GLuint _vao;
     GLuint _vbo;
     GLuint _ebo;
 
-    Shader _program;
+    Shader shader_;
 };
 
 
