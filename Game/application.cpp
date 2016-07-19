@@ -75,7 +75,7 @@ int Application::Run()
         return -1;
     }
 
-    game_mode_ = new CubeGameMode();
+    game_mode_ = make_shared<CubeGameMode>();
     while (!glfwWindowShouldClose(window_)) {
         glfwPollEvents();
 

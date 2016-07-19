@@ -21,7 +21,7 @@ Panel::Panel():
 }
 
 Panel::~Panel() {
-
+    cout << "~Panel()" << endl;
 }
 
 void Panel::draw()

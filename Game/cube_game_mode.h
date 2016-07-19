@@ -17,6 +17,7 @@ class CubeGameMode :public  GameMode{
 
 public:
     CubeGameMode();
+    virtual ~CubeGameMode();
 
     virtual void MainLoop() override ;
 

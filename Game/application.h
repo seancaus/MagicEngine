@@ -5,8 +5,11 @@
 #ifndef MAGICCUBE_APPLICATION_H
 #define MAGICCUBE_APPLICATION_H
 
+#include <memory>
 #include <GLFW/glfw3.h>
 #include "../Engine/Framework/object.h"
+
+using namespace std;
 
 class GameMode;
 
@@ -22,7 +25,7 @@ public:
 
 protected:
 
-    GameMode*       game_mode_;
+    shared_ptr<GameMode> game_mode_;
     GLFWwindow*     window_;
 
 private:

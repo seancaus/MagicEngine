@@ -40,6 +40,10 @@ CubeGameMode::CubeGameMode():
     }
 }
 
+CubeGameMode::~CubeGameMode() {
+    cout << "~CubeGameMode" << endl;
+}
+
 void CubeGameMode::MainLoop()
 {
     for_each(panels.cbegin(),panels.cend(),[](const shared_ptr<Panel>& panel)-> void{
