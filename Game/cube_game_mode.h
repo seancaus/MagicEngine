@@ -2,8 +2,8 @@
 // Created by Ziv on 16/7/19.
 //
 
-#ifndef MAGICCUBE_CUBE_GAME_MODE_H
 #define MAGICCUBE_CUBE_GAME_MODE_H
+#ifndef MAGICCUBE_CUBE_GAME_MODE_H
 
 #include <memory>
 #include <vector>

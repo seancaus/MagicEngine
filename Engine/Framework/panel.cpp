@@ -36,6 +36,7 @@ void Panel::draw()
     model = glm::translate(model, transform_.translation);
 //    model = glm::translate(model, glm::vec3(-.5f * size_.x, -.5f * size_.y, 0.0f));
 //    model = glm::scale(model, transform_.scale);
+    model = glm::rotate(model,90.0f,transform_.rotation);
 
     view = glm::translate(view, glm::vec3(-320.0f, -240.0f, -450.0f));
 

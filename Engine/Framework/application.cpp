@@ -4,25 +4,17 @@
 #include <iostream>
 #include <GL/glew.h>
 #include "application.h"
-#include "cube_game_mode.h"
+#include "../../Game/cube_game_mode.h"
+#include "root.h"
+#include "singleton.h"
 
 using namespace std;
 
 static float WIDTH = 640;
 static float HEIGHT = 480;
 
-Application* Application::instance = nullptr;
-Application& Application::GetInstance()
-{
-    if(!instance)
-    {
-        instance = new (std::nothrow) Application();
-    }
-    return *instance;
-}
 
-Application::Application():
-game_mode_(nullptr)
+Application::Application()
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -75,18 +67,12 @@ int Application::Run()
         return -1;
     }
 
-    game_mode_ = make_shared<CubeGameMode>();
     while (!glfwWindowShouldClose(window_)) {
         glfwPollEvents();
 
         glClearColor(.0f, .0f, .0f, .0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-//        if (game_mode_) {
-        game_mode_->MainLoop();
-//        }else{
-//            cout <<"gameMode is nullptr" << endl;
-//        }
         glfwSwapBuffers(window_);
     }
 

@@ -38,7 +38,7 @@ ENDIF (APPLE)
 aux_source_directory(Engine/Framework SOURCE_FILES)
 aux_source_directory(Game SOURCE_FILES)
 
-add_executable(MagicCube ${SOURCE_FILES} Game/main.cpp)
+add_executable(MagicCube ${SOURCE_FILES} main.cpp)
 
 IF(APPLE)
     TARGET_LINK_LIBRARIES(MagicCube ${EXTRA_LIBS} libGLEW.a libglfw3.a libSOIL.a libglog.a)

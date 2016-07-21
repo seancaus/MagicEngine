@@ -2,10 +2,12 @@
 // Created by Ziv on 16/7/19.
 //
 
+/**
 #include <iostream>
 #include <algorithm>
 #include "../Engine/Framework/panel.h"
 #include "cube_game_mode.h"
+#include "../Engine/Framework/transform.h"
 
 using namespace std;
 
@@ -25,6 +27,7 @@ CubeGameMode::CubeGameMode():
             shared_ptr<Panel> ptr = make_shared<Panel>();
             ptr->color_ = colors[i];
             ptr->size_ = {w,w,0};
+            ptr->transform_.rotation = {1,0,0};
 
             int col = j % cube_width;
             int row = j / cube_width;
@@ -50,3 +53,4 @@ void CubeGameMode::MainLoop()
         panel->draw();
     });
 }
+ **/
