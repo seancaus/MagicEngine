@@ -2,8 +2,8 @@
 // Created by Ziv on 16/7/16.
 //
 
-#ifndef MAGICCUBE_SCENE_H
-#define MAGICCUBE_SCENE_H
+#ifndef MAGICCUBE_SCENE_NODE_H
+#define MAGICCUBE_SCENE_NODE_H
 
 #include <map>
 #include <memory>
@@ -11,19 +11,27 @@
 #include "object.h"
 #include "movable_object.h"
 #include "vector3.h"
-#include "scene_manager.h"
 
 using namespace std;
+
+class SceneManager;
 
 class SceneNode :public Object{
 
 public:
 
     SceneNode(SceneManager* creator);
+    SceneNode(SceneManager* creator,const string& name);
     virtual ~SceneNode();
 
     virtual shared_ptr<SceneNode>createChild(const Vector3& translate);
     virtual shared_ptr<SceneNode>createChild(const string& name, const Vector3& translate);
+
+    void addChild(shared_ptr<SceneNode> node);
+
+    const string& getName() const;
+
+    void translate(const Vector3& p);
 
 protected:
 
@@ -40,4 +48,4 @@ protected:
 };
 
 
-#endif //MAGICCUBE_SCENE_H
+#endif //MAGICCUBE_SCENE_NODE_H

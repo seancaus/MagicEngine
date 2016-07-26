@@ -27,7 +27,7 @@ Application::Application()
 
 Application::~Application()
 {
-    window_ = nullptr;
+//    window_ = nullptr;
 }
 
 void keyCallBack(GLFWwindow* window,int key,int scancode,int action,int mods);
@@ -37,6 +37,7 @@ void cursorPosCallback(GLFWwindow* window, double xpos, double ypos);
 
 int Application::Run()
 {
+    /**
     window_ = glfwCreateWindow(WIDTH,HEIGHT,"TEST",nullptr,nullptr);
 
     if(!window_)
@@ -78,12 +79,13 @@ int Application::Run()
 
     //TODO 销毁资源
     glfwTerminate();
+     **/
     return 0;
 }
 
 void Application::Close()
 {
-    glfwSetWindowShouldClose(window_, GL_TRUE);
+//    glfwSetWindowShouldClose(window_, GL_TRUE);
 }
 
 void keyCallBack(GLFWwindow* window,int key,int scancode,int action,int mods)

@@ -2,8 +2,8 @@
 // Created by huxf on 2016/7/20.
 //
 
+#include <cassert>
 #include "scene_manager.h"
-
 
 SceneManager::SceneManager() :
         rootSceneNode_(nullptr),
@@ -19,27 +19,39 @@ shared_ptr<SceneNode> SceneManager::GetRootSceneNode()
 {
     if( !rootSceneNode_ )
     {
-//        rootSceneNode_ =
+        rootSceneNode_ = CreateSceneNode("root");
     }
     return rootSceneNode_;
 }
 
 shared_ptr<SceneNode> SceneManager::CreateSceneNode()
 {
-    return nullptr;
+    //TODO
+    auto sn = CreateSceneNodeImpl();
+    assert(sceneNodes_.find(sn->getName()) == sceneNodes_.end());
+    sceneNodes_[sn->getName()] = sn;
+    return sn;
 }
 
 shared_ptr<SceneNode> SceneManager::CreateSceneNode(const string &name)
 {
-    return nullptr;
+    if(sceneNodes_.find(name) != sceneNodes_.end())
+    {
+        ////TODO exception
+    }
+
+    auto sn = CreateSceneNodeImpl(name);
+    sceneNodes_[sn->getName()] = sn;
+    return sn;
 }
 
 shared_ptr<SceneNode> SceneManager::CreateSceneNodeImpl()
 {
-    return nullptr;
+    auto sn = make_shared<SceneNode>(this);
+    return sn;
 }
 
 shared_ptr<SceneNode> SceneManager::CreateSceneNodeImpl(const string &name)
 {
-    return nullptr;
+    return make_shared<SceneNode>(this,name);
 }

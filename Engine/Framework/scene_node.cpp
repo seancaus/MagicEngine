@@ -4,24 +4,38 @@
 
 #include <cassert>
 #include "scene_node.h"
+#include "scene_manager.h"
 
 SceneNode::SceneNode(SceneManager* creator):
 creator_(creator)
 {
 }
 
-SceneNode::~SceneNode() {
+SceneNode::SceneNode(SceneManager *creator, const string &name):
+creator_(creator),
+name_(name)
+{
 
+}
+
+SceneNode::~SceneNode()
+{
 }
 
 shared_ptr<SceneNode> SceneNode::createChild(const Vector3& translate)
 {
-    return std::shared_ptr<SceneNode>();
+    auto cn = createChildImpl();
+    cn->translate(translate);
+    addChild(cn);
+    return cn;
 }
 
 shared_ptr<SceneNode> SceneNode::createChild(const string &name,const Vector3& translate)
 {
-    return std::shared_ptr<SceneNode>();
+    auto cn = createChildImpl(name);
+    cn->translate(translate);
+    addChild(cn);
+    return cn;
 }
 
 shared_ptr<SceneNode> SceneNode::createChildImpl()
@@ -36,3 +50,18 @@ shared_ptr<SceneNode> SceneNode::createChildImpl(const string &name)
     return creator_->CreateSceneNode(name);
 }
 
+
+const string &SceneNode::getName() const {
+    return name_;
+}
+
+
+void SceneNode::addChild(shared_ptr<SceneNode> node)
+{
+    childrenNodes_[node->getName()] = node;
+}
+
+void SceneNode::translate(const Vector3 &p)
+{
+
+}
