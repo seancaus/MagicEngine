@@ -9,6 +9,7 @@
 #include <map>
 #include <memory>
 #include "camera.h"
+#include "scene_node.h"
 
 using namespace std;
 
@@ -16,14 +17,25 @@ class SceneManager {
 
 public:
 
-    virtual Camera* CreateCamera(const std::string& name);
+    SceneManager() ;
+    virtual ~SceneManager() ;
 
+    shared_ptr<SceneNode> GetRootSceneNode();
+
+    virtual shared_ptr<SceneNode> CreateSceneNode();
+    virtual shared_ptr<SceneNode> CreateSceneNode(const string& name);
+    virtual Camera* CreateCamera(const std::string& name);
 
 protected:
 
+    virtual shared_ptr<SceneNode> CreateSceneNodeImpl();
+    virtual shared_ptr<SceneNode> CreateSceneNodeImpl(const string& name);
+
+    map<string,shared_ptr<SceneNode>> sceneNodes_;
+    shared_ptr<SceneNode> rootSceneNode_;
+
     typedef map<string, shared_ptr<Camera>> CameraMap;
     CameraMap cameras_;
-
 };
 
 
