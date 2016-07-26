@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(MagicCube)
+project(Magic)
 
 MESSAGE("System is " ${CMAKE_SYSTEM_NAME})
 MESSAGE("System is " ${PROJECT_SOURCE_DIR})
@@ -38,10 +38,10 @@ ENDIF (APPLE)
 aux_source_directory(Engine/Framework SOURCE_FILES)
 aux_source_directory(Game SOURCE_FILES)
 
-add_executable(MagicCube ${SOURCE_FILES} main.cpp)
+add_executable(Magic ${SOURCE_FILES} main.cpp)
 
 IF(APPLE)
-    TARGET_LINK_LIBRARIES(MagicCube ${EXTRA_LIBS} libGLEW.a libglfw3.a libSOIL.a libglog.a)
+    TARGET_LINK_LIBRARIES(Magic ${EXTRA_LIBS} libGLEW.a libglfw3.a libSOIL.a libglog.a)
 else(WIN32)
-    TARGET_LINK_LIBRARIES(MagicCube libglew32.dll.a libglfw3.a libSOIL.a libopengl32.a libglu32.a)
+    TARGET_LINK_LIBRARIES(Magic libglew32.dll.a libglfw3.a libSOIL.a libopengl32.a libglu32.a)
 ENDIF (APPLE)

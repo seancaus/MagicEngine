@@ -1,9 +1,14 @@
+#include <iostream>
 #include "Engine/Framework/application.h"
 
-int main()
+int main(int argc, char **argv)
 {
     Application app;
-    app.Run();
+    try {
+        app.Run();
+    }catch (const std::exception& e){
+        std::cerr << e.what() << endl;
+    }
 
     return 0;
 }

@@ -7,38 +7,40 @@
 
 #include <cassert>
 
-template <typename T>
-class Singleton {
+namespace Magic{
 
-public:
+    template <typename T>
+    class Singleton {
 
-    Singleton(){
-        assert( nullptr == Singleton<T>::instance_);
-        instance_ = static_cast< T* >(this);
-    }
+    public:
 
-    virtual ~Singleton(){
-        instance_ = nullptr;
-    }
+        Singleton(){
+            assert( nullptr == Singleton<T>::instance_);
+            instance_ = static_cast< T* >(this);
+        }
 
-    static T* GetInstancePtr()
-    {
-        return Singleton<T>::instance_;
-    }
+        virtual ~Singleton(){
+            instance_ = nullptr;
+        }
 
-    static T& GetInstance()
-    {
-        return *Singleton<T>::instance_;
-    }
+        static T* GetInstancePtr()
+        {
+            return Singleton<T>::instance_;
+        }
 
-protected:
+        static T& GetInstance()
+        {
+            return *Singleton<T>::instance_;
+        }
 
-    static T* instance_;
+    protected:
 
-private:
+        static T* instance_;
 
-    Singleton(const Singleton<T>&){}
-    Singleton& operator=(const Singleton<T>&){return *this;}
-};
+    private:
 
+        Singleton(const Singleton<T>&){}
+        Singleton& operator=(const Singleton<T>&){return *this;}
+    };
+}
 #endif //MAGICCUBE_SINGLETON_H
