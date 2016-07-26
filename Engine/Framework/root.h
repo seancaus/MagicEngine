@@ -26,6 +26,8 @@ namespace Magic{
         RenderWindow* initialise(const string& windowTitle = "Magic Render Window");
         SceneManager* createSceneManager();
 
+        void renderOneFrame();
+
         void startRendering();
 
     protected:

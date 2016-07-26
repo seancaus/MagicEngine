@@ -26,18 +26,26 @@ namespace Magic {
     {
     }
 
-    RenderWindow *Root::initialise(const string& windowTitle) {
+    RenderWindow *Root::initialise(const string& windowTitle)
+    {
         return nullptr;
     }
 
 
-    SceneManager *Root::createSceneManager() {
+    SceneManager *Root::createSceneManager()
+    {
         return nullptr;
     }
 
-    void Root::startRendering() {
+
+    void Root::startRendering()
+    {
 
     }
 
+    void Root::renderOneFrame()
+    {
+
+    }
 
 }
