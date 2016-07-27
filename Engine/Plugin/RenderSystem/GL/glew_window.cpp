@@ -15,7 +15,9 @@ GLEWWindow::GLEWWindow()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-//    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    #if MAGIC_PLATFORM == MAGIC_PLATFORM_APPLE
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    #endif
 }
 
 GLEWWindow::~GLEWWindow()
@@ -38,7 +40,7 @@ void GLEWWindow::Create(const string &title, unsigned int width, unsigned int he
         return;
     }
 
-    glfwSetInputMode(window_,GLFW_CURSOR,GLFW_CURSOR_HIDDEN);
+    glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 //    glfwSetKeyCallback(window_,keyCallBack);
 //    glfwSetScrollCallback(window_,scrollBack);
@@ -60,6 +62,7 @@ void GLEWWindow::Create(const string &title, unsigned int width, unsigned int he
 
     while (!glfwWindowShouldClose(window_))
     {
+        cout << "Create" << endl;
         glfwPollEvents();
 
         glClearColor(.0f, .0f, .0f, .0f);
@@ -67,6 +70,7 @@ void GLEWWindow::Create(const string &title, unsigned int width, unsigned int he
 
         glfwSwapBuffers(window_);
     }
+    cout << "Create" << endl;
 
     //TODO 销毁资源
     glfwTerminate();
