@@ -46,7 +46,7 @@ namespace Magic {
 
     bool Root::RenderOneFrame()
     {
-
+        return true;
     }
 
     void Root::StartRendering()
