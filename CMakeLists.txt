@@ -36,6 +36,8 @@ ELSEIF(WIN32)
 ENDIF (APPLE)
 
 aux_source_directory(Engine/Framework SOURCE_FILES)
+aux_source_directory(Engine/Plugin/RenderSystem/GL SOURCE_FILES)
+
 aux_source_directory(Game SOURCE_FILES)
 
 add_executable(Magic ${SOURCE_FILES} main.cpp)

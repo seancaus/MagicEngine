@@ -28,22 +28,22 @@ namespace Magic {
 
     class Log {
 
-    public:
-        Log(const string &name, bool debugOut,bool fileOut);
-        virtual ~Log();
+        public:
+            Log(const string &name, bool debugOut,bool fileOut);
+            virtual ~Log();
 
-        void LogMessage(const string &message, LogMessageLevel lml);
+            void LogMessage(const string &message, LogMessageLevel lml);
 
-    protected:
+        protected:
 
-        ofstream logStream_;
-        string logName_;
+            ofstream logStream_;
+            string logName_;
 
-        LogLevel logLevel_;
+            LogLevel logLevel_;
 
-        bool debugOut_;
-        bool fileOut_;
-        bool timeStamp_;
+            bool debugOut_;
+            bool fileOut_;
+            bool timeStamp_;
     };
 }
 

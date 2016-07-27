@@ -6,6 +6,7 @@
 #define MAGICCUBE_LOG_MANAGER_H
 
 #include <map>
+#include <memory>
 #include "singleton.h"
 #include "log.h"
 

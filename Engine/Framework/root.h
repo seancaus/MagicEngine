@@ -10,6 +10,7 @@
 #include "render_window.h"
 #include "scene_manager.h"
 #include "log_manager.h"
+#include "render_system.h"
 
 using namespace std;
 
@@ -23,18 +24,23 @@ namespace Magic{
         Root(const string& configFileName,const string& logFileName);
         virtual ~Root();
 
-        RenderWindow* initialise(const string& windowTitle = "Magic Render Window");
-        SceneManager* createSceneManager();
+        RenderWindow* Initialise(const string& windowTitle = "Magic Render Window");
+        SceneManager* CreateSceneManager();
 
-        void renderOneFrame();
+        void AddRenderSystem(shared_ptr<RenderSystem> render);
+        void SetRenderSystem(shared_ptr<RenderSystem> render);
 
-        void startRendering();
+        bool RenderOneFrame();
+        void StartRendering();
+        shared_ptr<RenderSystem>GetRenderSystemByName(const string& name);
 
     protected:
 
+        map<string,shared_ptr<RenderSystem>>    renders_;
+        shared_ptr<RenderSystem>                activeRenderer_;
+
         shared_ptr<RenderWindow>    renderWindow_;
         shared_ptr<LogManager>      logManager_;
-
     };
 }
 

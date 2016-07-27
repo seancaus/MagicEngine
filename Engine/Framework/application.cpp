@@ -27,15 +27,14 @@ Application::~Application()
 int Application::Run()
 {
     Magic::Root* root = new Magic::Root("config.cfg","magic.log");
-    RenderWindow* renderWindow = root->initialise();
+    RenderWindow* renderWindow = root->Initialise();
 
-    SceneManager* sceneManager = root->createSceneManager();
-    Camera* camera = sceneManager->CreateCamera("asd");
-    camera->LookAt();
+//    SceneManager* sceneManager = root->createSceneManager();
+//    Camera* camera = sceneManager->CreateCamera("asd");
+//    camera->LookAt();
+//
+//    renderWindow->AddViewport(camera);
 
-    renderWindow->AddViewport(camera);
-
-    root->startRendering();
 
     return 0;
 }

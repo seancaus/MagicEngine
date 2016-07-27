@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <ctime>
 #include "log.h"
 
 namespace Magic{

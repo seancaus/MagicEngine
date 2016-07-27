@@ -1,15 +1,27 @@
 //
-// Created by Ziv on 16/7/23.
+// Created by huxf on 2016/7/22.
 //
 
-#ifndef MAGIC_RENDER_SYSTEM_H
-#define MAGIC_RENDER_SYSTEM_H
+#ifndef MAGICCUBE_RENDER_SYSTEM_H
+#define MAGICCUBE_RENDER_SYSTEM_H
 
+#include <string>
+#include <memory>
+#include "render_window.h"
+
+using namespace std;
 
 class RenderSystem
 {
 
+public:
+    RenderSystem() ;
+    virtual ~RenderSystem() ;
+
+    virtual const string& GetName()const;
+    virtual shared_ptr<RenderWindow> Initialise(const string& windowTitle);
+
 };
 
 
-#endif //MAGIC_RENDER_SYSTEM_H
+#endif //MAGICCUBE_RENDER_SYSTEM_H

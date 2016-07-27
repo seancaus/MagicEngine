@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "root.h"
+#include "../Plugin/RenderSystem/GL/gl_render_system.h"
 
 using  namespace std;
 
@@ -20,32 +21,57 @@ namespace Magic {
             logManager_ = make_shared<LogManager>();
             logManager_->CreateLog(logFileName);
         }
+
+
+        auto renderSystem = make_shared<GLRenderSystem>();
+        AddRenderSystem(renderSystem);
+        SetRenderSystem(renderSystem);
     }
 
     Root::~Root()
     {
     }
 
-    RenderWindow *Root::initialise(const string& windowTitle)
+    RenderWindow *Root::Initialise(const string& windowTitle)
+    {
+        renderWindow_ = activeRenderer_->Initialise(windowTitle);
+        return renderWindow_.get();
+    }
+
+
+    SceneManager *Root::CreateSceneManager()
     {
         return nullptr;
     }
 
-
-    SceneManager *Root::createSceneManager()
-    {
-        return nullptr;
-    }
-
-
-    void Root::startRendering()
+    bool Root::RenderOneFrame()
     {
 
     }
 
-    void Root::renderOneFrame()
+    void Root::StartRendering()
     {
+        while(true)
+        {
+            //todo event
+            
+            if( !RenderOneFrame() ) break;
+        }
+    }
 
+    void Root::AddRenderSystem(shared_ptr<RenderSystem> render)
+    {
+        renders_.insert(map<string,shared_ptr<RenderSystem>>::value_type(render->GetName(),render));
+    }
+
+    void Root::SetRenderSystem(shared_ptr<RenderSystem> render)
+    {
+        activeRenderer_ = render;
+    }
+
+    shared_ptr<RenderSystem> Root::GetRenderSystemByName(const string &name)
+    {
+        return renders_[name];
     }
 
 }
