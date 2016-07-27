@@ -54,7 +54,7 @@ namespace Magic {
         while(true)
         {
             //todo event
-            
+
             if( !RenderOneFrame() ) break;
         }
     }
