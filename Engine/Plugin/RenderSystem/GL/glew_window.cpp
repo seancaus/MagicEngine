@@ -31,7 +31,9 @@ void GLEWWindow::init() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-//    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    #if MAGIC_PLATFORM == MAGIC_PLATFORM_APPLE
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    #endif
 }
 
 void GLEWWindow::Destroy()
@@ -49,8 +51,9 @@ void GLEWWindow::Create(const string &title, unsigned int width, unsigned int he
         glfwTerminate();
         return;
     }
+
     glfwMakeContextCurrent(window_);
-    glfwSetInputMode(window_,GLFW_CURSOR,GLFW_CURSOR_HIDDEN);
+    glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 //    glfwSetKeyCallback(window_,keyCallBack);
 //    glfwSetScrollCallback(window_,scrollBack);

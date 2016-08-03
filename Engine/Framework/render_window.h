@@ -8,6 +8,7 @@
 #include <string>
 #include "camera.h"
 #include "render_target.h"
+#include "magic_platform.h"
 
 using namespace std;
 
