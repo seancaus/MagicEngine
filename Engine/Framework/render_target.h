@@ -7,10 +7,11 @@
 
 #include <string>
 #include "object.h"
-#include "camera.h"
 
 namespace Magic
 {
+    class Camera;
+
     class RenderTarget :public Object
     {
 

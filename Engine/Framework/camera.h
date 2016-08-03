@@ -9,6 +9,7 @@
 #include "Viewport.h"
 
 namespace Magic {
+
     class Camera : public Object {
     public:
 

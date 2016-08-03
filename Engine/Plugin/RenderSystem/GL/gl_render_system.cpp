@@ -36,9 +36,9 @@ shared_ptr<RenderWindow> GLRenderSystem::Initialise(const string &windowTitle)
 void GLRenderSystem::InitGLEW()
 {
     glewExperimental = GL_TRUE;
-    if (GLEW_OK != glewInit())
+    if ( GLEW_OK != glewInit() )
     {
-        Magic::LogManager::GetInstance().LogMessage("glew init Failed");
+//        Magic::LogManager::GetInstance().LogMessage("glew init Failed");
     }
 }
 

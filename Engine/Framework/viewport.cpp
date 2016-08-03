@@ -3,6 +3,7 @@
 //
 
 #include "viewport.h"
+#include "camera.h"
 
 namespace Magic
 {

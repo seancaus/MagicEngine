@@ -2,8 +2,8 @@
 // Created by huxf on 2016/8/3.
 //
 
+#include "camera.h"
 #include "render_target.h"
-#include <string>
 
 using namespace std;
 

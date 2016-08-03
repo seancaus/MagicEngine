@@ -5,13 +5,13 @@
 #ifndef MAGIC_VIEWPORT_H
 #define MAGIC_VIEWPORT_H
 
-#include "camera.h"
 #include "render_target.h"
 #include "common.h"
 #include "colour_value.h"
 
 namespace Magic
 {
+    class Camera;
 
     class Viewport
     {
