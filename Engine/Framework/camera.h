@@ -6,24 +6,24 @@
 #define MAGICCUBE_CAMERA_H
 
 #include "object.h"
+#include "Viewport.h"
 
-class Camera : public Object
-{
-public:
+namespace Magic {
+    class Camera : public Object {
+    public:
 
-    Camera();
-    virtual ~Camera();
+        Camera();
+        virtual ~Camera();
+
+        void LookAt();
+        void RenderScene(Viewport *vp, bool includeOverlays);
+
+    protected:
 
 
-    void LookAt();
+    private:
 
-protected:
-
-
-
-private:
-
-};
-
+    };
+}
 
 #endif //MAGICCUBE_CAMERA_H

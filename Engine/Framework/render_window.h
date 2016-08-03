@@ -6,23 +6,27 @@
 #define MAGICCUBE_RENDER_WINDOW_H
 
 #include <string>
-#include "object.h"
 #include "camera.h"
+#include "render_target.h"
 
 using namespace std;
 
-class RenderWindow :public Object {
+namespace Magic {
 
-public:
+    class RenderWindow : public RenderTarget {
 
-    RenderWindow();
-    virtual ~RenderWindow();
-    virtual void Destroy() = 0;
+    public:
 
-    virtual void Create(const string& windowTitle, unsigned int width, unsigned int height);
-    virtual void AddViewport(Camera* camera);
+        RenderWindow();
 
-};
+        virtual ~RenderWindow();
 
+        virtual void Destroy() = 0;
 
+        virtual void Create(const string &windowTitle, unsigned int width, unsigned int height);
+
+        virtual void AddViewport(Camera *camera);
+
+    };
+}
 #endif //MAGICCUBE_RENDER_WINDOW_H

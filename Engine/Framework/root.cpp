@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <GLFW/glfw3.h>
 #include "root.h"
 #include "../Plugin/RenderSystem/GL/gl_render_system.h"
 
@@ -44,19 +45,35 @@ namespace Magic {
         return nullptr;
     }
 
-    bool Root::RenderOneFrame()
-    {
-        return true;
-    }
-
     void Root::StartRendering()
     {
         while(true)
         {
             //todo event
+            glfwPollEvents();
+
 
             if( !RenderOneFrame() ) break;
         }
+    }
+
+    bool Root::RenderOneFrame()
+    {
+        UpdateAllRenderTargets();
+
+        return true;
+    }
+
+    bool Root::UpdateAllRenderTargets()
+    {
+        activeRenderer_->UpdateAllRenderTargets(false);
+
+        return true;
+    }
+
+    void Root::Shutdown()
+    {
+
     }
 
     void Root::AddRenderSystem(shared_ptr<RenderSystem> render)

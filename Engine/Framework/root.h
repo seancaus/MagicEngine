@@ -32,6 +32,8 @@ namespace Magic{
 
         bool RenderOneFrame();
         void StartRendering();
+        bool UpdateAllRenderTargets();
+        void Shutdown();
         shared_ptr<RenderSystem>GetRenderSystemByName(const string& name);
 
     protected:

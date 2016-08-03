@@ -5,12 +5,11 @@
 #ifndef MAGICCUBE_MOVABLE_OBJECT_H
 #define MAGICCUBE_MOVABLE_OBJECT_H
 
-
-class MovableObject {
-
-
-
-};
+namespace Magic {
+    class MovableObject {
 
 
+    };
+
+}
 #endif //MAGICCUBE_MOVABLE_OBJECT_H

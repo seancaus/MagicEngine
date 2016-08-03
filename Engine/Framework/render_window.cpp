@@ -5,20 +5,19 @@
 #include <GL/glew.h>
 #include "render_window.h"
 
-RenderWindow::RenderWindow()
-{
-}
+namespace Magic {
 
-RenderWindow::~RenderWindow()
-{
-}
+    RenderWindow::RenderWindow() {
+    }
 
-void RenderWindow::Create(const string& windowTitle, unsigned int width, unsigned int height)
-{
+    RenderWindow::~RenderWindow() {
+    }
 
-}
+    void RenderWindow::Create(const string &windowTitle, unsigned int width, unsigned int height) {
 
-void RenderWindow::AddViewport(Camera *camera)
-{
+    }
 
+    void RenderWindow::AddViewport(Camera *camera) {
+
+    }
 }

@@ -9,6 +9,7 @@
 #include "../Engine/Framework/shader.h"
 
 using namespace std;
+using namespace Magic;
 
 class Square {
 

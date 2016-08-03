@@ -8,6 +8,8 @@
 #include <GLFW/glfw3.h>
 #include "../../../Framework/render_window.h"
 
+using namespace Magic;
+
 class GLEWWindow : public RenderWindow
 {
 
@@ -16,8 +18,12 @@ public:
     GLEWWindow();
     virtual ~GLEWWindow();
 
+    virtual void init();
     virtual void Destroy() override;
     virtual void Create(const string &title, unsigned int width, unsigned int height) override;
+
+    virtual void SwapBuffers() override;
+    virtual const std::string &getName(void) const override;
     virtual void AddViewport(Camera *camera) override;
 
 protected:

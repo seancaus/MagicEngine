@@ -3,18 +3,25 @@
 //
 
 #include "camera.h"
+namespace Magic {
+
+    Camera::Camera() {
+
+    }
+
+    Camera::~Camera() {
+
+    }
 
 
-Camera::Camera() {
+    void Camera::LookAt() {
 
-}
-
-Camera::~Camera() {
-
-}
+    }
 
 
-void Camera::LookAt() {
+    void Camera::RenderScene(Viewport *vp, bool includeOverlays) {
+
+    }
 
 }
 

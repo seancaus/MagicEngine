@@ -4,4 +4,7 @@
 
 #include "vector3.h"
 
-const Vector3 Vector3::ZERO = {0,0,0};
+namespace Magic
+{
+    const Vector3 Vector3::ZERO = {0, 0, 0};
+}

@@ -10,6 +10,8 @@
 #include "transform.h"
 #include "shader.h"
 
+using  namespace Magic;
+
 class Panel : Object{
 
 public:

@@ -5,20 +5,21 @@
 #ifndef MAGICCUBE_OBJECT_H
 #define MAGICCUBE_OBJECT_H
 
+namespace Magic {
 
-class Object {
+    class Object {
 
-public:
-    Object();
-    virtual ~Object();
+    public:
+        Object();
 
-
-
-protected:
-
-private:
-
-};
+        virtual ~Object();
 
 
+    protected:
+
+    private:
+
+    };
+
+}
 #endif //MAGICCUBE_OBJECT_H

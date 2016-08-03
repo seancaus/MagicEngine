@@ -4,3 +4,7 @@
 
 #include "movable_object.h"
 
+namespace Magic
+{
+
+}

@@ -15,23 +15,26 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "object.h"
+namespace Magic {
+    class Shader : public Object {
 
-class Shader :public Object{
+    public:
+        Shader();
 
-public:
-    Shader();
-    Shader(const char* vertexPath,const char* fragmentPath);
+        Shader(const char *vertexPath, const char *fragmentPath);
 
-    void use();
+        void use();
 
-    void setMatrix4(const char* name,glm::mat4 value);
-    void setVector3f(const char* name, GLfloat x,GLfloat y,GLfloat z);
+        void setMatrix4(const char *name, glm::mat4 value);
 
-protected:
-    std::string readCode(char const* vertexPath);
+        void setVector3f(const char *name, GLfloat x, GLfloat y, GLfloat z);
 
-    GLuint _program;
-};
+    protected:
+        std::string readCode(char const *vertexPath);
+
+        GLuint _program;
+    };
+}
 
 
 #endif //MAGICCUBE_SHADER_H

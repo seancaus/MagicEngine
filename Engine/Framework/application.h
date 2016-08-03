@@ -12,20 +12,21 @@
 
 using namespace std;
 
-class Application :public Object
-{
+namespace Magic {
+    class Application : public Object {
 
-public:
-    Application();
-    virtual ~Application();
+    public:
+        Application();
 
-    int Run();
-    void Close();
+        virtual ~Application();
 
-protected:
+        int Run();
+
+        void Close();
+
+    protected:
 
 
-};
-
-
+    };
+}
 #endif //MAGICCUBE_APPLICATION_H

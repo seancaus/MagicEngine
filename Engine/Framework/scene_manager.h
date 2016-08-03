@@ -13,30 +13,36 @@
 
 using namespace std;
 
-class SceneManager {
+namespace Magic {
+    class SceneManager {
 
-public:
+    public:
 
-    SceneManager() ;
-    virtual ~SceneManager() ;
+        SceneManager();
 
-    shared_ptr<SceneNode> GetRootSceneNode();
+        virtual ~SceneManager();
 
-    virtual shared_ptr<SceneNode> CreateSceneNode();
-    virtual shared_ptr<SceneNode> CreateSceneNode(const string& name);
-    virtual Camera* CreateCamera(const std::string& name);
+        shared_ptr<SceneNode> GetRootSceneNode();
 
-protected:
+        virtual shared_ptr<SceneNode> CreateSceneNode();
 
-    virtual shared_ptr<SceneNode> CreateSceneNodeImpl();
-    virtual shared_ptr<SceneNode> CreateSceneNodeImpl(const string& name);
+        virtual shared_ptr<SceneNode> CreateSceneNode(const string &name);
 
-    map<string,shared_ptr<SceneNode>> sceneNodes_;
-    shared_ptr<SceneNode> rootSceneNode_;
+        virtual Camera *CreateCamera(const std::string &name);
+        virtual void RenderScene(Camera* camera, Viewport* vp, bool includeOverlays);
 
-    typedef map<string, shared_ptr<Camera>> CameraMap;
-    CameraMap cameras_;
-};
+    protected:
 
+        virtual shared_ptr<SceneNode> CreateSceneNodeImpl();
+
+        virtual shared_ptr<SceneNode> CreateSceneNodeImpl(const string &name);
+
+        map<string, shared_ptr<SceneNode>> sceneNodes_;
+        shared_ptr<SceneNode> rootSceneNode_;
+
+        typedef map<string, shared_ptr<Camera>> CameraMap;
+        CameraMap cameras_;
+    };
+}
 
 #endif //MAGICCUBE_SCENE_MANAGER_H

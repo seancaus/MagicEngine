@@ -8,8 +8,24 @@
 
 using namespace std;
 
-GLEWWindow::GLEWWindow()
+GLEWWindow::GLEWWindow():
+        window_(nullptr)
 {
+    init();
+}
+
+GLEWWindow::~GLEWWindow()
+{
+
+}
+
+const std::string &GLEWWindow::getName(void) const
+{
+    static string name("GLEWWindow");
+    return name;
+}
+
+void GLEWWindow::init() {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -18,26 +34,22 @@ GLEWWindow::GLEWWindow()
 //    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 }
 
-GLEWWindow::~GLEWWindow()
+void GLEWWindow::Destroy()
 {
-
-}
-
-void GLEWWindow::Destroy() {
-
+    //TODO 销毁资源
+    glfwTerminate();
 }
 
 void GLEWWindow::Create(const string &title, unsigned int width, unsigned int height)
 {
     window_ = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
-
     if(!window_)
     {
-        Magic::LogManager::GetInstance().LogMessage(" Create Window Failed");
+        Magic::LogManager::GetInstance().LogMessage("Create Window Failed");
         glfwTerminate();
         return;
     }
-
+    glfwMakeContextCurrent(window_);
     glfwSetInputMode(window_,GLFW_CURSOR,GLFW_CURSOR_HIDDEN);
 
 //    glfwSetKeyCallback(window_,keyCallBack);
@@ -45,37 +57,30 @@ void GLEWWindow::Create(const string &title, unsigned int width, unsigned int he
 //    glfwSetMouseButtonCallback(window_,mouseButtonCallback);
 //    glfwSetCursorPosCallback(window_,cursorPosCallback);
 
-    glfwMakeContextCurrent(window_);
-
     int w,h;
-    glfwGetFramebufferSize(window_,&w,&h);
-    glViewport(0,0,w,h);
+    glfwGetFramebufferSize(window_, &w, &h);
+    glViewport(0, 0, w, h);
 
-    glewExperimental = GL_TRUE;
-    if (GLEW_OK != glewInit())
-    {
-        Magic::LogManager::GetInstance().LogMessage("glew init Failed");
-        return;
-    }
-
-    while (!glfwWindowShouldClose(window_))
-    {
-        glfwPollEvents();
-
-        glClearColor(.0f, .0f, .0f, .0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glfwSwapBuffers(window_);
-    }
-
-    //TODO 销毁资源
-    glfwTerminate();
+//    while (!glfwWindowShouldClose(window_))
+//    {
+//        glfwPollEvents();
+//
+//        glClearColor(.0f, .0f, .0f, .0f);
+//        glClear(GL_COLOR_BUFFER_BIT);
+//    }
 }
 
 void GLEWWindow::AddViewport(Camera *camera)
 {
     RenderWindow::AddViewport(camera);
 }
+
+
+void GLEWWindow::SwapBuffers()
+{
+    glfwSwapBuffers(window_);
+}
+
 
 void keyCallBack(GLFWwindow* window,int key,int scancode,int action,int mods);
 void scrollBack(GLFWwindow* window,double xoffset,double yoffset);

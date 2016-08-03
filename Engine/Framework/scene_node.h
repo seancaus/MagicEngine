@@ -15,38 +15,44 @@
 
 using namespace std;
 
-class SceneManager;
+namespace Magic {
 
-class SceneNode :public Object{
+    class SceneManager;
 
-public:
+    class SceneNode : public Object {
 
-    SceneNode(SceneManager* creator);
-    SceneNode(SceneManager* creator,const string& name);
-    virtual ~SceneNode();
+    public:
 
-    virtual shared_ptr<SceneNode>createChild(const Vector3& translate);
-    virtual shared_ptr<SceneNode>createChild(const string& name, const Vector3& translate);
+        SceneNode(SceneManager *creator);
 
-    void addChild(shared_ptr<SceneNode> node);
+        SceneNode(SceneManager *creator, const string &name);
 
-    const string& getName() const;
+        virtual ~SceneNode();
 
-    void translate(const Vector3& p);
+        virtual shared_ptr<SceneNode> createChild(const Vector3 &translate);
 
-protected:
+        virtual shared_ptr<SceneNode> createChild(const string &name, const Vector3 &translate);
 
-    virtual shared_ptr<SceneNode>createChildImpl();
-    virtual shared_ptr<SceneNode>createChildImpl(const string& name);
+        void addChild(shared_ptr<SceneNode> node);
+
+        const string &getName() const;
+
+        void translate(const Vector3 &p);
+
+    protected:
+
+        virtual shared_ptr<SceneNode> createChildImpl();
+
+        virtual shared_ptr<SceneNode> createChildImpl(const string &name);
 
 
-    string name_;
-    SceneManager* creator_;
+        string name_;
+        SceneManager *creator_;
 
-    map<string,shared_ptr<MovableObject>> attachObjects_;
-    map<string,shared_ptr<SceneNode>> childrenNodes_;
+        map<string, shared_ptr<MovableObject>> attachObjects_;
+        map<string, shared_ptr<SceneNode>> childrenNodes_;
 
-};
-
+    };
+}
 
 #endif //MAGICCUBE_SCENE_NODE_H

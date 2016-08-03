@@ -3,13 +3,13 @@
 //
 
 #include "object.h"
+namespace Magic {
 
+    Object::Object() {
 
-Object::Object() {
+    }
 
+    Object::~Object() {
+
+    }
 }
-
-Object::~Object() {
-
-}
-

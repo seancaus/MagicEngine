@@ -10,24 +10,23 @@
 
 using namespace std;
 
-static float WIDTH = 640;
-static float HEIGHT = 480;
+namespace Magic {
+
+    static float WIDTH = 640;
+    static float HEIGHT = 480;
 
 
-Application::Application()
-{
+    Application::Application() {
 
-}
+    }
 
-Application::~Application()
-{
+    Application::~Application() {
 
-}
+    }
 
-int Application::Run()
-{
-    Magic::Root* root = new Magic::Root("config.cfg","magic.log");
-    RenderWindow* renderWindow = root->Initialise();
+    int Application::Run() {
+        Magic::Root *root = new Magic::Root("config.cfg", "magic.log");
+        RenderWindow *renderWindow = root->Initialise();
 
 //    SceneManager* sceneManager = root->createSceneManager();
 //    Camera* camera = sceneManager->CreateCamera("asd");
@@ -35,11 +34,17 @@ int Application::Run()
 //
 //    renderWindow->AddViewport(camera);
 
+        root->StartRendering();
+//    while( root->RenderOneFrame() )
+//    {
+//
+//    }
 
-    return 0;
-}
 
-void Application::Close()
-{
+        return 0;
+    }
 
+    void Application::Close() {
+
+    }
 }
