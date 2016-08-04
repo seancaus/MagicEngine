@@ -39,7 +39,6 @@ namespace Magic {
         return renderWindow_.get();
     }
 
-
     SceneManager *Root::CreateSceneManager()
     {
         return nullptr;

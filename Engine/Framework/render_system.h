@@ -29,7 +29,7 @@ namespace Magic {
         virtual shared_ptr<RenderWindow> Initialise(const string &windowTitle) = 0;
 
         virtual void AttachRenderTarget(shared_ptr<RenderTarget> target);
-        virtual void UpdateAllRenderTargets(bool swapBuffers);
+        virtual void UpdateAllRenderTargets(bool swap);
         virtual void ClearFrameBuffer(unsigned int buffers, const ColourValue& colour, float depth, unsigned short stencil);
 
     protected:

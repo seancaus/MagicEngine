@@ -14,6 +14,9 @@
 using namespace std;
 
 namespace Magic {
+
+    typedef map<string, shared_ptr<Camera>> CameraMap;
+
     class SceneManager {
 
     public:
@@ -37,11 +40,9 @@ namespace Magic {
 
         virtual shared_ptr<SceneNode> CreateSceneNodeImpl(const string &name);
 
-        map<string, shared_ptr<SceneNode>> sceneNodes_;
-        shared_ptr<SceneNode> rootSceneNode_;
-
-        typedef map<string, shared_ptr<Camera>> CameraMap;
-        CameraMap cameras_;
+        map<string, shared_ptr<SceneNode>>  sceneNodes_;
+        shared_ptr<SceneNode>               rootSceneNode_;
+        CameraMap                           cameras_;
     };
 }
 

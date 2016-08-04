@@ -9,38 +9,68 @@ using namespace std;
 
 namespace Magic {
 
-    RenderTarget::RenderTarget() {
+    RenderTarget::RenderTarget()
+    {
 
     }
 
-
-    RenderTarget::~RenderTarget() {
+    RenderTarget::~RenderTarget()
+    {
 
     }
 
-    const std::string &RenderTarget::getName(void) const {
+    const std::string &RenderTarget::getName(void) const
+    {
         static string name("Default");
         return name;
     }
 
+    void RenderTarget::Update(bool swap)
+    {
+        _UpdateImpl();
 
-    void RenderTarget::Update(bool swapBuffers) {
-        UpdateImpl();
-
-        if (swapBuffers) {
+        if (swap)
+        {
             SwapBuffers();
         }
     }
 
-    void RenderTarget::AddViewport(Camera *camera) {
+    void RenderTarget::AddViewport(Camera *camera)
+    {
 
     }
 
-    void RenderTarget::UpdateImpl() {
+    void RenderTarget::_UpdateImpl()
+    {
+        _BeginUpdate();
+        _UpdateViewports();
+        _EndUpdate();
+    }
+
+    void RenderTarget::_BeginUpdate() {
 
     }
 
-    void RenderTarget::SwapBuffers() {
+    void RenderTarget::_UpdateViewports()
+    {
+        for(auto viewPort : viewports_)
+        {
+            auto vp  = viewPort.second;
+            _UpdateViewport(vp);
+        }
+    }
+
+    void RenderTarget::_UpdateViewport(shared_ptr<Viewport> viewport)
+    {
+        viewport->Update();
+    }
+
+    void RenderTarget::_EndUpdate() {
+
+    }
+
+    void RenderTarget::SwapBuffers()
+    {
 
     }
 }

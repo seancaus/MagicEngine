@@ -10,6 +10,8 @@
 
 namespace Magic {
 
+    class SceneManager;
+
     class Camera : public Object {
     public:
 
@@ -21,8 +23,7 @@ namespace Magic {
 
     protected:
 
-
-    private:
+        SceneManager* sceneMgr_;
 
     };
 }

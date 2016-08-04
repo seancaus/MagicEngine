@@ -20,7 +20,6 @@ public:
 
     virtual shared_ptr<RenderWindow> Initialise(const string &windowTitle) override ;
 
-    virtual void UpdateAllRenderTargets(bool swapBuffers) override;
     virtual void ClearFrameBuffer(unsigned int buffers, const ColourValue &colour, float depth,
                                   unsigned short stencil) override ;
 

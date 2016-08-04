@@ -23,8 +23,9 @@ public:
     virtual void Create(const string &title, unsigned int width, unsigned int height) override;
 
     virtual void SwapBuffers() override;
-    virtual const std::string &getName(void) const override;
     virtual void AddViewport(Camera *camera) override;
+
+    virtual const std::string &getName(void) const override;
 
 protected:
 

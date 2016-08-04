@@ -3,9 +3,13 @@
 //
 
 #include "camera.h"
+#include "scene_manager.h"
+
 namespace Magic {
 
-    Camera::Camera() {
+    Camera::Camera() :
+    sceneMgr_(nullptr)
+    {
 
     }
 
@@ -19,8 +23,9 @@ namespace Magic {
     }
 
 
-    void Camera::RenderScene(Viewport *vp, bool includeOverlays) {
-
+    void Camera::RenderScene(Viewport *vp, bool includeOverlays)
+    {
+        sceneMgr_->RenderScene(this,vp,includeOverlays);
     }
 
 }

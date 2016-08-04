@@ -42,14 +42,6 @@ void GLRenderSystem::InitGLEW()
     }
 }
 
-void GLRenderSystem::UpdateAllRenderTargets(bool swapBuffers)
-{
-    for(auto target:renderTargets_)
-    {
-        target.second->Update(swapBuffers);
-    }
-}
-
 void GLRenderSystem::ClearFrameBuffer(unsigned int buffers, const ColourValue &colour, float depth,
                                       unsigned short stencil)
 {

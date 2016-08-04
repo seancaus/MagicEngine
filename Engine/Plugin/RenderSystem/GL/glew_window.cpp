@@ -78,7 +78,6 @@ void GLEWWindow::AddViewport(Camera *camera)
     RenderWindow::AddViewport(camera);
 }
 
-
 void GLEWWindow::SwapBuffers()
 {
     glfwSwapBuffers(window_);

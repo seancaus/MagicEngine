@@ -5,18 +5,17 @@
 #ifndef MAGIC_VIEWPORT_H
 #define MAGIC_VIEWPORT_H
 
-#include "render_target.h"
 #include "common.h"
 #include "colour_value.h"
 
 namespace Magic
 {
     class Camera;
+    class RenderTarget;
 
     class Viewport
     {
     public:
-
         Viewport(Camera* camera,
                  RenderTarget* target,
                  float left, float top,
@@ -24,10 +23,15 @@ namespace Magic
                  int ZOrder);
         virtual ~Viewport();
 
-        void update(void);
-        void clear(unsigned int buffers = FBT_COLOUR | FBT_DEPTH,
+        void Update(void);
+        void Clear(unsigned int buffers = FBT_COLOUR | FBT_DEPTH,
                    const ColourValue& colour = ColourValue::Black,
                    float depth = 1.0f, unsigned short stencil = 0);
+
+    protected:
+        Camera*         camera_;
+        RenderTarget*   target_;
+        int             zorder_;
     };
 }
 

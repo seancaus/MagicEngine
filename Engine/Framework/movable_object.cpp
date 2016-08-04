@@ -6,5 +6,13 @@
 
 namespace Magic
 {
+    MovableObject::MovableObject()
+    {
 
+    }
+
+    MovableObject::~MovableObject()
+    {
+
+    }
 }

@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "render_system.h"
+
 namespace Magic {
 
     RenderSystem::RenderSystem ()
@@ -27,13 +28,17 @@ namespace Magic {
         renderTargets_.insert(RenderTargetMap::value_type(target->getName(), target));
     }
 
-    void RenderSystem::UpdateAllRenderTargets(bool swapBuffers)
+    void RenderSystem::UpdateAllRenderTargets(bool swap)
     {
-
+        for(auto target : renderTargets_)
+        {
+            target.second->Update(swap);
+        }
     }
 
     void RenderSystem::ClearFrameBuffer(unsigned int buffers, const ColourValue &colour, float depth,
-                                        unsigned short stencil) {
+                                        unsigned short stencil)
+    {
 
     }
 
