@@ -9,10 +9,12 @@
 #include "object.h"
 #include "transform.h"
 #include "shader.h"
+#include "movable_object.h"
 
 using  namespace Magic;
 
-class Panel : Object{
+class Panel : public MovableObject
+{
 
 public:
 

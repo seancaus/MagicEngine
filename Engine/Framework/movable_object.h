@@ -5,6 +5,11 @@
 #ifndef MAGICCUBE_MOVABLE_OBJECT_H
 #define MAGICCUBE_MOVABLE_OBJECT_H
 
+#include <string>
+#include "node.h"
+
+using namespace std;
+
 namespace Magic
 {
 
@@ -15,6 +20,12 @@ namespace Magic
 
         MovableObject();
         virtual ~MovableObject();
+
+    protected:
+
+        string name_;
+        Node* parentNode_;
+        bool visible_;
 
     };
 }

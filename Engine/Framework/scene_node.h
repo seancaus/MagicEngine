@@ -9,7 +9,7 @@
 #include <memory>
 #include <string>
 
-#include "object.h"
+#include "node.h"
 #include "movable_object.h"
 #include "vector3.h"
 
@@ -19,7 +19,7 @@ namespace Magic {
 
     class SceneManager;
 
-    class SceneNode : public Object {
+    class SceneNode : public Node {
 
     public:
 
