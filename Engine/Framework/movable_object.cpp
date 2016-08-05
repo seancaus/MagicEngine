@@ -15,4 +15,10 @@ namespace Magic
     {
 
     }
+
+    void MovableObject::UpdateRenderQueue(shared_ptr<RenderQueue> queue)
+    {
+
+    }
+
 }

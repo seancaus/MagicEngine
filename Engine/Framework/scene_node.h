@@ -18,6 +18,8 @@ using namespace std;
 namespace Magic {
 
     class SceneManager;
+    class Camera;
+    class RenderQueue;
 
     class SceneNode : public Node {
 
@@ -29,21 +31,20 @@ namespace Magic {
 
         virtual ~SceneNode();
 
-        virtual shared_ptr<SceneNode> createChild(const Vector3 &translate);
+        virtual shared_ptr<SceneNode> CreateChild(const Vector3 &translate);
+        virtual shared_ptr<SceneNode> CreateChild(const string &name, const Vector3 &translate);
+        void AddChild(shared_ptr<SceneNode> node);
+        void FindVisibleObjects(Camera* cam, RenderQueue* queue /**,VisibleObjectsBoundsInfo* visibleBounds*/);
 
-        virtual shared_ptr<SceneNode> createChild(const string &name, const Vector3 &translate);
+        const string &GetName() const;
 
-        void addChild(shared_ptr<SceneNode> node);
-
-        const string &getName() const;
-
-        void translate(const Vector3 &p);
+        void Translate(const Vector3 &p);
 
     protected:
 
-        virtual shared_ptr<SceneNode> createChildImpl();
+        virtual shared_ptr<SceneNode> CreateChildImpl();
 
-        virtual shared_ptr<SceneNode> createChildImpl(const string &name);
+        virtual shared_ptr<SceneNode> CreateChildImpl(const string &name);
 
 
         string name_;

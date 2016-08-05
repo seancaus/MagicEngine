@@ -3,6 +3,8 @@
 //
 
 #include "render_queue.h"
+#include "movable_object.h"
+
 namespace Magic {
 
     RenderQueue::RenderQueue() {
@@ -13,5 +15,10 @@ namespace Magic {
 
     }
 
+    void RenderQueue::ProcessVisibleObject(shared_ptr<MovableObject> mo, shared_ptr<Camera> ca)
+    {
+
+        mo->UpdateRenderQueue(shared_ptr<RenderQueue>(this));
+    }
 
 }

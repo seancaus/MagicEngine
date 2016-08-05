@@ -6,12 +6,16 @@
 #define MAGICCUBE_MOVABLE_OBJECT_H
 
 #include <string>
+#include <memory>
 #include "node.h"
 
 using namespace std;
 
 namespace Magic
 {
+
+
+    class RenderQueue;
 
     class MovableObject
     {
@@ -21,11 +25,13 @@ namespace Magic
         MovableObject();
         virtual ~MovableObject();
 
+        void UpdateRenderQueue(shared_ptr<RenderQueue> queue);
+
     protected:
 
-        string name_;
-        Node* parentNode_;
-        bool visible_;
+        string  name_;
+        Node*   parentNode_;
+        bool    visible_;
 
     };
 }

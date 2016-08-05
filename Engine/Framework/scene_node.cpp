@@ -21,41 +21,50 @@ namespace Magic {
     SceneNode::~SceneNode() {
     }
 
-    shared_ptr<SceneNode> SceneNode::createChild(const Vector3 &translate) {
-        auto cn = createChildImpl();
-        cn->translate(translate);
-        addChild(cn);
+    shared_ptr<SceneNode> SceneNode::CreateChild(const Vector3 &translate) {
+        auto cn = CreateChildImpl();
+        cn->Translate(translate);
+        AddChild(cn);
         return cn;
     }
 
-    shared_ptr<SceneNode> SceneNode::createChild(const string &name, const Vector3 &translate) {
-        auto cn = createChildImpl(name);
-        cn->translate(translate);
-        addChild(cn);
+    shared_ptr<SceneNode> SceneNode::CreateChild(const string &name, const Vector3 &translate) {
+        auto cn = CreateChildImpl(name);
+        cn->Translate(translate);
+        AddChild(cn);
         return cn;
     }
 
-    shared_ptr<SceneNode> SceneNode::createChildImpl() {
+    shared_ptr<SceneNode> SceneNode::CreateChildImpl()
+    {
         assert(creator_);
         return creator_->CreateSceneNode();
     }
 
-    shared_ptr<SceneNode> SceneNode::createChildImpl(const string &name) {
+    shared_ptr<SceneNode> SceneNode::CreateChildImpl(const string &name)
+    {
         assert(creator_);
         return creator_->CreateSceneNode(name);
     }
 
+    void SceneNode::FindVisibleObjects(Camera* cam, RenderQueue* queue)
+    {
 
-    const string &SceneNode::getName() const {
+    }
+
+    const string &SceneNode::GetName() const
+    {
         return name_;
     }
 
 
-    void SceneNode::addChild(shared_ptr<SceneNode> node) {
-        childrenNodes_[node->getName()] = node;
+    void SceneNode::AddChild(shared_ptr<SceneNode> node)
+    {
+        childrenNodes_[node->GetName()] = node;
     }
 
-    void SceneNode::translate(const Vector3 &p) {
+    void SceneNode::Translate(const Vector3 &p)
+    {
 
     }
 }
