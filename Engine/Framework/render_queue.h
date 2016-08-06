@@ -12,11 +12,20 @@ using namespace std;
 
 namespace Magic {
 
-//    typedef map< uint8, RenderQueueGroup* > RenderQueueGroupMap;
+    enum RenderQueueGroupID
+    {
+        RENDER_QUEUE_BACKGROUND = 0,
+        RENDER_QUEUE_OVERLAY = 100,
+    };
+
     class MovableObject;
     class Camera;
+    class RenderQueueGroup;
 
-    class RenderQueue {
+    typedef map<RenderQueueGroupID, RenderQueueGroup* > RenderQueueGroupMap;
+
+    class RenderQueue
+    {
 
     public:
 
@@ -27,7 +36,7 @@ namespace Magic {
 
     protected:
 
-
+        RenderQueueGroupMap renderGroups_;
 
     };
 

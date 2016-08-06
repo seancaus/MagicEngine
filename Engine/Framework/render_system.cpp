@@ -42,4 +42,14 @@ namespace Magic {
 
     }
 
+
+    void RenderSystem::SetViewMatrix(const glm::mat4 &vm) {
+
+    }
+
+    void RenderSystem::SetProjectionMatrix(const glm::mat4 &pm) {
+
+    }
+
+
 }

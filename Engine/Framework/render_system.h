@@ -8,6 +8,7 @@
 #include <string>
 #include <memory>
 #include <map>
+#include <glm/detail/type_mat.hpp>
 #include "render_window.h"
 #include "colour_value.h"
 
@@ -31,6 +32,9 @@ namespace Magic {
         virtual void AttachRenderTarget(shared_ptr<RenderTarget> target);
         virtual void UpdateAllRenderTargets(bool swap);
         virtual void ClearFrameBuffer(unsigned int buffers, const ColourValue& colour, float depth, unsigned short stencil);
+
+        virtual void SetViewMatrix(const glm::mat4& vm);
+        virtual void SetProjectionMatrix(const glm::mat4& pm);
 
     protected:
 
