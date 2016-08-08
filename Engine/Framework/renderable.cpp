@@ -6,11 +6,19 @@
 
 namespace Magic
 {
-    Renderable::Renderable() {
+    Renderable::Renderable()
+    {
 
     }
 
-    Renderable::~Renderable() {
+    Renderable::~Renderable()
+    {
 
     }
+
+    void Renderable::GetRenderOperation(shared_ptr<RenderOperation> &ro)
+    {
+            
+    }
+
 }

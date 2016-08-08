@@ -16,6 +16,8 @@ using namespace std;
 
 namespace Magic {
 
+    class RenderOperation;
+
     typedef map< string, shared_ptr<RenderTarget>> RenderTargetMap;
 
     class RenderSystem {
@@ -35,6 +37,8 @@ namespace Magic {
 
         virtual void SetViewMatrix(const glm::mat4& vm);
         virtual void SetProjectionMatrix(const glm::mat4& pm);
+
+        virtual void Render(shared_ptr<RenderOperation> ro);
 
     protected:
 

@@ -82,8 +82,7 @@ namespace Magic {
     //-----------------------------------------------------------------------
     shared_ptr<SceneNode> SceneManager::CreateSceneNodeImpl()
     {
-        auto sn = make_shared<SceneNode>(this);
-        return sn;
+        return make_shared<SceneNode>(this);
     }
     //-----------------------------------------------------------------------
     shared_ptr<SceneNode> SceneManager::CreateSceneNodeImpl(const string &name)
@@ -101,7 +100,7 @@ namespace Magic {
     //-----------------------------------------------------------------------
     void SceneManager::UpdateSceneGraph()
     {
-
+        //更新sceneNode的包围盒
     }
     //-----------------------------------------------------------------------
     void SceneManager::PrepareRenderQueue()

@@ -46,9 +46,9 @@ namespace Magic {
         virtual shared_ptr<SceneNode> CreateSceneNodeImpl();
         virtual shared_ptr<SceneNode> CreateSceneNodeImpl(const string &name);
 
+        CameraMap                           cameras_;
         map<string, shared_ptr<SceneNode>>  sceneNodes_;
         shared_ptr<SceneNode>               rootSceneNode_;
-        CameraMap                           cameras_;
         shared_ptr<RenderQueue>             renderQueue_;
     };
 }
