@@ -38,7 +38,7 @@ namespace Magic {
         virtual void SetViewMatrix(const glm::mat4& vm);
         virtual void SetProjectionMatrix(const glm::mat4& pm);
 
-        virtual void Render(shared_ptr<RenderOperation> ro);
+        virtual void Render(const shared_ptr<RenderOperation> ro);
 
     protected:
 

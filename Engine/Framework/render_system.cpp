@@ -53,8 +53,9 @@ namespace Magic {
 
     }
     //-----------------------------------------------------------------------
-    void RenderSystem::Render(shared_ptr<RenderOperation> ro)
+    void RenderSystem::Render(const shared_ptr<RenderOperation> ro)
     {
+        //统计
 
     }
     //-----------------------------------------------------------------------

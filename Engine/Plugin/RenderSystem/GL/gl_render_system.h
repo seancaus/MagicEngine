@@ -23,7 +23,9 @@ public:
     virtual void ClearFrameBuffer(unsigned int buffers, const ColourValue &colour, float depth,
                                   unsigned short stencil) override ;
 
+    virtual void Render(const shared_ptr<RenderOperation> ro) override;
 protected:
+
     void InitGLEW();
 
 };

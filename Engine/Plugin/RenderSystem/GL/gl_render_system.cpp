@@ -63,3 +63,12 @@ void GLRenderSystem::ClearFrameBuffer(unsigned int buffers, const ColourValue &c
     glClear(flags);
 }
 
+
+void GLRenderSystem::Render(const shared_ptr<RenderOperation> ro)
+{
+    RenderSystem::Render(ro);
+
+    
+}
+
+
