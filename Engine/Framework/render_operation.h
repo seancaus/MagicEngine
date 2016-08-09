@@ -5,14 +5,35 @@
 #ifndef MAGIC_RENDER_OPERATION_H
 #define MAGIC_RENDER_OPERATION_H
 
+#include <memory>
+
+using namespace std;
+
 namespace Magic
 {
+
+    class VertexData;
+    class IndexData;
 
     class RenderOperation
     {
     public:
+
+        enum OperationType
+        {
+
+        };
+
         RenderOperation() ;
-        virtual ~RenderOperation() ;
+        virtual ~RenderOperation();
+
+    protected:
+
+        OperationType   operationType_;
+        shared_ptr<VertexData>  vertexData_;
+        shared_ptr<IndexData>   indexData_;
+        bool            useIndexes_;
+        unsigned int    numberOfInstances_;
     };
 
 }
