@@ -43,6 +43,7 @@ namespace Magic{
 
         shared_ptr<RenderWindow>    renderWindow_;
         shared_ptr<LogManager>      logManager_;
+        shared_ptr<SceneManager>    sceneManager_;
     };
 }
 

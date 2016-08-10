@@ -38,7 +38,7 @@ void GLRenderSystem::InitGLEW()
     glewExperimental = GL_TRUE;
     if ( GLEW_OK != glewInit() )
     {
-//        Magic::LogManager::GetInstance().LogMessage("glew init Failed");
+        Magic::LogManager::GetInstance().LogMessage("glew init Failed");
     }
 }
 
@@ -68,7 +68,31 @@ void GLRenderSystem::Render(const shared_ptr<RenderOperation> ro)
 {
     RenderSystem::Render(ro);
 
-    
+    bool useIndexes = false;
+    bool hasInstanceData = true;
+    if (useIndexes)
+    {
+        if(hasInstanceData)
+        {
+//            glDrawElementsInstanced();
+        }
+        else
+        {
+//            glDrawElements()
+        }
+
+    }
+    else
+    {
+        if(hasInstanceData)
+        {
+//            glDrawArraysInstanced();
+        }
+        else
+        {
+//            glDrawArrays()
+        }
+    }
 }
 
 

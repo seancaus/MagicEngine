@@ -17,16 +17,19 @@ namespace Magic {
     class SceneNode;
     class RenderQueue;
     class Viewport;
+    class Entity;
+    class ManualObject;
 
     typedef map<string, shared_ptr<Camera>> CameraMap;
 
     class SceneManager {
 
     public:
-
         SceneManager();
         virtual ~SceneManager();
 
+        virtual shared_ptr<ManualObject> CreateManualObject(const string& name);
+        virtual shared_ptr<Entity>CreateEntity(const string& meshName);
         virtual shared_ptr<SceneNode> CreateSceneNode();
         virtual shared_ptr<SceneNode> CreateSceneNode(const string &name);
         virtual Camera *CreateCamera(const std::string &name);

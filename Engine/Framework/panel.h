@@ -6,14 +6,16 @@
 #define MAGICCUBE_PANEL_H
 
 #include <GL/glew.h>
+
 #include "object.h"
 #include "transform.h"
 #include "shader.h"
 #include "movable_object.h"
+#include "renderable.h"
 
 using  namespace Magic;
 
-class Panel : public MovableObject
+class Panel : public MovableObject, public Renderable
 {
 
 public:

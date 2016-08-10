@@ -47,6 +47,11 @@ namespace Magic {
         return creator_->CreateSceneNode(name);
     }
 
+    void SceneNode::AttachObject(shared_ptr<MovableObject> object)
+    {
+        attachObjects_[object->getName()] = object;
+    }
+
     void SceneNode::FindVisibleObjects(Camera* cam, RenderQueue* queue)
     {
 

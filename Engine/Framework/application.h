@@ -13,7 +13,11 @@
 using namespace std;
 
 namespace Magic {
-    class Application : public Object {
+
+    class SceneManager;
+
+    class Application : public Object
+    {
 
     public:
         Application();
@@ -24,8 +28,11 @@ namespace Magic {
 
         void Close();
 
+        void CreateScene();
+
     protected:
 
+        SceneManager* sceneManager_;
 
     };
 }

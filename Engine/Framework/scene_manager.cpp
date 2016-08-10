@@ -8,6 +8,7 @@
 #include "scene_manager.h"
 #include "render_queue.h"
 #include "scene_node.h"
+#include "entity.h"
 
 using namespace std;
 
@@ -24,13 +25,25 @@ namespace Magic {
     {
     }
     //-----------------------------------------------------------------------
+    shared_ptr<ManualObject> SceneManager::CreateManualObject(const string &name)
+    {
+        return std::shared_ptr<ManualObject>();
+    }
+    //-----------------------------------------------------------------------
+    shared_ptr<Entity> SceneManager::CreateEntity(const string &meshName)
+    {
+        auto entity = make_shared<Entity>();
+        return entity;
+    }
+    //-----------------------------------------------------------------------
     Camera *SceneManager::CreateCamera(const std::string &name)
     {
-    //    if(cameras_.find(name) != cameras_.end())
-    //    {
-    //    }
+        if(cameras_.find(name) != cameras_.end())
+        {
+            //throws error
+        }
 
-        shared_ptr<Camera> camera = make_shared<Camera>();
+        shared_ptr<Camera> camera = make_shared<Camera>(name,this);
         cameras_.insert(CameraMap::value_type(name, camera));
 
         return camera.get();

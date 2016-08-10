@@ -26,14 +26,14 @@ namespace Magic {
     public:
 
         SceneNode(SceneManager *creator);
-
         SceneNode(SceneManager *creator, const string &name);
-
         virtual ~SceneNode();
 
         virtual shared_ptr<SceneNode> CreateChild(const Vector3 &translate);
         virtual shared_ptr<SceneNode> CreateChild(const string &name, const Vector3 &translate);
         void AddChild(shared_ptr<SceneNode> node);
+        void AttachObject(shared_ptr<MovableObject> object);
+
         void FindVisibleObjects(Camera* cam, RenderQueue* queue /**,VisibleObjectsBoundsInfo* visibleBounds*/);
 
         const string &GetName() const;
@@ -43,16 +43,13 @@ namespace Magic {
     protected:
 
         virtual shared_ptr<SceneNode> CreateChildImpl();
-
         virtual shared_ptr<SceneNode> CreateChildImpl(const string &name);
 
-
         string name_;
-        SceneManager *creator_;
+        SceneManager* creator_;
 
         map<string, shared_ptr<MovableObject>> attachObjects_;
         map<string, shared_ptr<SceneNode>> childrenNodes_;
-
     };
 }
 

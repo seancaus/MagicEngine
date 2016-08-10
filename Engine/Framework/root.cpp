@@ -7,7 +7,7 @@
 #include "root.h"
 #include "../Plugin/RenderSystem/GL/gl_render_system.h"
 
-using  namespace std;
+using namespace std;
 
 namespace Magic {
 
@@ -15,14 +15,14 @@ namespace Magic {
 
     Root::Root(const string &configFileName, const string &logFileName):
         logManager_(nullptr),
-        renderWindow_(nullptr)
+        renderWindow_(nullptr),
+        sceneManager_(nullptr)
     {
         if(!LogManager::GetInstancePtr())
         {
             logManager_ = make_shared<LogManager>();
             logManager_->CreateLog(logFileName);
         }
-
 
         auto renderSystem = make_shared<GLRenderSystem>();
         AddRenderSystem(renderSystem);
@@ -41,7 +41,8 @@ namespace Magic {
 
     SceneManager *Root::CreateSceneManager()
     {
-        return nullptr;
+        sceneManager_ = make_shared<SceneManager>();
+        return sceneManager_.get();
     }
 
     void Root::StartRendering()

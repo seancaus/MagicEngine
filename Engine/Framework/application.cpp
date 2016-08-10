@@ -2,11 +2,11 @@
 // Created by huxf on 2016/7/19.
 //
 #include <iostream>
-#include <GL/glew.h>
+
 #include "application.h"
-#include "../../Game/cube_game_mode.h"
 #include "root.h"
-#include "singleton.h"
+#include "scene_node.h"
+#include "entity.h"
 
 using namespace std;
 
@@ -24,27 +24,32 @@ namespace Magic {
 
     }
 
-    int Application::Run() {
+    int Application::Run()
+    {
         Magic::Root *root = new Magic::Root("config.cfg", "magic.log");
         RenderWindow *renderWindow = root->Initialise();
 
-//    SceneManager* sceneManager = root->createSceneManager();
-//    Camera* camera = sceneManager->CreateCamera("asd");
-//    camera->LookAt();
-//
-//    renderWindow->AddViewport(camera);
+        sceneManager_ = root->CreateSceneManager();
+        Camera* camera = sceneManager_->CreateCamera("asd");
+        camera->LookAt(0,0,0);
 
+        renderWindow->AddViewport(camera);
+
+        CreateScene();
         root->StartRendering();
-//    while( root->RenderOneFrame() )
-//    {
-//
-//    }
-
 
         return 0;
     }
 
-    void Application::Close() {
+    void Application::CreateScene()
+    {
+        auto entity = sceneManager_->CreateEntity("");
+        auto node = sceneManager_->GetRootSceneNode()->CreateChild("ddddd",Vector3(.0,.0,.0));
+        node->AttachObject(entity);
+    }
+
+    void Application::Close()
+    {
 
     }
 }

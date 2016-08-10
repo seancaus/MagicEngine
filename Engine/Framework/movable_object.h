@@ -13,8 +13,6 @@ using namespace std;
 
 namespace Magic
 {
-
-
     class RenderQueue;
 
     class MovableObject
@@ -26,6 +24,19 @@ namespace Magic
         virtual ~MovableObject();
 
         void UpdateRenderQueue(shared_ptr<RenderQueue> queue);
+
+
+        const string &getName() const {
+            return name_;
+        }
+
+        Node *getParentNode() const {
+            return parentNode_;
+        }
+
+        bool isVisible() const {
+            return visible_;
+        }
 
     protected:
 
