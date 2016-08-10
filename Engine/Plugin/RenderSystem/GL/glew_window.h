@@ -26,6 +26,7 @@ public:
     virtual void AddViewport(Camera *camera) override;
 
     virtual const std::string &getName(void) const override;
+    virtual void getWindowSize();
 
 protected:
 

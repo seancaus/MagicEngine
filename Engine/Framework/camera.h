@@ -6,7 +6,10 @@
 #define MAGICCUBE_CAMERA_H
 
 #include <string>
+
 #include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 #include "object.h"
 #include "Viewport.h"
@@ -27,7 +30,7 @@ namespace Magic {
         virtual void LookAt(float x, float y, float z);
         virtual void LookAt(const Vector3& targetPoint);
 
-        virtual void GetViewMatrix();
+        virtual glm::mat4 getViewMatrix();
 
         virtual void RenderScene(Viewport *vp, bool includeOverlays);
 

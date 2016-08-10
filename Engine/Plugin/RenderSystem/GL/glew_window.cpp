@@ -53,24 +53,13 @@ void GLEWWindow::Create(const string &title, unsigned int width, unsigned int he
     }
 
     glfwMakeContextCurrent(window_);
-    glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+//    glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 //    glfwSetKeyCallback(window_,keyCallBack);
 //    glfwSetScrollCallback(window_,scrollBack);
 //    glfwSetMouseButtonCallback(window_,mouseButtonCallback);
 //    glfwSetCursorPosCallback(window_,cursorPosCallback);
 
-    int w,h;
-    glfwGetFramebufferSize(window_, &w, &h);
-    glViewport(0, 0, w, h);
-
-//    while (!glfwWindowShouldClose(window_))
-//    {
-//        glfwPollEvents();
-//
-//        glClearColor(.0f, .0f, .0f, .0f);
-//        glClear(GL_COLOR_BUFFER_BIT);
-//    }
 }
 
 void GLEWWindow::AddViewport(Camera *camera)
@@ -81,6 +70,14 @@ void GLEWWindow::AddViewport(Camera *camera)
 void GLEWWindow::SwapBuffers()
 {
     glfwSwapBuffers(window_);
+}
+
+
+void GLEWWindow::getWindowSize()
+{
+    int w,h;
+    glfwGetFramebufferSize(window_, &w, &h);
+
 }
 
 

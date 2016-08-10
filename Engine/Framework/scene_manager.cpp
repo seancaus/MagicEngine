@@ -41,6 +41,7 @@ namespace Magic {
         if(cameras_.find(name) != cameras_.end())
         {
             //throws error
+            return nullptr;
         }
 
         shared_ptr<Camera> camera = make_shared<Camera>(name,this);

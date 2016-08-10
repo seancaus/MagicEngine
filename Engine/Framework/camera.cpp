@@ -4,8 +4,6 @@
 
 #include "camera.h"
 #include "scene_manager.h"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"
 
 namespace Magic {
 
@@ -32,9 +30,9 @@ namespace Magic {
         viewMatrix_ = glm::lookAt(glm::vec3(0,0,0),glm::vec3(0,0,0),glm::vec3(0,0,0));
     }
 
-    void Camera::GetViewMatrix()
+    glm::mat4 Camera::getViewMatrix()
     {
-//        return viewMatrix_;
+        return viewMatrix_;
     }
 
     void Camera::RenderScene(Viewport *vp, bool includeOverlays)

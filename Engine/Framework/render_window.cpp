@@ -7,17 +7,23 @@
 
 namespace Magic {
 
-    RenderWindow::RenderWindow() {
-    }
-
-    RenderWindow::~RenderWindow() {
-    }
-
-    void RenderWindow::Create(const string &windowTitle, unsigned int width, unsigned int height) {
+    RenderWindow::RenderWindow()
+    {
 
     }
 
-    void RenderWindow::AddViewport(Camera *camera) {
+    RenderWindow::~RenderWindow()
+    {
+
+    }
+
+    void RenderWindow::Create(const string &windowTitle, unsigned int width, unsigned int height)
+    {
+
+    }
+
+    void RenderWindow::AddViewport(Camera *camera)
+    {
 
     }
 }

@@ -10,7 +10,6 @@
 
 GLRenderSystem::GLRenderSystem()
 {
-    InitGLEW();
 }
 
 GLRenderSystem::~GLRenderSystem() {
@@ -27,6 +26,10 @@ shared_ptr<RenderWindow> GLRenderSystem::Initialise(const string &windowTitle)
 {
     shared_ptr<RenderWindow> window = make_shared<GLEWWindow>();
     window->Create(windowTitle,500,500);
+
+    InitGLEW();
+
+//    glViewport(0, 0, w, h);
 
     AttachRenderTarget(window);
     return window;
