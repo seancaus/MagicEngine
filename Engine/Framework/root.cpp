@@ -28,23 +28,23 @@ namespace Magic {
         AddRenderSystem(renderSystem);
         SetRenderSystem(renderSystem);
     }
-
+    //-----------------------------------------------------------------------
     Root::~Root()
     {
     }
-
+    //-----------------------------------------------------------------------
     RenderWindow *Root::Initialise(const string& windowTitle)
     {
-        renderWindow_ = activeRenderer_->Initialise(windowTitle);
+        renderWindow_ = activeRenderer_->initialise(windowTitle);
         return renderWindow_.get();
     }
-
+    //-----------------------------------------------------------------------
     SceneManager *Root::CreateSceneManager()
     {
         sceneManager_ = make_shared<SceneManager>();
         return sceneManager_.get();
     }
-
+    //-----------------------------------------------------------------------
     void Root::StartRendering()
     {
         while(true)
@@ -52,43 +52,42 @@ namespace Magic {
             //todo event
             glfwPollEvents();
 
-
-            if( !RenderOneFrame() ) break;
+            if( !renderOneFrame() ) break;
         }
     }
-
-    bool Root::RenderOneFrame()
+    //-----------------------------------------------------------------------
+    bool Root::renderOneFrame()
     {
         UpdateAllRenderTargets();
 
         return true;
     }
-
+    //-----------------------------------------------------------------------
     bool Root::UpdateAllRenderTargets()
     {
-        activeRenderer_->UpdateAllRenderTargets(false);
+        activeRenderer_->updateAllRenderTargets(false);
 
         return true;
     }
-
+    //-----------------------------------------------------------------------
     void Root::Shutdown()
     {
 
     }
-
+    //-----------------------------------------------------------------------
     void Root::AddRenderSystem(shared_ptr<RenderSystem> render)
     {
-        renders_.insert(map<string,shared_ptr<RenderSystem>>::value_type(render->GetName(),render));
+        renders_.insert(map<string,shared_ptr<RenderSystem>>::value_type(render->getName(),render));
     }
-
+    //-----------------------------------------------------------------------
     void Root::SetRenderSystem(shared_ptr<RenderSystem> render)
     {
         activeRenderer_ = render;
     }
-
+    //-----------------------------------------------------------------------
     shared_ptr<RenderSystem> Root::GetRenderSystemByName(const string &name)
     {
         return renders_[name];
     }
-
+    //-----------------------------------------------------------------------
 }

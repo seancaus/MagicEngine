@@ -10,53 +10,46 @@ namespace Magic {
 
     RenderSystem::RenderSystem ()
     {
-
     }
     //-----------------------------------------------------------------------
     RenderSystem::~RenderSystem ()
     {
-
     }
     //-----------------------------------------------------------------------
-    const string &RenderSystem::GetName() const
-    {
-        static string name("Default Rendering Subsystem");
-        return name;
-    }
-    //-----------------------------------------------------------------------
-    void RenderSystem::AttachRenderTarget(shared_ptr<RenderTarget>target)
+    void RenderSystem::attachRenderTarget(shared_ptr<RenderTarget>target)
     {
         renderTargets_.insert(RenderTargetMap::value_type(target->getName(), target));
     }
     //-----------------------------------------------------------------------
-    void RenderSystem::UpdateAllRenderTargets(bool swap)
+    void RenderSystem::updateAllRenderTargets(bool swap)
     {
         for(auto target : renderTargets_)
         {
-            target.second->Update(swap);
+            target.second->update(swap);
         }
     }
     //-----------------------------------------------------------------------
-    void RenderSystem::ClearFrameBuffer(unsigned int buffers, const ColourValue &colour, float depth,
-                                        unsigned short stencil)
+    void RenderSystem::clearFrameBuffer(unsigned int buffers, const ColourValue &colour, float depth, unsigned short stencil)
     {
-
     }
     //-----------------------------------------------------------------------
-    void RenderSystem::SetViewMatrix(const glm::mat4 &vm)
+    void RenderSystem::setViewMatrix(const glm::mat4 &vm)
     {
-
     }
     //-----------------------------------------------------------------------
-    void RenderSystem::SetProjectionMatrix(const glm::mat4 &pm)
+    void RenderSystem::setProjectionMatrix(const glm::mat4 &pm)
     {
-
     }
     //-----------------------------------------------------------------------
-    void RenderSystem::Render(const shared_ptr<RenderOperation> ro)
+    void RenderSystem::render(const shared_ptr<RenderOperation> ro)
     {
-        //统计
-
+        //渲染统计
+    }
+    //-----------------------------------------------------------------------
+    const string &RenderSystem::getName() const
+    {
+        static string name("Default Rendering Subsystem");
+        return name;
     }
     //-----------------------------------------------------------------------
 }

@@ -19,37 +19,38 @@ namespace Magic {
     Application::Application() {
 
     }
-
+    //-----------------------------------------------------------------------
     Application::~Application() {
 
     }
-
+    //-----------------------------------------------------------------------
     int Application::Run()
     {
         Magic::Root *root = new Magic::Root("config.cfg", "magic.log");
         RenderWindow *renderWindow = root->Initialise();
 
         sceneManager_ = root->CreateSceneManager();
-        Camera* camera = sceneManager_->CreateCamera("asd");
-        camera->LookAt(0,0,0);
+        Camera* camera = sceneManager_->createCamera("asd");
+        camera->lookAt(0,0,0);
 
-        renderWindow->AddViewport(camera);
+        renderWindow->addViewport(camera);
 
         CreateScene();
         root->StartRendering();
 
         return 0;
     }
-
+    //-----------------------------------------------------------------------
     void Application::CreateScene()
     {
-        auto entity = sceneManager_->CreateEntity("");
-        auto node = sceneManager_->GetRootSceneNode()->CreateChild("ddddd",Vector3(.0,.0,.0));
-        node->AttachObject(entity);
+        auto entity = sceneManager_->createEntity("");
+        auto node = sceneManager_->getRootSceneNode()->createChild("ddddd",Vector3(.0,.0,.0));
+        node->attachObject(entity);
     }
-
+    //-----------------------------------------------------------------------
     void Application::Close()
     {
 
     }
+    //-----------------------------------------------------------------------
 }

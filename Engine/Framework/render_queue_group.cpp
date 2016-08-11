@@ -10,10 +10,10 @@ namespace Magic
     RenderQueueGroup::RenderQueueGroup() {
 
     }
-
+    //-----------------------------------------------------------------------
     RenderQueueGroup::~RenderQueueGroup() {
 
     }
-
+    //-----------------------------------------------------------------------
 
 }

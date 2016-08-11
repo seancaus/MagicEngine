@@ -9,10 +9,10 @@ namespace Magic {
     QueuedRenderableCollection::QueuedRenderableCollection() {
 
     }
-
+    //-----------------------------------------------------------------------
     QueuedRenderableCollection::~QueuedRenderableCollection() {
 
     }
-
+    //-----------------------------------------------------------------------
 
 }

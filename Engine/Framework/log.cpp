@@ -20,15 +20,14 @@ namespace Magic{
             logStream_.open(logName_.c_str());
         }
     }
-
+    //-----------------------------------------------------------------------
     Log::~Log() {
         if (fileOut_){
             logStream_.flush();
             logStream_.close();
         }
     }
-
-
+    //-----------------------------------------------------------------------
     void Log::LogMessage(const string &message, LogMessageLevel lml)
     {
         if (fileOut_)
@@ -54,4 +53,5 @@ namespace Magic{
             }
         }
     }
+    //-----------------------------------------------------------------------
 }

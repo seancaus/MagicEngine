@@ -9,10 +9,10 @@ namespace Magic {
     RenderPriorityGroup::RenderPriorityGroup() {
 
     }
-
+    //-----------------------------------------------------------------------
     RenderPriorityGroup::~RenderPriorityGroup() {
 
     }
-
+    //-----------------------------------------------------------------------
 
 }

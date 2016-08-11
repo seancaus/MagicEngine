@@ -4,21 +4,43 @@
 
 #include "render_queue.h"
 #include "movable_object.h"
+#include "render_queue_group.h"
 
 namespace Magic {
 
     RenderQueue::RenderQueue() {
 
     }
-
+    //-----------------------------------------------------------------------
     RenderQueue::~RenderQueue() {
 
     }
+    //-----------------------------------------------------------------------
+    void RenderQueue::processVisibleObject(MovableObject* mo, Camera* ca)
+    {
+        mo->UpdateRenderQueue(this);
+    }
+    //-----------------------------------------------------------------------
 
-    void RenderQueue::ProcessVisibleObject(shared_ptr<MovableObject> mo, shared_ptr<Camera> ca)
+    void RenderQueue::addRenderable(shared_ptr<Renderable> rend, RenderQueueGroupID groupID, unsigned short priority)
     {
 
-        mo->UpdateRenderQueue(shared_ptr<RenderQueue>(this));
     }
-
+    //-----------------------------------------------------------------------
+    RenderQueueGroup *RenderQueue::getQueueGroup(RenderQueueGroupID groupID)
+    {
+        shared_ptr<RenderQueueGroup> group = nullptr;
+        auto groupIt = groups_.find(groupID);
+        if ( groupIt == groups_.end() )
+        {
+            group = make_shared<RenderQueueGroup>();
+            groups_.insert(RenderQueueGroupMap::value_type(groupID, group));
+        }
+        else
+        {
+            group = groupIt->second;
+        }
+        return group.get();
+    }
+    //-----------------------------------------------------------------------
 }

@@ -27,12 +27,12 @@ namespace Magic {
         Camera(const string& name, SceneManager* sm);
         virtual ~Camera();
 
-        virtual void LookAt(float x, float y, float z);
-        virtual void LookAt(const Vector3& targetPoint);
+        virtual void lookAt(float x, float y, float z);
+        virtual void lookAt(const Vector3& targetPoint);
 
         virtual glm::mat4 getViewMatrix();
 
-        virtual void RenderScene(Viewport *vp, bool includeOverlays);
+        virtual void renderScene(Viewport *vp);
 
     protected:
 

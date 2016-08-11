@@ -10,9 +10,10 @@ using namespace std;
 
 namespace Magic {
     Shader::Shader() :
-            _program(0) {
+            _program(0)
+    {
     }
-
+    //-----------------------------------------------------------------------
     Shader::Shader(const char *vertexPath, const char *fragmentPath) {
         GLint success;
         GLchar infoLog[512];
@@ -55,21 +56,22 @@ namespace Magic {
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
     }
-
-    void Shader::use() {
+    //-----------------------------------------------------------------------
+    void Shader::use()
+    {
         glUseProgram(_program);
     }
-
+    //-----------------------------------------------------------------------
     void Shader::setMatrix4(const char *name, glm::mat4 value) {
         GLint loc = glGetUniformLocation(_program, name);
         glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(value));
     }
-
+    //-----------------------------------------------------------------------
     void Shader::setVector3f(const char *name, GLfloat x, GLfloat y, GLfloat z) {
         GLint loc = glGetUniformLocation(_program, name);
         glUniform3f(loc, x, y, z);
     }
-
+    //-----------------------------------------------------------------------
     string Shader::readCode(const char *filePath) {
         string code("");
         try {
@@ -91,4 +93,5 @@ namespace Magic {
         }
         return code;
     }
+    //-----------------------------------------------------------------------
 }

@@ -13,32 +13,32 @@ namespace Magic {
     {
 
     }
-
+    //-----------------------------------------------------------------------
     Camera::~Camera()
     {
 
     }
-
-    void Camera::LookAt(float x, float y, float z)
+    //-----------------------------------------------------------------------
+    void Camera::lookAt(float x, float y, float z)
     {
         Vector3 vtemp(x,y,z);
-        LookAt(vtemp);
+        lookAt(vtemp);
     }
-
-    void Camera::LookAt(const Vector3 &targetPoint)
+    //-----------------------------------------------------------------------
+    void Camera::lookAt(const Vector3 &targetPoint)
     {
         viewMatrix_ = glm::lookAt(glm::vec3(0,0,0),glm::vec3(0,0,0),glm::vec3(0,0,0));
     }
-
+    //-----------------------------------------------------------------------
     glm::mat4 Camera::getViewMatrix()
     {
         return viewMatrix_;
     }
-
-    void Camera::RenderScene(Viewport *vp, bool includeOverlays)
+    //-----------------------------------------------------------------------
+    void Camera::renderScene(Viewport *vp)
     {
-        sceneMgr_->RenderScene(this,vp,includeOverlays);
+        sceneMgr_->renderScene(this,vp);
     }
-
+    //-----------------------------------------------------------------------
 }
 

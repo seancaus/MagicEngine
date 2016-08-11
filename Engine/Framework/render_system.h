@@ -27,18 +27,18 @@ namespace Magic {
 
         virtual ~RenderSystem();
 
-        virtual const string &GetName() const;
+        virtual const string &getName() const;
 
-        virtual shared_ptr<RenderWindow> Initialise(const string &windowTitle) = 0;
+        virtual shared_ptr<RenderWindow> initialise(const string &windowTitle) = 0;
 
-        virtual void AttachRenderTarget(shared_ptr<RenderTarget> target);
-        virtual void UpdateAllRenderTargets(bool swap);
-        virtual void ClearFrameBuffer(unsigned int buffers, const ColourValue& colour, float depth, unsigned short stencil);
+        virtual void attachRenderTarget(shared_ptr<RenderTarget> target);
+        virtual void updateAllRenderTargets(bool swap);
+        virtual void clearFrameBuffer(unsigned int buffers, const ColourValue& colour, float depth, unsigned short stencil);
 
-        virtual void SetViewMatrix(const glm::mat4& vm);
-        virtual void SetProjectionMatrix(const glm::mat4& pm);
+        virtual void setViewMatrix(const glm::mat4& vm);
+        virtual void setProjectionMatrix(const glm::mat4& pm);
 
-        virtual void Render(const shared_ptr<RenderOperation> ro);
+        virtual void render(const shared_ptr<RenderOperation> ro);
 
     protected:
 

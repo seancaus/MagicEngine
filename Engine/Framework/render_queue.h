@@ -8,6 +8,7 @@
 #include <map>
 #include <memory>
 
+
 using namespace std;
 
 namespace Magic {
@@ -18,11 +19,12 @@ namespace Magic {
         RENDER_QUEUE_OVERLAY = 100,
     };
 
-    class MovableObject;
     class Camera;
+    class Renderable;
     class RenderQueueGroup;
+    class MovableObject;
 
-    typedef map<RenderQueueGroupID, RenderQueueGroup* > RenderQueueGroupMap;
+    typedef map<RenderQueueGroupID, shared_ptr<RenderQueueGroup>> RenderQueueGroupMap;
 
     class RenderQueue
     {
@@ -32,11 +34,13 @@ namespace Magic {
         RenderQueue();
         virtual ~RenderQueue();
 
-        virtual void ProcessVisibleObject(shared_ptr<MovableObject> mo, shared_ptr<Camera> ca);
+        void processVisibleObject(MovableObject* mo, Camera* ca);
+        void addRenderable(shared_ptr<Renderable> rend, RenderQueueGroupID groupID, unsigned short priority);
+        RenderQueueGroup* getQueueGroup(RenderQueueGroupID groupID);
 
     protected:
 
-        RenderQueueGroupMap renderGroups_;
+        RenderQueueGroupMap groups_;
 
     };
 

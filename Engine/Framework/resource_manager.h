@@ -7,7 +7,8 @@
 
 namespace Magic {
 
-    class resource_manager {
+    class resource_manager
+    {
 
     };
 

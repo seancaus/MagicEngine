@@ -3,6 +3,7 @@
 //
 
 #include <cassert>
+#include <iostream>
 
 #include "camera.h"
 #include "scene_manager.h"
@@ -25,18 +26,18 @@ namespace Magic {
     {
     }
     //-----------------------------------------------------------------------
-    shared_ptr<ManualObject> SceneManager::CreateManualObject(const string &name)
+    shared_ptr<ManualObject> SceneManager::createManualObject(const string &name)
     {
         return std::shared_ptr<ManualObject>();
     }
     //-----------------------------------------------------------------------
-    shared_ptr<Entity> SceneManager::CreateEntity(const string &meshName)
+    shared_ptr<Entity> SceneManager::createEntity(const string &meshName)
     {
         auto entity = make_shared<Entity>();
         return entity;
     }
     //-----------------------------------------------------------------------
-    Camera *SceneManager::CreateCamera(const std::string &name)
+    Camera *SceneManager::createCamera(const std::string &name)
     {
         if(cameras_.find(name) != cameras_.end())
         {
@@ -44,90 +45,90 @@ namespace Magic {
             return nullptr;
         }
 
-        shared_ptr<Camera> camera = make_shared<Camera>(name,this);
+        shared_ptr<Camera> camera = make_shared<Camera>(name, this);
         cameras_.insert(CameraMap::value_type(name, camera));
 
         return camera.get();
     }
     //-----------------------------------------------------------------------
-    shared_ptr<SceneNode> SceneManager::CreateSceneNode()
+    shared_ptr<SceneNode> SceneManager::createSceneNode()
     {
         //TODO
-        auto sn = CreateSceneNodeImpl();
-        assert(sceneNodes_.find(sn->GetName()) == sceneNodes_.end());
-        sceneNodes_[sn->GetName()] = sn;
+        auto sn = createSceneNodeImpl();
+        assert(sceneNodes_.find(sn->getName()) == sceneNodes_.end());
+        sceneNodes_[sn->getName()] = sn;
         return sn;
     }
     //-----------------------------------------------------------------------
-    shared_ptr<SceneNode> SceneManager::CreateSceneNode(const string &name)
+    shared_ptr<SceneNode> SceneManager::createSceneNode(const string &name)
     {
         if (sceneNodes_.find(name) != sceneNodes_.end())
         {
             ////TODO exception
         }
 
-        auto sn = CreateSceneNodeImpl(name);
-        sceneNodes_[sn->GetName()] = sn;
+        auto sn = createSceneNodeImpl(name);
+        sceneNodes_[sn->getName()] = sn;
         return sn;
     }
     //-----------------------------------------------------------------------
-    shared_ptr<SceneNode> SceneManager::GetRootSceneNode()
+    shared_ptr<SceneNode> SceneManager::getRootSceneNode()
     {
         if (!rootSceneNode_)
         {
-            rootSceneNode_ = CreateSceneNode("root");
+            rootSceneNode_ = createSceneNode("root");
         }
         return rootSceneNode_;
     }
     //-----------------------------------------------------------------------
-    RenderQueue *SceneManager::GetRenderQueue()
+    RenderQueue *SceneManager::getRenderQueue()
     {
         if(!renderQueue_)
         {
-            InitRenderQueue();
+            initRenderQueue();
         }
         return renderQueue_.get();
     }
     //-----------------------------------------------------------------------
-    void SceneManager::InitRenderQueue()
+    void SceneManager::initRenderQueue()
     {
         renderQueue_ = make_shared<RenderQueue>();
     }
     //-----------------------------------------------------------------------
-    shared_ptr<SceneNode> SceneManager::CreateSceneNodeImpl()
+    shared_ptr<SceneNode> SceneManager::createSceneNodeImpl()
     {
         return make_shared<SceneNode>(this);
     }
     //-----------------------------------------------------------------------
-    shared_ptr<SceneNode> SceneManager::CreateSceneNodeImpl(const string &name)
+    shared_ptr<SceneNode> SceneManager::createSceneNodeImpl(const string &name)
     {
         return make_shared<SceneNode>(this, name);
     }
     //-----------------------------------------------------------------------
-    void SceneManager::RenderScene(Camera *camera, Viewport *vp, bool includeOverlays)
+    void SceneManager::renderScene(Camera *camera, Viewport *vp)
     {
-        UpdateSceneGraph();
-        PrepareRenderQueue();
-        FindVisibleObjects();
-        RenderVisibleObjects();
+        updateSceneGraph();
+        prepareRenderQueue();
+        findVisibleObjects(camera);
+        renderVisibleObjects();
     }
     //-----------------------------------------------------------------------
-    void SceneManager::UpdateSceneGraph()
+    void SceneManager::updateSceneGraph()
     {
         //更新sceneNode的包围盒
     }
     //-----------------------------------------------------------------------
-    void SceneManager::PrepareRenderQueue()
+    void SceneManager::prepareRenderQueue()
     {
 
     }
     //-----------------------------------------------------------------------
-    void SceneManager::FindVisibleObjects()
+    void SceneManager::findVisibleObjects(Camera* camera)
     {
-        GetRootSceneNode()->FindVisibleObjects(nullptr,GetRenderQueue());
+        getRootSceneNode()->findVisibleObjects(camera, getRenderQueue());
     }
     //-----------------------------------------------------------------------
-    void SceneManager::RenderVisibleObjects()
+    void SceneManager::renderVisibleObjects()
     {
 
     }

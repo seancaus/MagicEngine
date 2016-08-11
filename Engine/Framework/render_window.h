@@ -17,17 +17,11 @@ namespace Magic {
     class RenderWindow : public RenderTarget {
 
     public:
-
         RenderWindow();
-
         virtual ~RenderWindow();
 
+        virtual void Create(const string &windowTitle, unsigned int width, unsigned int height) = 0;
         virtual void Destroy() = 0;
-
-        virtual void Create(const string &windowTitle, unsigned int width, unsigned int height);
-
-        virtual void AddViewport(Camera *camera);
-
     };
 }
 #endif //MAGICCUBE_RENDER_WINDOW_H

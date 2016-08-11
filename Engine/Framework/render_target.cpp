@@ -2,8 +2,10 @@
 // Created by huxf on 2016/8/3.
 //
 
+#include <iostream>
 #include "camera.h"
 #include "render_target.h"
+#include "log_manager.h"
 
 using namespace std;
 
@@ -11,68 +13,92 @@ namespace Magic {
 
     RenderTarget::RenderTarget()
     {
-
     }
-
+    //-----------------------------------------------------------------------
     RenderTarget::~RenderTarget()
     {
-
     }
-
+    //-----------------------------------------------------------------------
     const std::string &RenderTarget::getName(void) const
     {
         static string name("Default");
         return name;
     }
-
-    void RenderTarget::Update(bool swap)
+    //-----------------------------------------------------------------------
+    void RenderTarget::update(bool swap)
     {
-        _UpdateImpl();
-
+        _updateImpl();
         if (swap)
         {
-            SwapBuffers();
+            swapBuffers();
         }
     }
-
-    void RenderTarget::AddViewport(Camera *camera)
+    //-----------------------------------------------------------------------
+    Viewport* RenderTarget::addViewport(Camera *camera, int zorder, float left, float top, float width, float height)
     {
+        //TODO
+        auto it = viewports_.find(zorder);
+        if( it != viewports_.end() )
+        {
+            LogManager::GetInstance().LogMessage("");
+            return nullptr;
+        }
 
+        auto vp = make_shared<Viewport>(camera,this,left,top,width,height,zorder);
+        viewports_.insert(ViewportList::value_type(zorder,vp));
+
+        return vp.get();
     }
-
-    void RenderTarget::_UpdateImpl()
+    //-----------------------------------------------------------------------
+    void RenderTarget::removeViewport(int zorder)
     {
-        _BeginUpdate();
-        _UpdateViewports();
-        _EndUpdate();
+        auto it = viewports_.find(zorder);
+        if( it != viewports_.end() )
+        {
+            viewports_.erase(zorder);
+        }
     }
-
-    void RenderTarget::_BeginUpdate() {
-
+    //-----------------------------------------------------------------------
+    void RenderTarget::removeAllViewports()
+    {
+        viewports_.clear();
     }
-
-    void RenderTarget::_UpdateViewports()
+    //-----------------------------------------------------------------------
+    void RenderTarget::_updateImpl()
+    {
+        _beginUpdate();
+        _updateViewports();
+        _endUpdate();
+    }
+    //-----------------------------------------------------------------------
+    void RenderTarget::_updateViewports()
     {
         for(auto viewPort : viewports_)
         {
             auto vp  = viewPort.second;
-            _UpdateViewport(vp);
+            _updateViewport(vp);
         }
     }
-
-    void RenderTarget::_UpdateViewport(shared_ptr<Viewport> viewport)
+    //-----------------------------------------------------------------------
+    void RenderTarget::_updateViewport(shared_ptr<Viewport> viewport)
     {
-        viewport->Update();
+        viewport->update();
     }
-
-    void RenderTarget::_EndUpdate() {
-
+    //-----------------------------------------------------------------------
+    void RenderTarget::_beginUpdate()
+    {
     }
-
-    void RenderTarget::SwapBuffers()
+    //-----------------------------------------------------------------------
+    void RenderTarget::_endUpdate()
     {
 
     }
+    //-----------------------------------------------------------------------
+    void RenderTarget::swapBuffers()
+    {
+        //TODO
+    }
+    //-----------------------------------------------------------------------
 }
 
 

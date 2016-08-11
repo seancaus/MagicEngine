@@ -4,6 +4,8 @@
 #include <iostream>
 #include <GL/glew.h>
 #include "glew_window.h"
+#include "glcontext.h"
+
 #include "../../../Framework/log_manager.h"
 
 using namespace std;
@@ -13,19 +15,20 @@ GLEWWindow::GLEWWindow():
 {
     init();
 }
-
+//-----------------------------------------------------------------------
 GLEWWindow::~GLEWWindow()
 {
 
 }
-
+//-----------------------------------------------------------------------
 const std::string &GLEWWindow::getName(void) const
 {
     static string name("GLEWWindow");
     return name;
 }
-
-void GLEWWindow::init() {
+//-----------------------------------------------------------------------
+void GLEWWindow::init()
+{
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -35,24 +38,26 @@ void GLEWWindow::init() {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     #endif
 }
-
+//-----------------------------------------------------------------------
 void GLEWWindow::Destroy()
 {
     //TODO 销毁资源
+    glfwDestroyWindow(window_);
     glfwTerminate();
 }
-
+//-----------------------------------------------------------------------
 void GLEWWindow::Create(const string &title, unsigned int width, unsigned int height)
 {
     window_ = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
-    if(!window_)
+    if( !window_ )
     {
         Magic::LogManager::GetInstance().LogMessage("Create Window Failed");
         glfwTerminate();
         return;
     }
 
-    glfwMakeContextCurrent(window_);
+    context_ = make_shared<GLContext>(window_);
+
 //    glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 //    glfwSetKeyCallback(window_,keyCallBack);
@@ -61,25 +66,23 @@ void GLEWWindow::Create(const string &title, unsigned int width, unsigned int he
 //    glfwSetCursorPosCallback(window_,cursorPosCallback);
 
 }
-
-void GLEWWindow::AddViewport(Camera *camera)
-{
-    RenderWindow::AddViewport(camera);
-}
-
-void GLEWWindow::SwapBuffers()
+//-----------------------------------------------------------------------
+void GLEWWindow::swapBuffers()
 {
     glfwSwapBuffers(window_);
 }
-
-
+//-----------------------------------------------------------------------
+GLContext *GLEWWindow::getContext()
+{
+    return context_.get();
+}
+//-----------------------------------------------------------------------
 void GLEWWindow::getWindowSize()
 {
     int w,h;
     glfwGetFramebufferSize(window_, &w, &h);
-
 }
-
+//-----------------------------------------------------------------------
 
 void keyCallBack(GLFWwindow* window,int key,int scancode,int action,int mods);
 void scrollBack(GLFWwindow* window,double xoffset,double yoffset);

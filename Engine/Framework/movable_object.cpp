@@ -10,15 +10,15 @@ namespace Magic
     {
 
     }
-
+    //-----------------------------------------------------------------------
     MovableObject::~MovableObject()
     {
 
     }
-
-    void MovableObject::UpdateRenderQueue(shared_ptr<RenderQueue> queue)
+    //-----------------------------------------------------------------------
+    void MovableObject::UpdateRenderQueue(RenderQueue* queue)
     {
 
     }
-
+    //-----------------------------------------------------------------------
 }

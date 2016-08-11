@@ -16,17 +16,17 @@ public:
     GLRenderSystem();
     virtual ~GLRenderSystem();
 
-    virtual const string &GetName() const override;
+    virtual shared_ptr<RenderWindow> initialise(const string &windowTitle) override;
 
-    virtual shared_ptr<RenderWindow> Initialise(const string &windowTitle) override ;
+    virtual void clearFrameBuffer(unsigned int buffers, const ColourValue &colour, float depth, unsigned short stencil) override;
+    virtual void render(const shared_ptr<RenderOperation> ro) override;
 
-    virtual void ClearFrameBuffer(unsigned int buffers, const ColourValue &colour, float depth,
-                                  unsigned short stencil) override ;
+    virtual const string &getName() const override;
 
-    virtual void Render(const shared_ptr<RenderOperation> ro) override;
 protected:
 
-    void InitGLEW();
+    virtual void initialiseContext(shared_ptr<RenderWindow> window);
+    virtual void initGLEW();
 
 };
 

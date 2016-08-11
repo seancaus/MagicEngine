@@ -31,11 +31,10 @@ namespace Magic
 
         glBindBuffer(GL_ARRAY_BUFFER,0);
     }
-
+    //-----------------------------------------------------------------------
     VertexBuffer::~VertexBuffer()
     {
         glDeleteBuffers(1, &bufferId_);
     }
-
-
+    //-----------------------------------------------------------------------
 }

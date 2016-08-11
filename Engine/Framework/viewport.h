@@ -15,23 +15,22 @@ namespace Magic
 
     class Viewport
     {
+
     public:
-        Viewport(Camera* camera,
-                 RenderTarget* target,
-                 float left, float top,
-                 float width, float height,
-                 int ZOrder);
+        Viewport(Camera* camera, RenderTarget* target, float left, float top, float width, float height, int ZOrder);
         virtual ~Viewport();
 
-        void Update(void);
-        void Clear(unsigned int buffers = FBT_COLOUR | FBT_DEPTH,
-                   const ColourValue& colour = ColourValue::Black,
-                   float depth = 1.0f, unsigned short stencil = 0);
+        void update();
+        void clear(unsigned int buffers = FBT_COLOUR | FBT_DEPTH, const ColourValue& colour = ColourValue::Black, float depth = 1.0f, unsigned short stencil = 0);
 
     protected:
+
         Camera*         camera_;
         RenderTarget*   target_;
+        ColourValue     backColour_;
         int             zorder_;
+        float relLeft_, relTop_, relWidth_, relHeight_;
+
     };
 }
 

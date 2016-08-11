@@ -11,24 +11,35 @@ namespace Magic
 {
 
     Viewport::Viewport(Camera *camera, RenderTarget *target, float left, float top, float width, float height, int ZOrder):
-    camera_(camera)
+        camera_(camera),
+        target_(target),
+        relLeft_(left),
+        relTop_(top),
+        relWidth_(width),
+        relHeight_(height),
+        zorder_(ZOrder),
+
+        backColour_(ColourValue::Black)
     {
 
     }
-
+    //-----------------------------------------------------------------------
     Viewport::~Viewport()
     {
 
     }
-
-    void Viewport::Update(void)
+    //-----------------------------------------------------------------------
+    void Viewport::update(void)
     {
-        camera_->RenderScene(this,true);
+        if( camera_ )
+        {
+            camera_->renderScene(this);
+        }
     }
-
-    void Viewport::Clear(unsigned int buffers, const ColourValue &colour, float depth, unsigned short stencil)
+    //-----------------------------------------------------------------------
+    void Viewport::clear(unsigned int buffers, const ColourValue &colour, float depth, unsigned short stencil)
     {
 
     }
-
+    //-----------------------------------------------------------------------
 }

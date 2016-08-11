@@ -29,18 +29,21 @@ namespace Magic
 
         virtual const std::string& getName(void) const;
 
-        virtual void AddViewport(Camera* camera);
-        virtual void SwapBuffers();
-        virtual void Update(bool swap = true);
+        virtual Viewport* addViewport(Camera* camera, int ZOrder = 0, float left = 0.0f, float top = 0.0f, float width = 1.0f, float height = 1.0f);
+        virtual void removeViewport(int zorder);
+        virtual void removeAllViewports();
+
+        virtual void swapBuffers();
+        virtual void update(bool swap = true);
 
 
     protected:
 
-        virtual void _UpdateImpl();
-        virtual void _BeginUpdate();
-        virtual void _UpdateViewports();
-        virtual void _UpdateViewport(shared_ptr<Viewport> viewport);
-        virtual void _EndUpdate();
+        virtual void _updateImpl();
+        virtual void _beginUpdate();
+        virtual void _updateViewports();
+        virtual void _updateViewport(shared_ptr<Viewport> viewport);
+        virtual void _endUpdate();
 
 
         ViewportList viewports_;

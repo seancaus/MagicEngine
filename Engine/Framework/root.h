@@ -30,7 +30,7 @@ namespace Magic{
         void AddRenderSystem(shared_ptr<RenderSystem> render);
         void SetRenderSystem(shared_ptr<RenderSystem> render);
 
-        bool RenderOneFrame();
+        bool renderOneFrame();
         void StartRendering();
         bool UpdateAllRenderTargets();
         void Shutdown();

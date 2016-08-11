@@ -13,11 +13,12 @@ namespace Magic {
     {
 
     }
-
-    LogManager::~LogManager() {
+    //-----------------------------------------------------------------------
+    LogManager::~LogManager()
+    {
 
     }
-
+    //-----------------------------------------------------------------------
     Log *LogManager::CreateLog(const string &name, bool defaultLog, bool debugOut,bool fileOut) {
         //TODO 线程锁
 
@@ -30,8 +31,7 @@ namespace Magic {
         logs_.insert(LogMap::value_type(name,newLog));
         return newLog.get();
     }
-
-
+    //-----------------------------------------------------------------------
     void LogManager::LogMessage(const string &message, LogMessageLevel lml)
     {
         if(defaultLog_)
@@ -39,6 +39,5 @@ namespace Magic {
             defaultLog_->LogMessage(message, lml);
         }
     }
-
-
+    //-----------------------------------------------------------------------
 }

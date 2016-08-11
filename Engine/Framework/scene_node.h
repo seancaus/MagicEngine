@@ -21,6 +21,9 @@ namespace Magic {
     class Camera;
     class RenderQueue;
 
+    typedef map<string, shared_ptr<MovableObject>> AttachObjectMap;
+
+
     class SceneNode : public Node {
 
     public:
@@ -29,27 +32,27 @@ namespace Magic {
         SceneNode(SceneManager *creator, const string &name);
         virtual ~SceneNode();
 
-        virtual shared_ptr<SceneNode> CreateChild(const Vector3 &translate);
-        virtual shared_ptr<SceneNode> CreateChild(const string &name, const Vector3 &translate);
-        void AddChild(shared_ptr<SceneNode> node);
-        void AttachObject(shared_ptr<MovableObject> object);
+        virtual shared_ptr<SceneNode> createChild(const Vector3 &translate);
+        virtual shared_ptr<SceneNode> createChild(const string &name, const Vector3 &translate);
+        void addChild(shared_ptr<SceneNode> node);
+        void attachObject(shared_ptr<MovableObject> object);
 
-        void FindVisibleObjects(Camera* cam, RenderQueue* queue /**,VisibleObjectsBoundsInfo* visibleBounds*/);
+        void findVisibleObjects(Camera* cam, RenderQueue* queue /**,VisibleObjectsBoundsInfo* visibleBounds*/);
 
-        const string &GetName() const;
+        const string &getName() const;
 
-        void Translate(const Vector3 &p);
+        void translate(const Vector3 &p);
 
     protected:
 
-        virtual shared_ptr<SceneNode> CreateChildImpl();
-        virtual shared_ptr<SceneNode> CreateChildImpl(const string &name);
+        virtual shared_ptr<SceneNode> createChildImpl();
+        virtual shared_ptr<SceneNode> createChildImpl(const string &name);
 
         string name_;
         SceneManager* creator_;
 
-        map<string, shared_ptr<MovableObject>> attachObjects_;
-        map<string, shared_ptr<SceneNode>> childrenNodes_;
+        AttachObjectMap attachObjects_;
+
     };
 }
 

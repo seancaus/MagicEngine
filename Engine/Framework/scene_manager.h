@@ -28,26 +28,26 @@ namespace Magic {
         SceneManager();
         virtual ~SceneManager();
 
-        virtual shared_ptr<ManualObject> CreateManualObject(const string& name);
-        virtual shared_ptr<Entity>CreateEntity(const string& meshName);
-        virtual shared_ptr<SceneNode> CreateSceneNode();
-        virtual shared_ptr<SceneNode> CreateSceneNode(const string &name);
-        virtual Camera *CreateCamera(const std::string &name);
+        virtual shared_ptr<ManualObject> createManualObject(const string& name);
+        virtual shared_ptr<Entity>createEntity(const string& meshName);
+        virtual shared_ptr<SceneNode> createSceneNode();
+        virtual shared_ptr<SceneNode> createSceneNode(const string &name);
+        virtual Camera *createCamera(const std::string &name);
 
-        RenderQueue* GetRenderQueue();
-        shared_ptr<SceneNode> GetRootSceneNode();
+        RenderQueue* getRenderQueue();
+        shared_ptr<SceneNode> getRootSceneNode();
 
-        virtual void RenderScene(Camera* camera, Viewport* vp, bool includeOverlays);
-        virtual void UpdateSceneGraph();
-        virtual void PrepareRenderQueue();
-        virtual void FindVisibleObjects();
-        virtual void RenderVisibleObjects();
+        virtual void renderScene(Camera* camera, Viewport* vp);
+        virtual void updateSceneGraph();
+        virtual void prepareRenderQueue();
+        virtual void findVisibleObjects(Camera* camera);
+        virtual void renderVisibleObjects();
 
     protected:
 
-        void InitRenderQueue();
-        virtual shared_ptr<SceneNode> CreateSceneNodeImpl();
-        virtual shared_ptr<SceneNode> CreateSceneNodeImpl(const string &name);
+        void initRenderQueue();
+        virtual shared_ptr<SceneNode> createSceneNodeImpl();
+        virtual shared_ptr<SceneNode> createSceneNodeImpl(const string &name);
 
         CameraMap                           cameras_;
         map<string, shared_ptr<SceneNode>>  sceneNodes_;

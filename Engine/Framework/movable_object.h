@@ -23,7 +23,7 @@ namespace Magic
         MovableObject();
         virtual ~MovableObject();
 
-        void UpdateRenderQueue(shared_ptr<RenderQueue> queue);
+        void UpdateRenderQueue(RenderQueue* queue);
 
 
         const string &getName() const {
