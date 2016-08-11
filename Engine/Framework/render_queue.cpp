@@ -8,12 +8,12 @@
 
 namespace Magic {
 
-    RenderQueue::RenderQueue() {
-
+    RenderQueue::RenderQueue()
+    {
     }
     //-----------------------------------------------------------------------
-    RenderQueue::~RenderQueue() {
-
+    RenderQueue::~RenderQueue()
+    {
     }
     //-----------------------------------------------------------------------
     void RenderQueue::processVisibleObject(MovableObject* mo, Camera* ca)
@@ -21,9 +21,9 @@ namespace Magic {
         mo->UpdateRenderQueue(this);
     }
     //-----------------------------------------------------------------------
-
     void RenderQueue::addRenderable(shared_ptr<Renderable> rend, RenderQueueGroupID groupID, unsigned short priority)
     {
+        auto group = getQueueGroup(groupID);
 
     }
     //-----------------------------------------------------------------------
