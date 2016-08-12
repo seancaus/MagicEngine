@@ -16,7 +16,7 @@ namespace Magic
 
     }
     //-----------------------------------------------------------------------
-    void MovableObject::UpdateRenderQueue(RenderQueue* queue)
+    void MovableObject::updateRenderQueue(RenderQueue* queue)
     {
 
     }

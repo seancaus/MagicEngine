@@ -14,5 +14,9 @@ namespace Magic {
 
     }
     //-----------------------------------------------------------------------
+    void RenderPriorityGroup::addRenderable(shared_ptr<Renderable> pRend, void *pTech)
+    {
 
+    }
+    //-----------------------------------------------------------------------
 }
