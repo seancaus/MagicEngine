@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Engine/Framework/application.h"
 
-int main(int argc, char **argv)
+int main1(int argc, char **argv)
 {
     Magic::Application app;
     try {

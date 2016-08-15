@@ -40,6 +40,8 @@ aux_source_directory(Engine/Plugin/RenderSystem/GL SOURCE_FILES)
 
 aux_source_directory(Game SOURCE_FILES)
 
+aux_source_directory(test SOURCE_FILES)
+
 add_executable(Magic ${SOURCE_FILES} main.cpp)
 
 IF(APPLE)
