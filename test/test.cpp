@@ -1,7 +1,3 @@
-//
-// Created by huxf on 2016/8/15.
-//
-
 #include <iostream>
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
@@ -9,127 +5,138 @@
 
 using namespace std;
 
-const GLchar * vertexCode = "#version 330 core\n"
-        "layout(location = 0)in vec4 pos;\n"
-"void main(){\n"
-"gl_Position = pos;\n"
-"}\n";
+static const GLchar* vertexSource = "#version 330 core\n"
+        "layout(location=0)in vec4 pos;\n"
+        "layout(location=1)in vec2 inCoord;\n"
+        "out vec2 coord;\n"
+        "void main(){\n"
+        "coord = inCoord;\n"
+        "gl_Position = pos;\n"
+"}";
 
-const GLchar * fragmentCode = "#version 330 core\n"
-"out vec4 color;\n"
-"void main(){\n"
-"color = vec4(.5,.5,.5,1);\n"
-"}\n";
+static const GLchar* fragmentSource = "#version 330 core\n"
+        "in vec2 coord;\n"
+        "out vec4 color;\n"
+        "uniform sampler2D samp1;\n"
+        "uniform sampler2D samp2;\n"
+        "void main(){\n"
+        "color = mix(texture(samp1,coord),texture(samp2,coord),.5);\n"
+"}";
 
-int main(int argc, char **argv)
+int main()
 {
-
-    if ( !glfwInit() )
-    {
-        cout << "glfwInit failed" << endl;
-        return -1;
-    }
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
-
-    GLFWwindow* window = glfwCreateWindow(300,300,"test", nullptr, nullptr);
+    glfwInit();
+    GLFWwindow* window = glfwCreateWindow(500,500,"test",nullptr, nullptr);
     glfwMakeContextCurrent(window);
 
     glewExperimental = GL_TRUE;
-    if(GLEW_OK != glewInit())
-    {
-        cout << "glewInit failed" << endl;
-        glfwTerminate();
-        return -1;
-    }
-
+    glewInit();
     int w,h;
     glfwGetFramebufferSize(window,&w,&h);
     glViewport(0,0,w,h);
 
-    GLuint buffer,vertexArray,elementBuffer;
+    //------------------------------------------------------------------------
+    GLuint vertexArray,vertexBuffer,texture[2];
     glGenVertexArrays(1,&vertexArray);
-    glGenBuffers(1,&buffer);
-    glGenBuffers(1,&elementBuffer);
+    glGenBuffers(1,&vertexBuffer);
 
     glBindVertexArray(vertexArray);
-    glBindBuffer(GL_ARRAY_BUFFER,buffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,elementBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER,vertexBuffer);
 
-    GLint success;
-    GLchar infoLog[512];
-    float vertexData[] = {
-            0, 0.5,0,1,
-            -.5, -.5,0,1,
-            .5, -.5,0,1
+    float data[] = {.0,.5,0,1  ,-.5,-.5,.0,1  ,.5,-.5,.0,1
+        ,.5,1   ,0,0    ,1,0
     };
-    int indexs[] = {0,1,2};
-    glBufferData(GL_ARRAY_BUFFER,sizeof(vertexData),vertexData,GL_STATIC_DRAW);
-    glVertexAttribPointer(0,4,GL_FLOAT,GL_FALSE, sizeof(GLfloat)*4,(GLvoid*)0);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(data),data,GL_STATIC_DRAW);
+    glVertexAttribPointer(0,4,GL_FLOAT,GL_FALSE,4* sizeof(float),(GLvoid*)0);
     glEnableVertexAttribArray(0);
 
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indexs),indexs,GL_STATIC_DRAW);
+    glVertexAttribPointer(1,2,GL_FLOAT,GL_FALSE,2* sizeof(float),(GLvoid*)0);
+    glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER,0);
     glBindVertexArray(0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader,1,&vertexCode, nullptr);
+    //------------------------------------------------------------------------
+    GLint success;
+    GLchar infoLog[512];
+    GLint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader,1,&vertexSource, nullptr);
     glCompileShader(vertexShader);
     glGetShaderiv(vertexShader,GL_COMPILE_STATUS,&success);
     if(!success)
     {
         glGetShaderInfoLog(vertexShader,512,nullptr,infoLog);
-        cout << "error:" << infoLog << endl;
+        cout << "Compile Vertex Shader Error:" << infoLog << endl;
         return -1;
     }
 
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader,1,&fragmentCode,nullptr);
+    GLint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader,1,&fragmentSource, nullptr);
     glCompileShader(fragmentShader);
     glGetShaderiv(fragmentShader,GL_COMPILE_STATUS,&success);
     if(!success)
     {
         glGetShaderInfoLog(fragmentShader,512,nullptr,infoLog);
-        cout << "fragment Error:" << infoLog << endl;
+        cout << "Compile Fragment Shader Error:" << infoLog << endl;
         return -1;
     }
 
-    GLuint program = glCreateProgram();
+    GLint program = glCreateProgram();
     glAttachShader(program,vertexShader);
     glAttachShader(program,fragmentShader);
     glLinkProgram(program);
     glGetProgramiv(program,GL_LINK_STATUS,&success);
-    if(!success)
-    {
-        glGetProgramInfoLog(program,512,nullptr,infoLog);
-        cout << "Program Link Error:" << infoLog << endl;
-        return -1;
-    }
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+    if(!success)
+    {
+        glGetProgramInfoLog(program,512,nullptr,infoLog);
+        cout << "Link Porgram Error:" << infoLog << endl;
+        return -1;
+    }
 
+    //------------------------------------------------------------------------
+    char* pics[2] = {"../Assets/Textures/1.jpg","../Assets/Textures/awesomeface.png"};
+    glGenTextures(2,texture);
+    for (int i = 0; i <2 ; ++i)
+    {
+        glBindTexture(GL_TEXTURE_2D,texture[i]);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
 
-    while( !glfwWindowShouldClose(window) )
+        auto image = SOIL_load_image(pics[i],&w,&h,nullptr,SOIL_LOAD_RGBA);
+        glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,w,h,0,GL_RGBA,GL_UNSIGNED_BYTE,image);
+        SOIL_free_image_data(image);
+    }
+
+    while(!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
 
-        glClearColor(.0,.0,0,1);
+        glClearColor(.0,.0,.0,1);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glUseProgram(program);
-
         glBindVertexArray(vertexArray);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D,texture[0]);
+        auto locSamp1 = glGetUniformLocation(program,"samp1");
+        glUniform1i(locSamp1,0);
+
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D,texture[1]);
+        auto locSamp2 = glGetUniformLocation(program,"samp2");
+        glUniform1i(locSamp2,1);
+
         glDrawArrays(GL_TRIANGLES,0,3);
+        glBindVertexArray(0);
 
         glfwSwapBuffers(window);
     }
 
-    glfwTerminate();
-    cout << "test" << endl;
     return 0;
 }

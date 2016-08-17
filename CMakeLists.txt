@@ -13,6 +13,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 #set(CMAKE_CXX_FLAGS_DEBUG   "-O0" )             # 调试包不优化
 #set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG " )   # release包优化
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
+#add_custom_command( TARGET Magic
+#                    PRE_BUILD
+#                    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${PROJECT_SOURCE_DIR}/Assets"  $<TARGET_FILE_DIR:Magic>
+#                  )
+
 INCLUDE_DIRECTORIES(./includes)
 
 
