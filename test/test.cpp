@@ -23,7 +23,7 @@ static const GLchar* fragmentSource = "#version 330 core\n"
         "color = mix(texture(samp1,coord),texture(samp2,coord),.5);\n"
 "}";
 
-int main()
+int main1()
 {
     glfwInit();
     GLFWwindow* window = glfwCreateWindow(500,500,"test",nullptr, nullptr);

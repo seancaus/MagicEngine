@@ -42,14 +42,14 @@ ELSEIF(WIN32)
 	LINK_DIRECTORIES(./libs/windows)
 ENDIF (APPLE)
 
-aux_source_directory(Engine/Framework SOURCE_FILES)
-aux_source_directory(Engine/Plugin/RenderSystem/GL SOURCE_FILES)
-
-aux_source_directory(Game SOURCE_FILES)
+#aux_source_directory(Engine/Framework SOURCE_FILES)
+#aux_source_directory(Engine/Plugin/RenderSystem/GL SOURCE_FILES)
+#aux_source_directory(Game SOURCE_FILES)
 
 aux_source_directory(test SOURCE_FILES)
 
-add_executable(Magic ${SOURCE_FILES} main.cpp)
+#add_executable(Magic ${SOURCE_FILES} main.cpp)
+add_executable(Magic ${SOURCE_FILES})
 
 IF(APPLE)
     TARGET_LINK_LIBRARIES(Magic ${EXTRA_LIBS} libGLEW.a libglfw3.a libSOIL.a libglog.a)
