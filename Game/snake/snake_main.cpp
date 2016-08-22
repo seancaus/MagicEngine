@@ -5,6 +5,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "../../Engine/Framework/gpu_program.h"
+#include "map.h"
+
 
 using namespace std;
 using namespace Magic;
@@ -16,6 +18,7 @@ int main ()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
     glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE,GL_FALSE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT,GL_TRUE);
 
     GLFWwindow* window = glfwCreateWindow(500,500,"snake",nullptr,nullptr);
     glfwMakeContextCurrent(window);
@@ -62,11 +65,12 @@ int main ()
         glClearColor(0,0,0,1);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glBindVertexArray(vao);
         program.use();
-//        glPointSize(50);
-//        glDrawArrays(GL_POINTS,0,1);
-        glDrawArrays(GL_TRIANGLES,0,3);
+        glBindVertexArray(vao);
+
+        glPointSize(30);
+        glDrawArrays(GL_POINTS,0,1);
+//        glDrawArrays(GL_TRIANGLES,0,3);
         glBindVertexArray(0);
 
         glfwSwapBuffers(window);

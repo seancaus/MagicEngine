@@ -33,9 +33,17 @@ void updatePixel(GLubyte* dptr,int width,int height)
     ++color;
 }
 
-int main3() {
+int main4() {
 
     glfwInit();
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
+
     GLFWwindow *window = glfwCreateWindow(400, 400, "TEST PBO", nullptr, nullptr);
     glfwMakeContextCurrent(window);
 
@@ -114,7 +122,7 @@ int main3() {
         index = (index+1)%2;
         nextIndex = (index+1)%2;
 
-        cout << "index:"<<index<<" nextIndex:"<<nextIndex << endl;
+//        cout << "index:"<<index<<" nextIndex:"<<nextIndex << endl;
 
         glBindBuffer(GL_PIXEL_UNPACK_BUFFER,pbos[index]);
         glTexSubImage2D(GL_TEXTURE_2D,0,0,0,IMAGE_WIDTH,IMAGE_HEIGHT,GL_RGBA,GL_UNSIGNED_BYTE,0);
