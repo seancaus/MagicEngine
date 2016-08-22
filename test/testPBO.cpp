@@ -4,9 +4,10 @@
 #include <iostream>
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
-#include "GPUProgram.h"
+#include "../Engine/Framework/gpu_program.h"
 
 using namespace std;
+using namespace Magic;
 
 const static int IMAGE_WIDTH = 1024;
 const static int IMAGE_HEIGHT = 1024;
@@ -32,7 +33,7 @@ void updatePixel(GLubyte* dptr,int width,int height)
     ++color;
 }
 
-int main() {
+int main3() {
 
     glfwInit();
     GLFWwindow *window = glfwCreateWindow(400, 400, "TEST PBO", nullptr, nullptr);

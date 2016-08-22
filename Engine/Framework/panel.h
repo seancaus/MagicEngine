@@ -9,7 +9,7 @@
 
 #include "object.h"
 #include "transform.h"
-#include "shader.h"
+#include "gpu_program.h"
 #include "movable_object.h"
 #include "renderable.h"
 
@@ -38,7 +38,7 @@ public:
     GLuint _vbo;
     GLuint _ebo;
 
-    Shader shader_;
+    GPUProgram shader_;
 };
 
 

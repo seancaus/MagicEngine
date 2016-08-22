@@ -42,10 +42,10 @@ void Panel::draw()
 
     projection = glm::perspective(45.0f, WIDTH / HEIGHT, 0.1f, 1000.0f);
 
-    shader_.setMatrix4("model",model);
-    shader_.setMatrix4("view",view);
-    shader_.setMatrix4("projection",projection);
-    shader_.setVector3f("ourColor",color_.r,color_.g,color_.b);
+//    shader_.setMatrix4("model",model);
+//    shader_.setMatrix4("view",view);
+//    shader_.setMatrix4("projection",projection);
+//    shader_.setVector3f("ourColor",color_.r,color_.g,color_.b);
 
     glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
     unbind();

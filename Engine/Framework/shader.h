@@ -1,40 +1,37 @@
 //
-// Created by Ziv on 16/6/18.
+// Created by huxf on 2016/8/19.
 //
 
-#ifndef MAGICCUBE_SHADER_H
-#define MAGICCUBE_SHADER_H
+#ifndef MAGIC_SHADER_H
+#define MAGIC_SHADER_H
 
+#include <GL/glew.h>
 #include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
 
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+using namespace std;
 
-#include "object.h"
 namespace Magic {
-    class Shader : public Object {
+
+    class Shader {
 
     public:
-        Shader();
+        Shader(const string &source);
 
-        Shader(const char *vertexPath, const char *fragmentPath);
+        virtual ~Shader();
 
-        void use();
+        GLuint getShaderID() const;
 
-        void setMatrix4(const char *name, glm::mat4 value);
-
-        void setVector3f(const char *name, GLfloat x, GLfloat y, GLfloat z);
+        void setSource(const string &source);
 
     protected:
-        std::string readCode(char const *vertexPath);
 
-        GLuint _program;
+        void deleteShader();
+
+        virtual GLuint createShader() = 0;
+
+        GLuint _shaderID;
+        string _source;
     };
 }
 
-
-#endif //MAGICCUBE_SHADER_H
+#endif //MAGIC_SHADER_H
