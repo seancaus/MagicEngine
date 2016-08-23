@@ -24,6 +24,7 @@ namespace Magic {
         void use();
 
         void setUniform1i(const string &name, unsigned int value);
+        void setUniform2f(const string &name, const GLfloat v1,const GLfloat v2);
 
     protected:
 

@@ -58,9 +58,16 @@ namespace Magic {
         glUseProgram(_programID);
     }
 
-    void GPUProgram::setUniform1i(const string &name, unsigned int value) {
+    void GPUProgram::setUniform1i(const string &name, unsigned int value)
+    {
         GLint local = glGetUniformLocation(_programID, name.c_str());
         glUniform1i(local, value);
+    }
+
+    void GPUProgram::setUniform2f(const string &name, const GLfloat v1,const GLfloat v2)
+    {
+        GLint local = glGetUniformLocation(_programID, name.c_str());
+        glUniform2f(local,v1,v2);
     }
 
     string GPUProgram::read(const char *filePath) {
