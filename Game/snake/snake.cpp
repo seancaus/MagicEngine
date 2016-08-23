@@ -40,8 +40,6 @@ void Snake::preBind()
             ,0.05f, -0.05f,0,1
     };
 
-    
-
     glGenVertexArrays(1, &_vao);
     glGenBuffers(1,&_vbo);
     glGenBuffers(1,&_instanceVbo);
@@ -51,7 +49,7 @@ void Snake::preBind()
 
     glBufferData(GL_VERTEX_ARRAY, sizeof(vertexs),vertexs, GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,(GLvoid*)0);
+    glVertexAttribPointer(0,4,GL_FLOAT,GL_FALSE,0,(GLvoid*)0);
 
     glBindBuffer(GL_VERTEX_ARRAY, _instanceVbo);
     glBufferData(GL_VERTEX_ARRAY, sizeof(glm::mat2) * _points.size(),&_points[0], GL_STATIC_DRAW);
@@ -73,7 +71,7 @@ void Snake::draw()
     _program->use();
     bind();
 
-    glDrawArraysInstanced(GL_POINTS,0,1,_points.size());
+    glDrawArraysInstanced(GL_POINTS,0,1,1);
     glBindVertexArray(0);
 }
 
