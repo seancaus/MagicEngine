@@ -11,7 +11,9 @@
 namespace Magic {
 
     GPUProgram::GPUProgram(const string &vertexFile, const string &fragmentFile, const string &geometryFile) :
-            _programID(0) {
+            _programID(0)
+            ,_uboPoint(0)
+    {
         string vertexSource = read(vertexFile.c_str());
         string fragmentSource = read(fragmentFile.c_str());
         string geometrySource("");
@@ -53,9 +55,19 @@ namespace Magic {
         return _programID;
     }
 
-
-    void GPUProgram::use() {
+    void GPUProgram::use()
+    {
         glUseProgram(_programID);
+    }
+
+    void GPUProgram::bindUniformBuffer(const string& uniformBlockName,const GLuint& uniformBufferObject)
+    {
+        GLuint index = glGetUniformBlockIndex(_programID,uniformBlockName.c_str());
+        glUniformBlockBinding(_programID,index,_uboPoint);
+
+        glBindBufferBase(GL_UNIFORM_BUFFER,_uboPoint,uniformBufferObject);
+//        glBindBufferRange();
+        ++_uboPoint;
     }
 
     void GPUProgram::setUniform1i(const string &name, unsigned int value)
@@ -70,7 +82,8 @@ namespace Magic {
         glUniform2f(local,v1,v2);
     }
 
-    string GPUProgram::read(const char *filePath) {
+    string GPUProgram::read(const char *filePath)
+    {
         string codeString("");
         try {
             stringstream stream;
@@ -86,7 +99,8 @@ namespace Magic {
             // 将流转为GLchar数组
             codeString = stream.str();
         }
-        catch (std::exception e) {
+        catch (std::exception e)
+        {
             cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << endl;
         }
         return codeString;

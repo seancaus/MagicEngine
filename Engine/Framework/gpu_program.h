@@ -23,6 +23,7 @@ namespace Magic {
 
         void use();
 
+        void bindUniformBuffer(const string& uniformBlockName,const GLuint& uniformBufferObject);
         void setUniform1i(const string &name, unsigned int value);
         void setUniform2f(const string &name, const GLfloat v1,const GLfloat v2);
 
@@ -35,7 +36,8 @@ namespace Magic {
         string read(const char *filePath);
 
 
-        GLuint _programID;
+        GLuint  _programID;
+        int     _uboPoint;
     };
 }
 

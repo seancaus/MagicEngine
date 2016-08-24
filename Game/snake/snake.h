@@ -15,6 +15,8 @@
 using namespace std;
 using namespace Magic;
 
+typedef vector<glm::mat4> PointList;
+
 class Snake
 {
 
@@ -29,18 +31,21 @@ public:
 
     void setForward(bool dir);
     void setRight(bool dir);
-
+    void grow();
     void move();
 protected:
 
     Vector3 _direction;
-    vector<glm::vec2> _points;
+    PointList _points;
 
     GLuint _vao;
     GLuint _vbo;
     GLuint _instanceVbo;
+    GLuint _uboMatrices;
 
     shared_ptr<GPUProgram> _program;
+
+    int _pointSize;
 };
 
 

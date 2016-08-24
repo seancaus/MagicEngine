@@ -2,16 +2,19 @@
 // Created by huxf on 2016/8/22.
 //
 
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "snake.h"
-
-
 
 Snake::Snake():
 _direction(0,1,0)
 ,_vao(0)
 ,_vbo(0)
+,_pointSize(30)
 {
-    _points.push_back(vector<glm::vec2>::value_type(0,0));
+    glm::mat4 m;
+    m = glm::translate(m,glm::vec3(250,250,.0));
+    _points.push_back(m);
     _program = make_shared<GPUProgram>("../Assets/glsl/point.vert","../Assets/glsl/point.frag");
 }
 
@@ -35,29 +38,54 @@ void Snake::destroy()
 
 void Snake::preBind()
 {
-    float vertexs[] = {-0.05f,  0.05f,.0,1
-            ,0.05f, -0.05f,0,1
-            ,0.05f, -0.05f,0,1
-    };
+    glPointSize(_pointSize);
+
+    float vertexs[] = { .0f ,.0f };
+
+    glm::mat4 projection;
+    glm::mat4 view;
+    projection = glm::ortho(.0,500.0,.0,500.0,.1,100.0);
+    view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f),
+                       glm::vec3(0.0f, 0.0f, 0.0f),
+                       glm::vec3(0.0f, 1.0f, 0.0f));
 
     glGenVertexArrays(1, &_vao);
     glGenBuffers(1,&_vbo);
     glGenBuffers(1,&_instanceVbo);
+    glGenBuffers(1,&_uboMatrices);
 
     glBindVertexArray(_vao);
-    glBindBuffer(GL_VERTEX_ARRAY,_vbo);
 
-    glBufferData(GL_VERTEX_ARRAY, sizeof(vertexs),vertexs, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER,_vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexs),vertexs, GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0,4,GL_FLOAT,GL_FALSE,0,(GLvoid*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (GLvoid*)0);
 
-    glBindBuffer(GL_VERTEX_ARRAY, _instanceVbo);
-    glBufferData(GL_VERTEX_ARRAY, sizeof(glm::mat2) * _points.size(),&_points[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, _instanceVbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * _points.size(), _points.data(), GL_STATIC_DRAW);
+    auto vec4Size = sizeof(glm::vec4);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1,2,GL_FLOAT,GL_FALSE,0,(GLvoid*)0);
+    glVertexAttribPointer(1 ,4 ,GL_FLOAT ,GL_FALSE ,vec4Size ,(GLvoid*)0);
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2 ,4 ,GL_FLOAT ,GL_FALSE ,vec4Size ,(GLvoid*)vec4Size);
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3 ,4 ,GL_FLOAT ,GL_FALSE ,vec4Size ,(GLvoid*)(2 * vec4Size));
+    glEnableVertexAttribArray(4);
+    glVertexAttribPointer(4 ,4 ,GL_FLOAT ,GL_FALSE ,vec4Size ,(GLvoid*)(3 * vec4Size));
 
-    glBindBuffer(GL_VERTEX_ARRAY, 0);
     glVertexAttribDivisor(1,1);
+    glVertexAttribDivisor(2,1);
+    glVertexAttribDivisor(3,1);
+    glVertexAttribDivisor(4,1);
+
+    glBindBuffer(GL_UNIFORM_BUFFER, _uboMatrices);
+    glBufferData(GL_UNIFORM_BUFFER, 2*sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(view));
+    glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(projection));
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    _program->bindUniformBuffer("Matrices",_uboMatrices);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
 
@@ -71,13 +99,37 @@ void Snake::draw()
     _program->use();
     bind();
 
-    glDrawArraysInstanced(GL_POINTS,0,1,1);
+    glDrawArraysInstanced(GL_POINTS,0,1,_points.size());
     glBindVertexArray(0);
 }
 
 void Snake::move()
 {
+    glm::vec3 dir(_direction.x,_direction.y,_direction.z);
+    dir *= 30;
 
+    auto head = *_points.begin();
+    _points.erase(_points.end());
+
+    head = glm::translate(head , dir);
+    _points.insert(_points.begin(),head);
+
+    glBindBuffer(GL_ARRAY_BUFFER, _instanceVbo);
+    glBufferSubData(GL_ARRAY_BUFFER,0,sizeof(glm::mat4) * _points.size(),_points.data());
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Snake::grow()
+{
+    glm::vec3 dir(_direction.x,_direction.y,_direction.z);
+    dir *= 31;
+    glm::mat4 m = glm::translate(_points[0] , dir);
+
+    _points.insert(_points.begin(),m);
+
+    glBindBuffer(GL_ARRAY_BUFFER, _instanceVbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * _points.size(), _points.data(), GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Snake::setForward(bool dir)
