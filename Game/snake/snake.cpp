@@ -6,6 +6,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "snake.h"
 
+extern GLfloat deltaTime;
+
 Snake::Snake():
 _direction(0,1,0)
 ,_vao(0)
@@ -106,7 +108,7 @@ void Snake::draw()
 void Snake::move()
 {
     glm::vec3 dir(_direction.x,_direction.y,_direction.z);
-    dir *= 30;
+    dir *= (deltaTime * 30);
 
     auto head = *_points.begin();
     _points.erase(_points.end());

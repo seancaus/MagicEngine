@@ -14,6 +14,9 @@ using namespace Magic;
 static Snake* pSnake = nullptr;
 void keyCallback(GLFWwindow*,int,int,int,int);
 
+GLfloat deltaTime = .0;
+GLfloat lastFrame = .0;
+
 int main()
 {
     glfwInit();
@@ -44,6 +47,10 @@ int main()
     pSnake = &snake;
     while(!glfwWindowShouldClose(window))
     {
+        GLfloat currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
 //        glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 //        glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 
@@ -70,8 +77,6 @@ int main()
         snake.draw();
 
         glfwSwapBuffers(window);
-
-        sleep(1);
     }
 
     glfwTerminate();
