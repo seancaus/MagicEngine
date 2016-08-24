@@ -17,6 +17,8 @@ _direction(0,1,0)
     glm::mat4 m;
     m = glm::translate(m,glm::vec3(250,250,.0));
     _points.push_back(m);
+    m = glm::translate(m,glm::vec3(0,31,.0));
+    _points.push_back(m);
     _program = make_shared<GPUProgram>("../Assets/glsl/point.vert","../Assets/glsl/point.frag");
 }
 
@@ -36,10 +38,17 @@ void Snake::destroy()
     {
         glDeleteBuffers(1,&_vao);
     }
+
+    if(_instanceVbo)
+    {
+        glDeleteBuffers(1,&_instanceVbo);
+    }
 }
 
 void Snake::preBind()
 {
+    destroy();
+
     glPointSize(_pointSize);
 
     float vertexs[] = { .0f ,.0f };
@@ -67,14 +76,13 @@ void Snake::preBind()
     glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * _points.size(), _points.data(), GL_STATIC_DRAW);
     auto vec4Size = sizeof(glm::vec4);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1 ,4 ,GL_FLOAT ,GL_FALSE ,vec4Size ,(GLvoid*)0);
+    glVertexAttribPointer(1 ,4 ,GL_FLOAT ,GL_FALSE ,4 * vec4Size ,(GLvoid*)0);
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2 ,4 ,GL_FLOAT ,GL_FALSE ,vec4Size ,(GLvoid*)vec4Size);
+    glVertexAttribPointer(2 ,4 ,GL_FLOAT ,GL_FALSE ,4 * vec4Size ,(GLvoid*)vec4Size);
     glEnableVertexAttribArray(3);
-    glVertexAttribPointer(3 ,4 ,GL_FLOAT ,GL_FALSE ,vec4Size ,(GLvoid*)(2 * vec4Size));
+    glVertexAttribPointer(3 ,4 ,GL_FLOAT ,GL_FALSE ,4 * vec4Size ,(GLvoid*)(2 * vec4Size));
     glEnableVertexAttribArray(4);
-    glVertexAttribPointer(4 ,4 ,GL_FLOAT ,GL_FALSE ,vec4Size ,(GLvoid*)(3 * vec4Size));
-
+    glVertexAttribPointer(4 ,4 ,GL_FLOAT ,GL_FALSE ,4 * vec4Size ,(GLvoid*)(3 * vec4Size));
     glVertexAttribDivisor(1,1);
     glVertexAttribDivisor(2,1);
     glVertexAttribDivisor(3,1);
@@ -110,15 +118,15 @@ void Snake::move()
     glm::vec3 dir(_direction.x,_direction.y,_direction.z);
     dir *= (deltaTime * 30);
 
-    auto head = *_points.begin();
-    _points.erase(_points.end());
-
-    head = glm::translate(head , dir);
-    _points.insert(_points.begin(),head);
+    for (int i = 0; i < _points.size(); ++i)
+    {
+        _points[i] = glm::translate(_points[i] , dir);
+    }
 
     glBindBuffer(GL_ARRAY_BUFFER, _instanceVbo);
-    glBufferSubData(GL_ARRAY_BUFFER,0,sizeof(glm::mat4) * _points.size(),_points.data());
+    glBufferSubData(GL_ARRAY_BUFFER, 0 ,sizeof(glm::mat4) * _points.size(),_points.data());
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 }
 
 void Snake::grow()

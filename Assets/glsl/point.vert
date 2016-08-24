@@ -1,9 +1,10 @@
-#version 420 core
+#version 410 core
 
 layout(location=0)in vec2 pos;
 layout(location=1)in mat4 model;
 
-layout(std140,binding=0)uniform Matrices{
+//,binding=0
+layout(std140)uniform Matrices{
     mat4 view;
     mat4 projection;
 };
