@@ -11,7 +11,7 @@
 
 using namespace std;
 
-namespace Magic {
+namespace magic {
 
     enum RenderQueueGroupID
     {

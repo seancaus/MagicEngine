@@ -5,7 +5,7 @@
 #include <GL/glew.h>
 #include "render_window.h"
 
-namespace Magic {
+namespace magic {
 
     RenderWindow::RenderWindow()
     {

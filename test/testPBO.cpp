@@ -7,7 +7,7 @@
 #include "../Engine/Framework/gpu_program.h"
 
 using namespace std;
-using namespace Magic;
+using namespace magic;
 
 const static int IMAGE_WIDTH = 1024;
 const static int IMAGE_HEIGHT = 1024;

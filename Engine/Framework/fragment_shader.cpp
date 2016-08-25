@@ -5,7 +5,7 @@
 #include <iostream>
 #include "fragment_shader.h"
 
-namespace Magic {
+namespace magic {
     FragmentShader::FragmentShader(const string &source) :
             Shader(source) {
         createShader();

@@ -51,7 +51,7 @@ void GLEWWindow::Create(const string &title, unsigned int width, unsigned int he
     window_ = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
     if( !window_ )
     {
-        Magic::LogManager::GetInstance().LogMessage("Create Window Failed");
+        magic::LogManager::GetInstance().LogMessage("Create Window Failed");
         glfwTerminate();
         return;
     }

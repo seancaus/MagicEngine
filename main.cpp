@@ -3,7 +3,7 @@
 
 int main1(int argc, char **argv)
 {
-    Magic::Application app;
+    magic::Application app;
     try {
         cout << "run" << endl;
         app.Run();

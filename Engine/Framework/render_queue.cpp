@@ -6,7 +6,7 @@
 #include "movable_object.h"
 #include "render_queue_group.h"
 
-namespace Magic {
+namespace magic {
 
     RenderQueue::RenderQueue()
     {

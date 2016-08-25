@@ -13,7 +13,7 @@
 #include "../../Engine/Framework/vector3.h"
 
 using namespace std;
-using namespace Magic;
+using namespace magic;
 
 typedef vector<glm::mat4> PointList;
 
@@ -33,6 +33,8 @@ public:
     void setRight(bool dir);
     void grow();
     void move();
+
+    int getLength();
 protected:
 
     Vector3 _direction;
@@ -46,6 +48,7 @@ protected:
     shared_ptr<GPUProgram> _program;
 
     int _pointSize;
+    float _lastMoveTime;
 };
 
 

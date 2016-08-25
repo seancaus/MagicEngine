@@ -9,7 +9,7 @@
 
 using namespace std;
 
-namespace Magic {
+namespace magic {
 
     template<> Root *Singleton<Root>::instance_ = nullptr;
 

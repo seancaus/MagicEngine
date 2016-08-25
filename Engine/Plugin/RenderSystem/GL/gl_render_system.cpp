@@ -50,7 +50,7 @@ void GLRenderSystem::initGLEW()
     glewExperimental = GL_TRUE;
     if ( GLEW_OK != glewInit() )
     {
-        Magic::LogManager::GetInstance().LogMessage("glew init Failed");
+        magic::LogManager::GetInstance().LogMessage("glew init Failed");
     }
 }
 //-----------------------------------------------------------------------

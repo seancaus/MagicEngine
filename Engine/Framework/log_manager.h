@@ -12,7 +12,7 @@
 
 using namespace std;
 
-namespace Magic{
+namespace magic{
 
     class LogManager : public Singleton<LogManager>
     {

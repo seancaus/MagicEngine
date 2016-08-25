@@ -8,7 +8,7 @@
 #include <GLFW/glfw3.h>
 #include "../../../Framework/render_window.h"
 
-using namespace Magic;
+using namespace magic;
 
 class GLContext;
 

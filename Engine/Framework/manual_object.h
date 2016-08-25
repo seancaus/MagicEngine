@@ -7,7 +7,7 @@
 
 #include "movable_object.h"
 
-namespace Magic
+namespace magic
 {
 
     class ManualObject: public  MovableObject

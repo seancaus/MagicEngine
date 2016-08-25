@@ -3,7 +3,7 @@
 //
 
 #include "render_operation.h"
-namespace Magic
+namespace magic
 {
 
     RenderOperation::RenderOperation()

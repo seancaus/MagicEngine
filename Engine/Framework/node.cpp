@@ -4,7 +4,7 @@
 
 #include "node.h"
 
-namespace Magic
+namespace magic
 {
 
     Node::Node() {

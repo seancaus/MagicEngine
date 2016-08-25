@@ -4,7 +4,7 @@
 
 #include "render_priority_group.h"
 
-namespace Magic {
+namespace magic {
 
     RenderPriorityGroup::RenderPriorityGroup() {
 

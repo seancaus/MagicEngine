@@ -7,7 +7,7 @@
 #include "scene_manager.h"
 #include "render_queue.h"
 
-namespace Magic {
+namespace magic {
 
     SceneNode::SceneNode(SceneManager *creator) :
             creator_(creator)

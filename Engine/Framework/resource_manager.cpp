@@ -3,7 +3,7 @@
 //
 
 #include "resource_manager.h"
-namespace Magic
+namespace magic
 {
 
 }

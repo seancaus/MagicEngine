@@ -6,7 +6,7 @@
 #include "renderable.h"
 #include "render_priority_group.h"
 
-namespace Magic
+namespace magic
 {
 
     RenderQueueGroup::RenderQueueGroup() {

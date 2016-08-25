@@ -5,7 +5,7 @@
 #ifndef MAGIC_VERTEX_DATA_H
 #define MAGIC_VERTEX_DATA_H
 
-namespace Magic
+namespace magic
 {
     class VertexData
     {

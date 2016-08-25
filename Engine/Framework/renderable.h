@@ -9,7 +9,7 @@
 
 using namespace std;
 
-namespace Magic
+namespace magic
 {
 
     class RenderOperation;

@@ -4,7 +4,7 @@
 
 #include "entity.h"
 
-namespace Magic
+namespace magic
 {
 
     Entity::Entity() {

@@ -5,12 +5,15 @@
 #ifndef MAGIC_MAP_H
 #define MAGIC_MAP_H
 
+#include <memory>
 #include <vector>
 #include <GL/glew.h>
+#include <bits/shared_ptr.h>
+#include "../../Engine/Framework/gpu_program.h"
 #include "../../Engine/Framework/vector3.h"
 
 using namespace std;
-using namespace Magic;
+using namespace magic;
 
 class Map
 {
@@ -26,11 +29,12 @@ public:
 
 protected:
 
-    vector<Vector3> _obstacle;
+    GLuint _vao,_vbo,_ebo,_tex,_pbo;
 
-    GLuint _vao,_vbo;
+    int width;
+    int height;
 
-
+    shared_ptr<GPUProgram> _program;
 };
 
 

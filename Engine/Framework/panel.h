@@ -13,7 +13,7 @@
 #include "movable_object.h"
 #include "renderable.h"
 
-using  namespace Magic;
+using  namespace magic;
 
 class Panel : public MovableObject, public Renderable
 {

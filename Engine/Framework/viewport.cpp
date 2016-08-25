@@ -7,7 +7,7 @@
 #include "render_target.h"
 
 
-namespace Magic
+namespace magic
 {
 
     Viewport::Viewport(Camera *camera, RenderTarget *target, float left, float top, float width, float height, int ZOrder):

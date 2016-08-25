@@ -5,7 +5,7 @@
 #ifndef MAGIC_MAGIC_PLATFORM_H
 #define MAGIC_MAGIC_PLATFORM_H
 
-namespace Magic
+namespace magic
 {
     #define MAGIC_PLATFORM_UNDEF 0
     #define MAGIC_PLATFORM_WIN 1

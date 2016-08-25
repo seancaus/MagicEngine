@@ -7,7 +7,7 @@
 
 #include <GL/glew.h>
 
-namespace Magic
+namespace magic
 {
 
     class VertexBuffer

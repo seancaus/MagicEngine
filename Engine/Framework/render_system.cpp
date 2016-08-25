@@ -6,7 +6,7 @@
 #include "render_system.h"
 #include "render_operation.h"
 
-namespace Magic {
+namespace magic {
 
     RenderSystem::RenderSystem ()
     {

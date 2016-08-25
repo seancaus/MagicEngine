@@ -7,7 +7,7 @@
 
 #include "shader.h"
 
-namespace Magic {
+namespace magic {
     class FragmentShader : public Shader {
 
     public:

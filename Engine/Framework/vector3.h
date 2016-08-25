@@ -5,7 +5,7 @@
 #ifndef MAGICCUBE_VECTOR3_H
 #define MAGICCUBE_VECTOR3_H
 
-namespace Magic {
+namespace magic {
 
     class Vector3 {
 

@@ -3,7 +3,7 @@
 //
 
 #include "common.h"
-namespace Magic
+namespace magic
 {
 
 }

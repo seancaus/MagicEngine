@@ -4,7 +4,7 @@
 
 #include "vertex_data.h"
 
-namespace Magic
+namespace magic
 {
 
 }

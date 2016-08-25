@@ -5,7 +5,7 @@
 #include "camera.h"
 #include "scene_manager.h"
 
-namespace Magic {
+namespace magic {
 
     Camera::Camera(const string& name, SceneManager* sm):
         name_(name),

@@ -3,7 +3,7 @@
 //
 
 #include "object.h"
-namespace Magic {
+namespace magic {
 
     Object::Object() {
 

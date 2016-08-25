@@ -6,7 +6,7 @@
 #include <ctime>
 #include "log.h"
 
-namespace Magic{
+namespace magic{
 
     Log::Log(const string &name, bool debugOut,bool fileOut):
     logName_(name),

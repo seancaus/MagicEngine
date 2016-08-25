@@ -7,7 +7,7 @@
 
 #include "../../../Framework/render_system.h"
 
-using namespace Magic;
+using namespace magic;
 
 class GLRenderSystem : public RenderSystem
 {

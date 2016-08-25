@@ -6,10 +6,11 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "snake.h"
+#include "map.h"
 #include <unistd.h>
 
 using namespace std;
-using namespace Magic;
+using namespace magic;
 
 static Snake* pSnake = nullptr;
 void keyCallback(GLFWwindow*,int,int,int,int);
@@ -43,7 +44,9 @@ int main()
     glViewport(0,0,w,h);
 
     Snake snake;
+    Map map;
     snake.preBind();
+    map.preBind();
     pSnake = &snake;
     while(!glfwWindowShouldClose(window))
     {
@@ -59,20 +62,7 @@ int main()
         glClearColor(0,0,0,1);
         glClear(GL_COLOR_BUFFER_BIT);
 
-//        for(GLuint i = 0; i < 100; i++)
-//        {
-//            stringstream ss;
-//            string index;
-//            ss << i;
-//            index = ss.str();
-//            program.setUniform2f(("offsets[" + index + "]").c_str(),translations[i].x, translations[i].y);
-//        }
-//        program.use();
-//        glBindVertexArray(vao);
-//        glDrawArrays(GL_POINTS,0,1);
-//        glDrawArraysInstanced(GL_POINTS,0,1,100);
-//        glBindVertexArray(0);
-
+        map.draw();
         snake.move();
         snake.draw();
 
@@ -103,5 +93,10 @@ void keyCallback(GLFWwindow* window,int key,int scancode,int action,int mods)
     {
         pSnake->setRight(true);
     }
-    pSnake->grow();
+
+    if (pSnake->getLength() <= 4)
+    {
+        pSnake->grow();
+    }
+
 }

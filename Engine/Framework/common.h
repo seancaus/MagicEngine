@@ -5,7 +5,7 @@
 #ifndef MAGIC_COMMON_H
 #define MAGIC_COMMON_H
 
-namespace Magic {
+namespace magic {
 
 
     enum FrameBufferType {

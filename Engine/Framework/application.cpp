@@ -10,7 +10,7 @@
 
 using namespace std;
 
-namespace Magic {
+namespace magic {
 
     static float WIDTH = 640;
     static float HEIGHT = 480;
@@ -26,7 +26,7 @@ namespace Magic {
     //-----------------------------------------------------------------------
     int Application::Run()
     {
-        Magic::Root *root = new Magic::Root("config.cfg", "magic.log");
+        magic::Root *root = new magic::Root("config.cfg", "magic.log");
         RenderWindow *renderWindow = root->Initialise();
 
         sceneManager_ = root->CreateSceneManager();

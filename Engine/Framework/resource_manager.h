@@ -5,7 +5,7 @@
 #ifndef MAGICCUBE_RESOURCE_MANAGER_H
 #define MAGICCUBE_RESOURCE_MANAGER_H
 
-namespace Magic {
+namespace magic {
 
     class resource_manager
     {

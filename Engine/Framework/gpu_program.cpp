@@ -8,7 +8,7 @@
 #include "vertex_shader.h"
 #include "fragment_shader.h"
 
-namespace Magic {
+namespace magic {
 
     GPUProgram::GPUProgram(const string &vertexFile, const string &fragmentFile, const string &geometryFile) :
             _programID(0)

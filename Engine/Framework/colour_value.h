@@ -5,7 +5,7 @@
 #ifndef MAGIC_COLOUR_VALUE_H
 #define MAGIC_COLOUR_VALUE_H
 
-namespace Magic {
+namespace magic {
 
     class ColourValue
     {

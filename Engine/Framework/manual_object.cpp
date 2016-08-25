@@ -4,7 +4,7 @@
 
 #include "manual_object.h"
 
-namespace Magic
+namespace magic
 {
 
     ManualObject::ManualObject()

@@ -7,7 +7,7 @@
 
 #include <cassert>
 
-namespace Magic{
+namespace magic{
 
     template <typename T>
     class Singleton {

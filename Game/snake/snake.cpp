@@ -5,6 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "snake.h"
+#include <GLFW/glfw3.h>
 
 extern GLfloat deltaTime;
 
@@ -13,11 +14,12 @@ _direction(0,1,0)
 ,_vao(0)
 ,_vbo(0)
 ,_pointSize(30)
+,_lastMoveTime(0)
 {
     glm::mat4 m;
     m = glm::translate(m,glm::vec3(250,250,.0));
     _points.push_back(m);
-    m = glm::translate(m,glm::vec3(0,31,.0));
+    m = glm::translate(m,glm::vec3(0,-31,.0));
     _points.push_back(m);
     _program = make_shared<GPUProgram>("../Assets/glsl/point.vert","../Assets/glsl/point.frag");
 }
@@ -72,6 +74,7 @@ void Snake::preBind()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (GLvoid*)0);
 
+    // 实例化数组
     glBindBuffer(GL_ARRAY_BUFFER, _instanceVbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * _points.size(), _points.data(), GL_STATIC_DRAW);
     auto vec4Size = sizeof(glm::vec4);
@@ -88,6 +91,7 @@ void Snake::preBind()
     glVertexAttribDivisor(3,1);
     glVertexAttribDivisor(4,1);
 
+    // Uniform Buffer Object
     glBindBuffer(GL_UNIFORM_BUFFER, _uboMatrices);
     glBufferData(GL_UNIFORM_BUFFER, 2*sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(view));
@@ -108,25 +112,30 @@ void Snake::draw()
 {
     _program->use();
     bind();
-
     glDrawArraysInstanced(GL_POINTS,0,1,_points.size());
     glBindVertexArray(0);
 }
 
 void Snake::move()
 {
-    glm::vec3 dir(_direction.x,_direction.y,_direction.z);
-    dir *= (deltaTime * 30);
+    auto time = glfwGetTime();
+    if(time - _lastMoveTime <= 1.0f) return;
 
-    for (int i = 0; i < _points.size(); ++i)
-    {
-        _points[i] = glm::translate(_points[i] , dir);
-    }
+    glm::mat4 next;
+    glm::vec3 dir(_direction.x,_direction.y,0);
+    dir *= 31;
+    auto head = _points.front();
+    next = glm::translate(head,dir);
+
+    _points.pop_back();
+    _points.insert(_points.begin(),next);
+
 
     glBindBuffer(GL_ARRAY_BUFFER, _instanceVbo);
     glBufferSubData(GL_ARRAY_BUFFER, 0 ,sizeof(glm::mat4) * _points.size(),_points.data());
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+    _lastMoveTime = time;
 }
 
 void Snake::grow()
@@ -140,6 +149,11 @@ void Snake::grow()
     glBindBuffer(GL_ARRAY_BUFFER, _instanceVbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * _points.size(), _points.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+int Snake::getLength()
+{
+    return _points.size();
 }
 
 void Snake::setForward(bool dir)

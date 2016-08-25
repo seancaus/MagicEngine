@@ -5,7 +5,7 @@
 #ifndef MAGICCUBE_OBJECT_H
 #define MAGICCUBE_OBJECT_H
 
-namespace Magic {
+namespace magic {
 
     class Object {
 

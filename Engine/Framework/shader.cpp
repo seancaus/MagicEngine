@@ -5,7 +5,7 @@
 #include <GL/glew.h>
 #include "shader.h"
 
-namespace Magic {
+namespace magic {
     Shader::Shader(const string &source) :
             _shaderID(0), _source(source) {
     }

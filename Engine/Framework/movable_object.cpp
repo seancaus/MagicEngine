@@ -4,7 +4,7 @@
 
 #include "movable_object.h"
 
-namespace Magic
+namespace magic
 {
     MovableObject::MovableObject()
     {

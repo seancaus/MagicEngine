@@ -4,7 +4,7 @@
 
 #include "queued_renderable_collection.h"
 
-namespace Magic {
+namespace magic {
 
     QueuedRenderableCollection::QueuedRenderableCollection() {
 

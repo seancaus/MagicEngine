@@ -4,7 +4,7 @@
 
 #include "colour_value.h"
 
-namespace Magic
+namespace magic
 {
 
     const ColourValue ColourValue::ZERO = ColourValue(.0f, .0f, .0f, .0f);

@@ -4,7 +4,7 @@
 
 #include "renderable.h"
 
-namespace Magic
+namespace magic
 {
     Renderable::Renderable()
     {

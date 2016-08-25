@@ -4,7 +4,7 @@
 
 #include "vertex_buffer.h"
 
-namespace Magic
+namespace magic
 {
 
     VertexBuffer::VertexBuffer()

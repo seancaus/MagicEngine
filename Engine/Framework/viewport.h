@@ -8,7 +8,7 @@
 #include "common.h"
 #include "colour_value.h"
 
-namespace Magic
+namespace magic
 {
     class Camera;
     class RenderTarget;

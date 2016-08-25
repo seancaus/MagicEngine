@@ -4,7 +4,7 @@
 
 #include "log_manager.h"
 
-namespace Magic {
+namespace magic {
 
     template<> LogManager* Singleton<LogManager>::instance_ = nullptr;
 

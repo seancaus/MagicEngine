@@ -13,7 +13,7 @@
 
 using namespace std;
 
-namespace Magic {
+namespace magic {
 
     SceneManager::SceneManager() :
             rootSceneNode_(nullptr),
