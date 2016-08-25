@@ -21,7 +21,7 @@ namespace magic
         Texture();
         virtual ~Texture();
 
-        void loadTexture(const string& name);
+        GLuint loadTexture(const string& name);
 
     protected:
 

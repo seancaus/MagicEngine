@@ -34,7 +34,7 @@ namespace magic
     }
 
 
-    void Texture::loadTexture(const string &name)
+    GLuint Texture::loadTexture(const string &name)
     {
         glGenTextures(1, &_textureID);
         glBindTexture(GL_TEXTURE_2D, _textureID);
@@ -57,7 +57,7 @@ namespace magic
             cout << "MapBuffer Error" << endl;
             glDeleteBuffers(1,&pbo);
             SOIL_free_image_data(data);
-            return;
+            return 0;
         }
 
         memcpy(ptr,data,dataSize);
@@ -69,6 +69,8 @@ namespace magic
         glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
         glDeleteBuffers(1,&pbo);
         SOIL_free_image_data(data);
+
+        return _textureID;
     }
 
 }

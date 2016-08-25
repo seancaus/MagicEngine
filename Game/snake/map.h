@@ -8,34 +8,38 @@
 #include <memory>
 #include <vector>
 #include <GL/glew.h>
-#include <bits/shared_ptr.h>
 #include "../../Engine/Framework/gpu_program.h"
 #include "../../Engine/Framework/vector3.h"
+#include "food.h"
 
 using namespace std;
-using namespace magic;
 
-class Map
+namespace magic
 {
 
-public:
+    typedef vector<shared_ptr<Food>> FoodList;
 
-    Map();
-    virtual ~Map();
+    class Map {
 
-    void destroy();
-    void preBind();
-    void draw();
+    public:
+        Map();
+        virtual ~Map();
 
-protected:
+        void destroy();
+        void preBind();
+        void draw();
+        void createFood();
+        int rand(int min,int max);
 
-    GLuint _vao,_vbo,_ebo,_tex,_pbo;
+    protected:
 
-    int width;
-    int height;
+        GLuint _vao, _vbo, _ebo, _tex, _pbo;
 
-    shared_ptr<GPUProgram> _program;
-};
+        int _width;
+        int _height;
 
-
+        FoodList _foods;
+        shared_ptr<GPUProgram> _program;
+    };
+}
 #endif //MAGIC_MAP_H
