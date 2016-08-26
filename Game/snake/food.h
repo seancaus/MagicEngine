@@ -6,17 +6,21 @@
 #define MAGIC_FOOD_H
 
 #include <GL/glew.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <vector>
+#include "../../Engine/Framework/texture.h"
 #include "../../Engine/Framework/gpu_program.h"
+#include "../../Engine/Framework/vector3.h"
 
 namespace magic {
 
     enum FoodType
     {
-        Food_Apple,
-        Food_Kiwi,      //猕猴桃
-        Food_Peach,     //桃子
-        Food_Tomoto,    //西红柿
-        Food_Strawberry //草莓
+        Food_Apple = 0,
+        Food_Kiwi = 1,      //猕猴桃
+        Food_Peach = 2,     //桃子
+        Food_Tomoto = 3    //西红柿
     };
 
     class Food
@@ -24,19 +28,31 @@ namespace magic {
 
     public:
 
-        Food(FoodType);
+        Food(FoodType ft = Food_Apple);
         virtual ~Food();
-        void destroy();
 
-        void preBind();
-        void draw();
+
+        FoodType getType() const {
+            return _type;
+        }
+
+        void setType(FoodType type) {
+            this->_type = type;
+        }
+
+
+        const Vector3 &getPosition() const {
+            return _position;
+        }
+
+        void setPosition(const Vector3 &position) {
+            this->_position = position;
+        }
 
     protected:
 
-        FoodType _type;
-        GLuint _vao,_vbo,_ebo,_ibo,_ubo;
-
-        shared_ptr<GPUProgram> _program;
+        FoodType    _type;
+        Vector3     _position;
 
     };
 }

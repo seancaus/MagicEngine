@@ -17,8 +17,10 @@ _direction(0,1,0)
 ,_lastMoveTime(0)
 {
     glm::mat4 m;
-    m = glm::translate(m,glm::vec3(250,250,.0));
+    int center = 250/31*31;
+    m = glm::translate(m,glm::vec3(center,center,.0));
     _points.push_back(m);
+
     m = glm::translate(m,glm::vec3(0,-31,.0));
     _points.push_back(m);
     _program = make_shared<GPUProgram>("../Assets/glsl/point.vert","../Assets/glsl/point.frag");
@@ -136,6 +138,8 @@ void Snake::move()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     _lastMoveTime = time;
+
+    cout << "snake Pos:" << getPosition() << endl;
 }
 
 void Snake::grow()
@@ -156,14 +160,26 @@ int Snake::getLength()
     return _points.size();
 }
 
+int Snake::getPosition() {
+    auto pos = _points[0][3];
+    auto c = pos.x/31;
+    auto r = pos.y/31;
+    return r * 15+c;
+}
+
 void Snake::setForward(bool dir)
 {
-    _direction.x = 0;
-    _direction.y = dir ? 1 : -1;
+    if(_direction.y == 0)
+    {
+        _direction.x = 0;
+        _direction.y = dir ? 1 : -1;
+    }
 }
 
 void Snake::setRight(bool dir)
 {
-    _direction.y = 0;
-    _direction.x = dir ? 1 : -1;
+    if(_direction.x == 0) {
+        _direction.y = 0;
+        _direction.x = dir ? 1 : -1;
+    }
 }

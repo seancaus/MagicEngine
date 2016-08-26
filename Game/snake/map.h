@@ -11,6 +11,7 @@
 #include "../../Engine/Framework/gpu_program.h"
 #include "../../Engine/Framework/vector3.h"
 #include "food.h"
+#include "../../Engine/Framework/texture.h"
 
 using namespace std;
 
@@ -33,13 +34,14 @@ namespace magic
 
     protected:
 
-        GLuint _vao, _vbo, _ebo, _tex, _pbo;
+        GLuint _vao, _vbo, _ebo;
 
         int _width;
         int _height;
 
         FoodList _foods;
         shared_ptr<GPUProgram> _program;
+        shared_ptr<Texture> _background;
     };
 }
 #endif //MAGIC_MAP_H

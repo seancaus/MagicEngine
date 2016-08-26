@@ -11,10 +11,11 @@ using namespace std;
 namespace magic
 {
 
-    Texture::Texture():
+    Texture::Texture(shared_ptr<GPUProgram> program):
     _textureID(0)
     ,_width(0)
     ,_height(0)
+    ,_program(program)
     {
     }
 
@@ -33,6 +34,13 @@ namespace magic
         }
     }
 
+
+    void Texture::bindSampler2D(const string& name,unsigned int unit)
+    {
+        glActiveTexture(GL_TEXTURE0 + unit);
+        glBindTexture(GL_TEXTURE_2D,_textureID);
+        _program->setUniform1i(name.c_str(),unit);
+    }
 
     GLuint Texture::loadTexture(const string &name)
     {
@@ -61,7 +69,10 @@ namespace magic
         }
 
         memcpy(ptr,data,dataSize);
-        if(!glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER))
+        if(glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER))
+        {
+            glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,_width,_height,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL);
+        } else
         {
             cout << "Can't Write Buffer" << endl;
         }
@@ -69,8 +80,14 @@ namespace magic
         glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
         glDeleteBuffers(1,&pbo);
         SOIL_free_image_data(data);
-
+        glBindTexture(GL_TEXTURE_2D, 0);
         return _textureID;
     }
+
+    GLuint Texture::getTextureID() const
+    {
+        return _textureID;
+    }
+
 
 }

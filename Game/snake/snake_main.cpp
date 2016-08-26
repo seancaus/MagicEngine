@@ -7,16 +7,19 @@
 #include <GLFW/glfw3.h>
 #include "snake.h"
 #include "map.h"
+#include "food.h"
+#include "GameModel.h"
 #include <unistd.h>
 
 using namespace std;
 using namespace magic;
 
-static Snake* pSnake = nullptr;
 void keyCallback(GLFWwindow*,int,int,int,int);
 
 GLfloat deltaTime = .0;
 GLfloat lastFrame = .0;
+
+static GameModel *gm;
 
 int main()
 {
@@ -43,11 +46,10 @@ int main()
     glfwGetFramebufferSize(window,&w,&h);
     glViewport(0,0,w,h);
 
-    Snake snake;
-    Map map;
-    snake.preBind();
-    map.preBind();
-    pSnake = &snake;
+
+    glEnable(GL_BLEND);
+    GameModel gameModel;
+    gm = &gameModel;
     while(!glfwWindowShouldClose(window))
     {
         GLfloat currentFrame = glfwGetTime();
@@ -62,9 +64,7 @@ int main()
         glClearColor(0,0,0,1);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        map.draw();
-        snake.move();
-        snake.draw();
+        gm->renderOneFrame();
 
         glfwSwapBuffers(window);
     }
@@ -75,28 +75,5 @@ int main()
 
 void keyCallback(GLFWwindow* window,int key,int scancode,int action,int mods)
 {
-//    cout << key << ",scancode:" << scancode<< ",action:"<< action << endl;
-
-    if(action != GLFW_PRESS) return;
-
-    if(key == GLFW_KEY_UP)
-    {
-        pSnake->setForward(true);
-    }else if(key == GLFW_KEY_DOWN)
-    {
-        pSnake->setForward(false);
-    }else if(key == GLFW_KEY_LEFT)
-    {
-        pSnake->setRight(false);
-    }
-    else if(key == GLFW_KEY_RIGHT)
-    {
-        pSnake->setRight(true);
-    }
-
-    if (pSnake->getLength() <= 4)
-    {
-        pSnake->grow();
-    }
-
+    gm->onKeyCallback(window,key,scancode,action,mods);
 }

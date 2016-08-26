@@ -35,6 +35,7 @@ public:
     void move();
 
     int getLength();
+    int getPosition();
 protected:
 
     Vector3 _direction;

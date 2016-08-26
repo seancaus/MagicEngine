@@ -4,16 +4,21 @@
 
 #include "map.h"
 #include <SOIL/SOIL.h>
+#include <stdlib.h>
 
 namespace magic {
 
     Map::Map() :
             _vao(0),
-            _vbo(0) {
+            _vbo(0)
+    {
         _program = make_shared<GPUProgram>("../Assets/glsl/map.vert", "../Assets/glsl/map.frag");
+        _background = make_shared<Texture>(_program);
+        _background->loadTexture("../Assets/Textures/snake/grasstextures19.jpg");
     }
 
-    Map::~Map() {
+    Map::~Map()
+    {
         this->destroy();
     }
 
@@ -54,38 +59,16 @@ namespace magic {
         glGenBuffers(1, &_ebo);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indeices), indeices, GL_STATIC_DRAW);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 1);
-
-        int w, h;
-        unsigned char *image = SOIL_load_image("../Assets/Textures/snake/grasstextures19.jpg", &w, &h, 0,
-                                               SOIL_LOAD_RGBA);
-        glGenTextures(1, &_tex);
-        glGenTextures(1, &_pbo);
-        glBindTexture(GL_TEXTURE_2D, _tex);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-        glBindBuffer(GL_PIXEL_UNPACK_BUFFER, _pbo);
-        glBufferData(GL_PIXEL_UNPACK_BUFFER, w * h * 4, NULL, GL_STREAM_READ);
-        GLubyte *ptr = (GLubyte *) glMapBuffer(GL_PIXEL_UNPACK_BUFFER, GL_WRITE_ONLY);
-        if (ptr) {
-            memcpy(ptr, image, w * h * 4);
-            glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
-        }
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-        glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
-        glBindTexture(GL_TEXTURE_2D, 0);
-        SOIL_free_image_data(image);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
 
     int Map::rand(int min, int max)
     {
-        static int seed = time(NULL);
-        srand(seed);
-        return (min + ::rand() % (max - min +1));
+//        static int seed = time(NULL);
+//        srand(seed);
+//        return (min + ::rand() % (max - min +1));
+        return 0;
     }
 
 
@@ -97,8 +80,8 @@ namespace magic {
 
     void Map::draw() {
         _program->use();
-        glBindTexture(GL_TEXTURE_2D, _tex);
-        _program->setUniform1i("texSampler", 0);
+        _background->bindSampler2D("texSampler");
+
         glBindVertexArray(_vao);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
 

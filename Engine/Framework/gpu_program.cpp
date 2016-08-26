@@ -70,6 +70,8 @@ namespace magic {
         ++_uboPoint;
     }
 
+
+
     void GPUProgram::setUniform1i(const string &name, unsigned int value)
     {
         GLint local = glGetUniformLocation(_programID, name.c_str());

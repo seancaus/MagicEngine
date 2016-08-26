@@ -7,6 +7,8 @@
 
 #include <string>
 #include <GL/glew.h>
+#include <memory>
+#include "gpu_program.h"
 
 using namespace std;
 
@@ -18,20 +20,22 @@ namespace magic
 
     public:
 
-        Texture();
+        Texture(shared_ptr<GPUProgram> program);
         virtual ~Texture();
 
         GLuint loadTexture(const string& name);
+        GLuint getTextureID() const;
+        void bindSampler2D(const string& name,unsigned int unit = 0);
 
     protected:
 
         void destroy();
 
-        GLuint _textureID;
-
         int _width;
         int _height;
 
+        GLuint _textureID;
+        shared_ptr<GPUProgram> _program;
     };
 }
 
