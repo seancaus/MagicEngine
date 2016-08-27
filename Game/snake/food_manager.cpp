@@ -3,6 +3,7 @@
 //
 
 #include "food_manager.h"
+#include "snake_utils.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -23,10 +24,10 @@ FoodManager::FoodManager()
         _textures.push_back(tex);
     }
 
-    createNewFood(Food_Apple,300,100);
-    createNewFood(Food_Tomoto,200,200);
-    createNewFood(Food_Peach,100,200);
-    createNewFood(Food_Kiwi,200,400);
+    for (int i = 0; i < 4; ++i)
+    {
+        genFood();
+    }
 }
 
 FoodManager::~FoodManager()
@@ -70,6 +71,52 @@ void FoodManager::createNewFood(FoodType type, int x, int y)
     m = glm::translate(m,glm::vec3(x,y,1));
     _foodsPos.push_back(m);
     _foodsType.push_back(1.0f * (int)type);
+}
+
+void FoodManager::genFood()
+{
+    int type = SnakeUtils::rand(0,3);
+    int row = SnakeUtils::rand(0,15);
+    int col = SnakeUtils::rand(0,15);
+
+    auto vc2 = SnakeUtils::genMat4(row,col);
+    createNewFood((FoodType)type,vc2.x,vc2.y);
+}
+
+void FoodManager::deleteFood(int index)
+{
+    _foodsPos.erase(_foodsPos.begin() + index);
+    _foodsType.erase(_foodsType.begin()+index);
+}
+
+void FoodManager::updateVertexAttrib()
+{
+    int mat4Size = sizeof(glm::mat4);
+    glBindBuffer(GL_ARRAY_BUFFER, _ibo);
+    glBufferData(GL_ARRAY_BUFFER, mat4Size * _foodsPos.size(), _foodsPos.data() ,GL_STREAM_READ);
+
+    glBindBuffer(GL_ARRAY_BUFFER,_typeBo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*_foodsType.size(),_foodsType.data(),GL_STREAM_READ);
+    glBindBuffer(GL_ARRAY_BUFFER,0);
+}
+
+int FoodManager::checkFood(glm::mat4 snakeHead)
+{
+    int r = 0;
+    int c = 0;
+    SnakeUtils::getRowAndCell(snakeHead,r,c,glm::vec2(-15,-15));
+
+    int fr,fc;
+    for(int i = 0;i<_foodsPos.size();++i)
+    {
+        SnakeUtils::getRowAndCell(_foodsPos[i],fr,fc);
+        if(r == fr and c == fc)
+        {
+            return i;
+        }
+    }
+
+    return -1;
 }
 
 void FoodManager::preBind()

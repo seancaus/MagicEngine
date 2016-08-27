@@ -8,7 +8,6 @@
 #include <memory>
 #include "map.h"
 #include "snake.h"
-#include "food.h"
 #include "food_manager.h"
 #include <GLFW/glfw3.h>
 

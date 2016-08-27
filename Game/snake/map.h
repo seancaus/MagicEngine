@@ -10,15 +10,12 @@
 #include <GL/glew.h>
 #include "../../Engine/Framework/gpu_program.h"
 #include "../../Engine/Framework/vector3.h"
-#include "food.h"
 #include "../../Engine/Framework/texture.h"
 
 using namespace std;
 
 namespace magic
 {
-
-    typedef vector<shared_ptr<Food>> FoodList;
 
     class Map {
 
@@ -39,7 +36,6 @@ namespace magic
         int _width;
         int _height;
 
-        FoodList _foods;
         shared_ptr<GPUProgram> _program;
         shared_ptr<Texture> _background;
     };

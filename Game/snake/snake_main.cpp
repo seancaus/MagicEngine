@@ -7,7 +7,6 @@
 #include <GLFW/glfw3.h>
 #include "snake.h"
 #include "map.h"
-#include "food.h"
 #include "GameModel.h"
 #include <unistd.h>
 
@@ -20,8 +19,9 @@ GLfloat deltaTime = .0;
 GLfloat lastFrame = .0;
 
 static GameModel *gm;
+static bool suspend = false;
 
-int main()
+int mainSNAKE()
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,4);
@@ -61,6 +61,12 @@ int main()
 
         glfwPollEvents();
 
+        if(suspend)
+        {
+            sleep(1);
+            continue;
+        }
+
         glClearColor(0,0,0,1);
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -75,5 +81,14 @@ int main()
 
 void keyCallback(GLFWwindow* window,int key,int scancode,int action,int mods)
 {
+    if(GLFW_KEY_SPACE == key)
+    {
+        if(action == GLFW_PRESS)
+        {
+            suspend = !suspend;
+        }
+        return;
+    }
+
     gm->onKeyCallback(window,key,scancode,action,mods);
 }

@@ -10,14 +10,17 @@
 #include <GL/glew.h>
 #include "../../Engine/Framework/gpu_program.h"
 #include "../../Engine/Framework/texture.h"
-#include "food.h"
+#include "glm/glm.hpp"
 
 using namespace std;
 using namespace magic;
 
-//class Food;
-
-typedef vector<shared_ptr<Food>> FoodPool;
+enum FoodType{
+    Food_Apple = 0,
+    Food_Kiwi,
+    Food_Peach,
+    Food_Tomoto
+};
 
 class FoodManager
 {
@@ -31,6 +34,10 @@ public:
     void preBind();
     void draw();
     void createNewFood(FoodType,int x,int y);
+    void genFood();
+    void deleteFood(int index);
+    int checkFood(glm::mat4 snakeHead);
+    void updateVertexAttrib();
 
 protected:
     GLuint _vao,_vbo,_ebo,_ubo,_ibo,_typeBo;

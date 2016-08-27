@@ -46,6 +46,7 @@ aux_source_directory(Engine/Framework SOURCE_FILES)
 aux_source_directory(Engine/Plugin/RenderSystem/GL SOURCE_FILES)
 #aux_source_directory(Game SOURCE_FILES)
 aux_source_directory(Game/snake SOURCE_FILES)
+aux_source_directory(Game/cube SOURCE_FILES)
 
 aux_source_directory(test SOURCE_FILES)
 

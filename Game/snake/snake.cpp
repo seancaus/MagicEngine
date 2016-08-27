@@ -17,7 +17,7 @@ _direction(0,1,0)
 ,_lastMoveTime(0)
 {
     glm::mat4 m;
-    int center = 250/31*31;
+    int center = 265/31*31 +15;
     m = glm::translate(m,glm::vec3(center,center,.0));
     _points.push_back(m);
 
@@ -125,7 +125,7 @@ void Snake::move()
 
     glm::mat4 next;
     glm::vec3 dir(_direction.x,_direction.y,0);
-    dir *= 31;
+    dir *= 31.0f;
     auto head = _points.front();
     next = glm::translate(head,dir);
 
@@ -139,7 +139,7 @@ void Snake::move()
 
     _lastMoveTime = time;
 
-    cout << "snake Pos:" << getPosition() << endl;
+//    cout << "snake Pos:" << getPosition() << endl;
 }
 
 void Snake::grow()
@@ -160,11 +160,8 @@ int Snake::getLength()
     return _points.size();
 }
 
-int Snake::getPosition() {
-    auto pos = _points[0][3];
-    auto c = pos.x/31;
-    auto r = pos.y/31;
-    return r * 15+c;
+glm::mat4 Snake::getPosition() {
+    return _points[0];
 }
 
 void Snake::setForward(bool dir)

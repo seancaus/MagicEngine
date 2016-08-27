@@ -14,6 +14,8 @@ GameModel::GameModel()
     _map->preBind();
     _snake->preBind();
     _foodManager->preBind();
+
+    ::srand(time(NULL));
 }
 
 GameModel::~GameModel()
@@ -45,8 +47,19 @@ void GameModel::onKeyCallback(GLFWwindow *window, int key, int scancode, int act
 void GameModel::renderOneFrame()
 {
     _map->draw();
-    _foodManager->draw();
-    _snake->move();
-    _snake->draw();
 
+    int foodIndex = _foodManager->checkFood(_snake->getPosition());
+    if(-1 != foodIndex)
+    {
+        _foodManager->deleteFood(foodIndex);
+        _foodManager->genFood();
+        _foodManager->updateVertexAttrib();
+        _snake->grow();
+    } else
+    {
+        _snake->move();
+    }
+
+    _foodManager->draw();
+    _snake->draw();
 }

@@ -35,7 +35,7 @@ public:
     void move();
 
     int getLength();
-    int getPosition();
+    glm::mat4 getPosition();
 protected:
 
     Vector3 _direction;
