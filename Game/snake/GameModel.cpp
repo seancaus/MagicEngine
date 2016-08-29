@@ -3,6 +3,8 @@
 //
 
 #include "GameModel.h"
+#include <stdlib.h>
+#include <time.h>
 
 
 GameModel::GameModel()
