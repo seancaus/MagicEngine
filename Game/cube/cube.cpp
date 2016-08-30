@@ -12,45 +12,88 @@ Cube::Cube(shared_ptr<CubeCamera> camera)
     _camera = camera;
     _program = make_shared<GPUProgram>("../Assets/glsl/cube.vert","../Assets/glsl/cube.frag");
 
-    glm::mat4 ms[5];
-    ms[0] = glm::translate(ms[0],glm::vec3(15,0,-90));
-    ms[0] = glm::rotate(ms[0],glm::radians(180.0f),glm::vec3(.0f,1.0f,.0f));
+    glm::mat4 originalMat4[6];
+    glm::mat4 rotateMat4[6];
+    glm::vec3 directions[6];
 
-    for (int j = 0; j < 6; ++j)
-    {
+    glm::mat4 im;
+    glm::mat4 ocm;
+    ocm = glm::translate(ocm, glm::vec3(-15, -15, .0));
+
+    //前蓝
+    glm::mat4 m;
+    m = glm::translate(ocm, glm::vec3(.0, .0, 47.0));
+    originalMat4[0] = m;
+    rotateMat4[0] = im;
+    directions[0] = glm::vec3(1,0,0);
+    directions[1] = glm::vec3(0,1,0);
+
+    //后绿
+    m = glm::translate(ocm, glm::vec3(.0, .0, -47.0));
+    originalMat4[1] = m;
+    rotateMat4[1] = im;
+
+    //上白------------------------------------------------------------
+    m = glm::translate(ocm, glm::vec3(.0, 62, 15));
+    originalMat4[2] = m;
+    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(1,0,0));
+    rotateMat4[2] = m;
+    directions[2] = glm::vec3(1,0,0);
+    directions[3] = glm::vec3(0,0,1);
+
+    //下黄
+    m = glm::translate(ocm, glm::vec3(.0, -32, 15.0));
+    originalMat4[3] = m;
+    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(1,0,0));
+    rotateMat4[3] = m;
+
+    //左红------------------------------------------------------------
+    m = glm::translate(ocm, glm::vec3(-32.0, .0, -15.0));
+    originalMat4[4] = m;
+    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(0,1,0));
+    rotateMat4[4] = m;
+    directions[4] = glm::vec3(0,0,1);
+    directions[5] = glm::vec3(0,1,0);
+
+//    //右橙
+    m = ocm;
+    m = glm::translate(ocm, glm::vec3(62.0, .0, 15.0));
+    originalMat4[5] = m;
+    m = glm::rotate(im,glm::radians(90.0f),glm::vec3(0,.5,0));
+    rotateMat4[5] = m;
+
+    for (int j = 0; j < 6; ++j) {
+        int di = (1==(j % 2))?j-1:j;
+        auto om = originalMat4[j];
+        auto rm = rotateMat4[j];
         for (int i = 0; i < 9; ++i)
         {
-            glm::mat4 m;
-            int r = (i / 3 - 1) * 32;
-            int c = (i % 3 - 1) * 32;
+            float r = (i / 3 - 1) * 32;
+            float c = (i % 3 - 1) * 32;
 
-            cout << "r:" << r << " c:" << c;
-            cout << endl;
-            m = glm::translate(m, glm::vec3(r, c, .0));
-            if(j == 1) {
-                m = m * ms[0];
-            }
+            auto tm1 = directions[di] * r;
+            auto tm2 = directions[di+1] * c;
+
+            glm::mat4 m = glm::translate(om, tm1 + tm2);
+            m = m * rm;
             _models.push_back(m);
         }
     }
+
     _projection = glm::perspective(45.0f, 500.0f / 500.0f, .1f, 10000.f);
 }
 
-Cube::~Cube() {
-
+Cube::~Cube()
+{
 }
-
 
 void Cube::preBind()
 {
     float verties[] = {
-            .0,.0
-            ,30,30
-            ,0,30
-            ,30,0
-//            ,.5,.5
-//            ,.0,.5
-//            ,.5,.0
+            .0,.0,.0
+            ,30,30,.0
+            ,0,30,.0
+            ,30,0,.0
     };
 
     float colors[] = {
@@ -58,7 +101,7 @@ void Cube::preBind()
             ,.0,1.0,0//后绿
 
             ,1.0,1.0,1.0//上白
-            ,1.0,1.0,0//下黄
+            ,1.0,1.0,0  //下黄
 
             ,1.0,.0,.0//左红
             ,1.0,.5,.0//右橙
@@ -74,7 +117,7 @@ void Cube::preBind()
     glBindBuffer(GL_ARRAY_BUFFER,_vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(verties),verties,GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2* sizeof(float), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3* sizeof(float), (GLvoid*)0);
 
     //color
     glGenBuffers(1,&_color_vbo);
@@ -118,7 +161,6 @@ void Cube::preBind()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices),indices,GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
-
 }
 
 void Cube::updateCamera()
@@ -137,7 +179,6 @@ void Cube::draw()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,_ebo);//不要绑定错
 
     glDrawElementsInstanced(GL_TRIANGLES,6,GL_UNSIGNED_INT, nullptr,_models.size());
-//    glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT, nullptr);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
     glBindVertexArray(0);
