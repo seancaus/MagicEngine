@@ -83,5 +83,5 @@ void CubeGameModel::onKeyCallback(GLFWwindow *window, int key, int scanCode, int
 
 void CubeGameModel::onMouseMoveCallback(GLFWwindow *window, double xpos, double ypos)
 {
-    cout << "x:" << xpos << ",y:" << ypos << endl;
+    _cube->onMouseMove(xpos,ypos);
 }

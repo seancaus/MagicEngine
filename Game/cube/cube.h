@@ -16,6 +16,23 @@
 using namespace std;
 using namespace magic;
 
+enum CubeFace{
+    Cube_Blue = 0,
+    Cube_Green,
+    Cube_White,
+    Cube_Yellow,
+    Cube_Red,
+    Cube_Orange
+};
+
+enum Direction
+{
+    Direction_Left,
+    Direction_Right,
+    Direction_Up,
+    Direction_Down
+};
+
 class Cube
 {
 
@@ -25,6 +42,14 @@ public:
     virtual ~Cube();
 
     void updateCamera();
+    void updateModel();
+    void onMouseMove(double xpos,double ypos);
+    void move(CubeFace face, int cell, Direction dir);
+    CubeFace getLeftFace(CubeFace face);
+    CubeFace getRightFace(CubeFace face);
+    CubeFace getUpFace(CubeFace face);
+    CubeFace getDownFace(CubeFace face);
+    CubeFace getBackFace(CubeFace face);
     void preBind();
     void draw();
 

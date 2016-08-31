@@ -6,7 +6,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "cube.h"
 
-
 Cube::Cube(shared_ptr<CubeCamera> camera)
 {
     _camera = camera;
@@ -56,7 +55,6 @@ Cube::Cube(shared_ptr<CubeCamera> camera)
     directions[5] = glm::vec3(0,1,0);
 
 //    //右橙
-    m = ocm;
     m = glm::translate(ocm, glm::vec3(62.0, .0, 15.0));
     originalMat4[5] = m;
     m = glm::rotate(im,glm::radians(90.0f),glm::vec3(0,.5,0));
@@ -79,6 +77,9 @@ Cube::Cube(shared_ptr<CubeCamera> camera)
             _models.push_back(m);
         }
     }
+
+    auto testMatrix = glm::translate(ocm,glm::vec3(-265,-265,.0));
+    _models.push_back(testMatrix);
 
     _projection = glm::perspective(45.0f, 500.0f / 500.0f, .1f, 10000.f);
 }
@@ -105,6 +106,8 @@ void Cube::preBind()
 
             ,1.0,.0,.0//左红
             ,1.0,.5,.0//右橙
+
+            ,.5,.5,.0//测试
     };
 
     int indices[] = {0,1,2,0,3,1};
@@ -161,6 +164,17 @@ void Cube::preBind()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices),indices,GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+
+    auto temp = _projection * _camera->getViewMatrix() * glm::vec4(30.0,30.0,0,1.0f);
+    cout << "asdfasdfs" << temp[0];
+}
+
+void Cube::updateModel()
+{
+    int mat4Size = sizeof(glm::mat4);
+    glBindBuffer(GL_ARRAY_BUFFER,_model_vbo);
+    glBufferSubData(GL_ARRAY_BUFFER,0,mat4Size * _models.size(),_models.data());
+    glBindBuffer(GL_ARRAY_BUFFER,0);
 }
 
 void Cube::updateCamera()
@@ -169,6 +183,133 @@ void Cube::updateCamera()
     glBindBuffer(GL_UNIFORM_BUFFER,_ubo);
     glBufferSubData(GL_UNIFORM_BUFFER,0,mat4Size,glm::value_ptr(_camera->getViewMatrix()));
     glBindBuffer(GL_UNIFORM_BUFFER,_ubo);
+}
+
+void Cube::onMouseMove(double xpos, double ypos)
+{
+//    glm::mat4 ocm;
+//    ocm = glm::translate(ocm, glm::vec3(-15, -15, .0));
+//    auto testMatrix = glm::translate(ocm,glm::vec3(xpos-265,500-ypos-265,100));
+//    _models[_models.size()-1] = testMatrix;
+
+
+    CubeFace faces[] = {Cube_Blue,Cube_Green,Cube_Red,Cube_Orange};
+    glm::mat4 im;
+    for (int j = 0; j < 4; ++j)
+    {
+        int setup = faces[j] * 9;
+        for (int i = 0; i < 3; ++i)
+        {
+            int l = 3 * i + setup + 1;
+
+            glm::vec3 dir = glm::vec4(.0f,.0f,.0f,.0f) - (_models[l] * glm::vec4(.0f,.0f,.0f,1.0f));
+            dir = glm::cross(glm::vec3(.0f,1.0f,.0f),dir);
+            _models[l] = glm::translate(_models[l],(dir*.008f));
+        }
+    }
+
+    updateModel();
+}
+
+CubeFace Cube::getLeftFace(CubeFace face)
+{
+    CubeFace ret;
+    if (Cube_Blue == face)
+        ret = Cube_Red;
+    else if (Cube_Green == face)
+        ret = Cube_Orange;
+    if (Cube_White == face)
+        ret = Cube_Red;
+    if (Cube_Yellow == face)
+        ret = Cube_Orange;
+    else if (Cube_Red == face)
+        ret = Cube_Green;
+    else if (Cube_Orange == face)
+        ret = Cube_Blue;
+    return ret;
+}
+
+CubeFace Cube::getRightFace(CubeFace face) {
+    CubeFace ret;
+    if (Cube_Blue == face)
+        ret = Cube_Green;
+    else if (Cube_Green == face)
+        ret = Cube_Blue;
+    else if (Cube_White == face)
+        ret = Cube_Yellow;
+    else if (Cube_Yellow == face)
+        ret = Cube_White;
+    else if (Cube_Red == face)
+        ret = Cube_Orange;
+    else if (Cube_Orange == face)
+        ret = Cube_Red;
+    return ret;
+}
+
+CubeFace Cube::getBackFace(CubeFace face) {
+    CubeFace ret;
+    if (Cube_Blue == face)
+        ret = Cube_Green;
+    else if (Cube_Green == face)
+        ret = Cube_Blue;
+    else if (Cube_White == face)
+        ret = Cube_Yellow;
+    else if (Cube_Yellow == face)
+        ret = Cube_White;
+    else if (Cube_Red == face)
+        ret = Cube_Orange;
+    else if (Cube_Orange == face)
+        ret = Cube_Red;
+    return ret;
+}
+
+CubeFace Cube::getDownFace(CubeFace face) {
+    CubeFace ret;
+    if (Cube_Blue == face)
+        ret = Cube_Green;
+    else if (Cube_Green == face)
+        ret = Cube_Blue;
+    else if (Cube_White == face)
+        ret = Cube_Yellow;
+    else if (Cube_Yellow == face)
+        ret = Cube_White;
+    else if (Cube_Red == face)
+        ret = Cube_Orange;
+    else if (Cube_Orange == face)
+        ret = Cube_Red;
+    return ret;
+}
+
+CubeFace Cube::getUpFace(CubeFace face) {
+    CubeFace ret;
+    if (Cube_Blue == face)
+        ret = Cube_Green;
+    else if (Cube_Green == face)
+        ret = Cube_Blue;
+    else if (Cube_White == face)
+        ret = Cube_Yellow;
+    else if (Cube_Yellow == face)
+        ret = Cube_White;
+    else if (Cube_Red == face)
+        ret = Cube_Orange;
+    else if (Cube_Orange == face)
+        ret = Cube_Red;
+    return ret;
+}
+
+void Cube::move(CubeFace face, int cell, Direction dir)
+{
+    /***
+     * 0~8       前蓝
+     * 9～17     后绿
+     *
+     * 18～26    上白
+     * 27～35    下黄
+     * 35～43    左红
+     * 44～53    右橙
+     */
+
+
 }
 
 void Cube::draw()
