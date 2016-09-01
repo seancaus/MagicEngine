@@ -35,7 +35,7 @@ Cube::Cube(shared_ptr<CubeCamera> camera)
     //上白------------------------------------------------------------
     m = glm::translate(ocm, glm::vec3(.0, 62, 15));
     originalMat4[2] = m;
-    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(1,0,0));
+//    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(1,0,0));
     rotateMat4[2] = m;
     directions[2] = glm::vec3(1,0,0);
     directions[3] = glm::vec3(0,0,1);
@@ -43,13 +43,13 @@ Cube::Cube(shared_ptr<CubeCamera> camera)
     //下黄
     m = glm::translate(ocm, glm::vec3(.0, -32, 15.0));
     originalMat4[3] = m;
-    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(1,0,0));
+//    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(1,0,0));
     rotateMat4[3] = m;
 
     //左红------------------------------------------------------------
     m = glm::translate(ocm, glm::vec3(-32.0, .0, -15.0));
     originalMat4[4] = m;
-    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(0,1,0));
+//    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(0,1,0));
     rotateMat4[4] = m;
     directions[4] = glm::vec3(0,0,1);
     directions[5] = glm::vec3(0,1,0);
@@ -57,7 +57,7 @@ Cube::Cube(shared_ptr<CubeCamera> camera)
 //    //右橙
     m = glm::translate(ocm, glm::vec3(62.0, .0, 15.0));
     originalMat4[5] = m;
-    m = glm::rotate(im,glm::radians(90.0f),glm::vec3(0,.5,0));
+//    m = glm::rotate(im,glm::radians(90.0f),glm::vec3(0,.5,0));
     rotateMat4[5] = m;
 
     for (int j = 0; j < 6; ++j) {
@@ -121,6 +121,8 @@ void Cube::preBind()
     glBufferData(GL_ARRAY_BUFFER, sizeof(verties),verties,GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3* sizeof(float), (GLvoid*)0);
+//    glVertexAttribDivisor(0,1);
+
 
     //color
     glGenBuffers(1,&_color_vbo);
@@ -192,9 +194,15 @@ void Cube::onMouseMove(double xpos, double ypos)
 //    auto testMatrix = glm::translate(ocm,glm::vec3(xpos-265,500-ypos-265,100));
 //    _models[_models.size()-1] = testMatrix;
 
+    static auto angle = 0.0f;
+    static auto lastXpos = 0;
 
     CubeFace faces[] = {Cube_Blue,Cube_Green,Cube_Red,Cube_Orange};
     glm::mat4 im;
+
+    float x,z;
+    x = sin(angle);
+    z = cos(angle);
     for (int j = 0; j < 4; ++j)
     {
         int setup = faces[j] * 9;
@@ -202,13 +210,21 @@ void Cube::onMouseMove(double xpos, double ypos)
         {
             int l = 3 * i + setup + 1;
 
-            glm::vec3 dir = glm::vec4(.0f,.0f,.0f,.0f) - (_models[l] * glm::vec4(.0f,.0f,.0f,1.0f));
-            dir = glm::cross(glm::vec3(.0f,1.0f,.0f),dir);
-            _models[l] = glm::translate(_models[l],(dir*.008f));
+            _models[l] = glm::translate(_models[l],glm::vec3(x,0,z));
         }
     }
 
     updateModel();
+
+//    if(lastXpos > xpos)
+//    {
+//        angle -= .01;
+//    } else
+//    {
+        angle += .01;
+//    }
+
+//    lastXpos = xpos;
 }
 
 CubeFace Cube::getLeftFace(CubeFace face)
