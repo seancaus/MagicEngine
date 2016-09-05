@@ -21,65 +21,69 @@ Cube::Cube(shared_ptr<CubeCamera> camera)
 
     //前蓝
     glm::mat4 m;
-    m = glm::translate(ocm, glm::vec3(.0, .0, 47.0));
+    m = glm::translate(ocm, glm::vec3(.0, .0, 16.0));
     originalMat4[0] = m;
     rotateMat4[0] = im;
     directions[0] = glm::vec3(1,0,0);
     directions[1] = glm::vec3(0,1,0);
+    _models.push_back(m);
 
     //后绿
-    m = glm::translate(ocm, glm::vec3(.0, .0, -47.0));
+    m = glm::translate(ocm, glm::vec3(.0, .0, -16.0));
     originalMat4[1] = m;
     rotateMat4[1] = im;
-
-    //上白------------------------------------------------------------
-    m = glm::translate(ocm, glm::vec3(.0, 62, 15));
-    originalMat4[2] = m;
-//    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(1,0,0));
-    rotateMat4[2] = m;
-    directions[2] = glm::vec3(1,0,0);
-    directions[3] = glm::vec3(0,0,1);
-
-    //下黄
-    m = glm::translate(ocm, glm::vec3(.0, -32, 15.0));
-    originalMat4[3] = m;
-//    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(1,0,0));
-    rotateMat4[3] = m;
+    _models.push_back(m);
 
     //左红------------------------------------------------------------
-    m = glm::translate(ocm, glm::vec3(-32.0, .0, -15.0));
-    originalMat4[4] = m;
-//    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(0,1,0));
+//    m = glm::translate(ocm, glm::vec3(-1.0, .0, 0.0));
+//    originalMat4[4] = m;
+    m = glm::rotate(ocm,glm::radians(90.0f),glm::vec3(.0,1,0));
     rotateMat4[4] = m;
     directions[4] = glm::vec3(0,0,1);
     directions[5] = glm::vec3(0,1,0);
+    _models.push_back(m);
 
 //    //右橙
-    m = glm::translate(ocm, glm::vec3(62.0, .0, 15.0));
+    m = glm::translate(ocm, glm::vec3(31, .0, 16.0));
     originalMat4[5] = m;
-//    m = glm::rotate(im,glm::radians(90.0f),glm::vec3(0,.5,0));
+    m = glm::rotate(m,glm::radians(90.0f),glm::vec3(0,1,0));
     rotateMat4[5] = m;
+    _models.push_back(m);
 
-    for (int j = 0; j < 6; ++j) {
-        int di = (1==(j % 2))?j-1:j;
-        auto om = originalMat4[j];
-        auto rm = rotateMat4[j];
-        for (int i = 0; i < 9; ++i)
-        {
-            float r = (i / 3 - 1) * 32;
-            float c = (i % 3 - 1) * 32;
+//    //上白------------------------------------------------------------
+//    m = glm::translate(ocm, glm::vec3(.0, 62, 15));
+//    originalMat4[2] = m;
+//    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(1,0,0));
+//    rotateMat4[2] = m;
+//    directions[2] = glm::vec3(1,0,0);
+//    directions[3] = glm::vec3(0,0,1);
+//
+//    //下黄
+//    m = glm::translate(ocm, glm::vec3(.0, -32, 15.0));
+//    originalMat4[3] = m;
+//    m = glm::rotate(im,glm::radians(-90.0f),glm::vec3(1,0,0));
+//    rotateMat4[3] = m;
 
-            auto tm1 = directions[di] * r;
-            auto tm2 = directions[di+1] * c;
+//    for (int j = 0; j < 6; ++j) {
+//        int di = (1==(j % 2))?j-1:j;
+//        auto om = originalMat4[j];
+//        auto rm = rotateMat4[j];
+//        for (int i = 0; i < 9; ++i)
+//        {
+//            float r = (i / 3 - 1) * 32;
+//            float c = (i % 3 - 1) * 32;
+//
+//            auto tm1 = directions[di] * r;
+//            auto tm2 = directions[di+1] * c;
+//
+//            glm::mat4 m = glm::translate(om, tm1 + tm2);
+//            m = m * rm;
+//            _models.push_back(m);
+//        }
+//    }
 
-            glm::mat4 m = glm::translate(om, tm1 + tm2);
-            m = m * rm;
-            _models.push_back(m);
-        }
-    }
-
-    auto testMatrix = glm::translate(ocm,glm::vec3(-265,-265,.0));
-    _models.push_back(testMatrix);
+//    auto testMatrix = glm::translate(ocm,glm::vec3(-265,-265,.0));
+//    _models.push_back(testMatrix);
 
     _projection = glm::perspective(45.0f, 500.0f / 500.0f, .1f, 10000.f);
 }
@@ -101,11 +105,11 @@ void Cube::preBind()
             .0,.0,1.0//前蓝
             ,.0,1.0,0//后绿
 
-            ,1.0,1.0,1.0//上白
-            ,1.0,1.0,0  //下黄
-
             ,1.0,.0,.0//左红
             ,1.0,.5,.0//右橙
+
+            ,1.0,1.0,1.0//上白
+            ,1.0,1.0,0  //下黄
 
             ,.5,.5,.0//测试
     };
@@ -121,7 +125,6 @@ void Cube::preBind()
     glBufferData(GL_ARRAY_BUFFER, sizeof(verties),verties,GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3* sizeof(float), (GLvoid*)0);
-//    glVertexAttribDivisor(0,1);
 
 
     //color
@@ -130,7 +133,7 @@ void Cube::preBind()
     glBufferData(GL_ARRAY_BUFFER, sizeof(colors),colors,GL_STATIC_DRAW);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,3* sizeof(float),(GLvoid*)0);
-    glVertexAttribDivisor(1,9);
+    glVertexAttribDivisor(1,1);
 
     //model
     int mat4Size = sizeof(glm::mat4);
@@ -166,9 +169,6 @@ void Cube::preBind()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices),indices,GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
-
-    auto temp = _projection * _camera->getViewMatrix() * glm::vec4(30.0,30.0,0,1.0f);
-    cout << "asdfasdfs" << temp[0];
 }
 
 void Cube::updateModel()
@@ -194,37 +194,27 @@ void Cube::onMouseMove(double xpos, double ypos)
 //    auto testMatrix = glm::translate(ocm,glm::vec3(xpos-265,500-ypos-265,100));
 //    _models[_models.size()-1] = testMatrix;
 
-    static auto angle = 0.0f;
-    static auto lastXpos = 0;
-
-    CubeFace faces[] = {Cube_Blue,Cube_Green,Cube_Red,Cube_Orange};
-    glm::mat4 im;
-
-    float x,z;
-    x = sin(angle);
-    z = cos(angle);
-    for (int j = 0; j < 4; ++j)
-    {
-        int setup = faces[j] * 9;
-        for (int i = 0; i < 3; ++i)
-        {
-            int l = 3 * i + setup + 1;
-
-            _models[l] = glm::translate(_models[l],glm::vec3(x,0,z));
-        }
-    }
-
-    updateModel();
-
-//    if(lastXpos > xpos)
+//    static auto angle = 0.0f;
+//
+//    CubeFace faces[] = {Cube_Blue, Cube_Green, Cube_Red, Cube_Orange};
+//    float x,z;
+//    x = sin(angle);
+//    z = cos(angle);
+//
+//    for (int j = 0; j < 4; ++j)
 //    {
-//        angle -= .01;
-//    } else
-//    {
-        angle += .01;
+//        int setup = faces[j] * 9;
+//        for (int i = 0; i < 3; ++i)
+//        {
+//            int l = 3 * i + setup + 1;
+//
+//            _models[l] = glm::translate(_models[l],glm::vec3(x,0,z));
+////            _models[l] = glm::rotate(_models[l],glm::radians( angle),glm::vec3(0,1,0));
+//        }
 //    }
-
-//    lastXpos = xpos;
+//
+//    updateModel();
+//    angle += .001;
 }
 
 CubeFace Cube::getLeftFace(CubeFace face)
